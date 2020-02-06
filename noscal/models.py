@@ -1,11 +1,11 @@
+from django.conf import settings
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-class Post(models.Model):
-    value = models.IntegerField(default=0,
-                                validators=[
-                                            MaxValueValidator(100),
-                                            MinValueValidator(0)
-                                           ]
-                              ,)
-    def __str__():
-        return str(value)
+from django.utils import timezone
+
+class Calc(models.Model):
+    pathToCalc = models.CharField(max_length=200)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.pathToCalc

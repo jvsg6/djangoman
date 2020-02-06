@@ -1,23 +1,24 @@
 {% load static %}
 <html>
     <head>
-        <title>Love bar</title>
+        <title>Calc</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     </head>
     <body>
         <div class="page-header">
-          <h1><a href="/">Love bar 228</a></h1>
+            <a href="{% url 'calc_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <h1><a href="/">Calc</a></h1>
         </div>
-        <div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
         </div>
-      <form>
-        <label for="name">Name</label><br>
-        <input name="name"><br><br>
-        <button type="submit">
-          Start calc
-        </button>
-      </form>
     </body>
 </html>

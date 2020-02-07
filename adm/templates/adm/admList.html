@@ -1,0 +1,13 @@
+{% extends 'adm/admIndex.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div>
+            <div>
+                {{ post.created_date }}
+            </div>
+            <h1>{{ post.pathToCalc }}</h1>
+            <h1>{{ post.pathToADM }}</h1>
+        </div>
+    {% endfor %}
+{% endblock %}

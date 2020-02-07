@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class NoscalConfig(AppConfig):
+class ADMConfig(AppConfig):
     name = 'adm'

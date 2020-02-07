@@ -3,10 +3,10 @@ from .forms import CalcForm
 from .models import Calc
 from django.utils import timezone
 from django.shortcuts import redirect
-from .forms import CalcForm
 import subprocess
 def admIndex(request):
-    return render(request, 'admCalc/admIndex.html', {})
+    posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
+    return render(request, 'adm/admList.html', {'posts': posts})
 
 
 def admCalc_start(request):
@@ -24,9 +24,9 @@ def calc_started(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'adm/admCalcStarted.html', {'post': post})
 
-def startAdm():
+def startAdm(pathToADM, pathToCalc):
     try:
-        p = subprocess.Popen(['',  '--got=netcdf4','--db', ''], stdout=subprocess.PIPE)
+        p = subprocess.Popen([pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
     except OSError:
         print ("Error: Write valid path to ADM!")
         return
@@ -36,9 +36,9 @@ def calc_new(request):
     if request.method == "POST":
         form = CalcForm(request.POST)
         if form.is_valid():
-            startAdm()
             post = form.save(commit=False)
             post.published_date = timezone.now()
+            startAdm(post.pathToADM, post.pathToCalc)
             post.save()
             return redirect('calc_detail', pk=post.pk)
     else:

@@ -1,0 +1,12 @@
+{% extends 'adm/admIndex.html' %}
+
+{% block content %}
+
+        <h2>Author of calculation:</h2>
+        {{ post.author }}
+        <h2>Path to working folder:</h2>
+        {{ post.pathToCalc }}
+        <h2>Path to ADM:</h2>
+        {{ post.pathToADM }}
+
+{% endblock %}

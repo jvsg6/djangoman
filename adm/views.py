@@ -16,12 +16,12 @@ def admCalc_start(request):
 
     return #Something, normally a HTTPResponse, using django
 
-def calc_detail(request, pk):
+def calc_details(request, pk):
     post = get_object_or_404(Calc, pk=pk)
-    return render(request, 'adm/admCalcStarted.html', {'post': post})
+    return render(request, 'adm/admCalcDetails.html', {'post': post})
 
 def calc_started(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Calc, pk=pk)
     return render(request, 'adm/admCalcStarted.html', {'post': post})
 
 def startAdm(pathToADM, pathToCalc):
@@ -40,7 +40,7 @@ def calc_new(request):
             post.published_date = timezone.now()
             startAdm(post.pathToADM, post.pathToCalc)
             post.save()
-            return redirect('calc_detail', pk=post.pk)
+            return redirect('calc_started', pk=post.pk)
     else:
         form = CalcForm()
     return render(request, 'adm/admCalcCreate.html', {'form': form})

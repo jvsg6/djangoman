@@ -3,12 +3,7 @@
 {% block content %}
     {% for post in posts %}
         <div>
-            <h2><a href="{% url 'calc_details' pk=post.pk%}">{{ post.name }}</a></h2>
-            <h3>{{ post.author }}</h3>
-            <h3>{{ post.created_date }}</h3>
-            <h3>{{ post.pathToCalc }}</h3>
-            <h3>{{ post.pathToADM }}</h3>
-            <h3>{{post.comment}}</h3>
+            <h3><a href="{% url 'calc_details' pk=post.pk%}">{{ post.name }}</a> {{ post.author }} {{ post.created_date }} {{post.comment}}</h3>
         </div>
     {% endfor %}
 {% endblock %}

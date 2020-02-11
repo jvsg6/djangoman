@@ -32,15 +32,22 @@ def startAdm(pathToADM, pathToCalc):
         return
     return
 
+
 def calc_new(request):
-    if request.method == "POST":
-        form = CalcForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.published_date = timezone.now()
-            startAdm(post.pathToADM, post.pathToCalc)
-            post.save()
-            return redirect('calc_started', pk=post.pk)
+    if request.user.is_authenticated:
+        print ("Auth i", request.user.get_username())
+        if request.method == "POST":
+            form = CalcForm(request.POST)
+            if form.is_valid():
+                print ("Valodok")
+                post = form.save(commit=False)
+                post.author = request.user
+                post.published_date = timezone.now()
+                startAdm(post.pathToADM, post.pathToCalc)
+                post.save()
+                return redirect('calc_started', pk=post.pk)
+        else:
+            form = CalcForm()
+        return render(request, 'adm/admCalcCreate.html', {'form': form})
     else:
-        form = CalcForm()
-    return render(request, 'adm/admCalcCreate.html', {'form': form})
+        return render(request, 'registration/login.html')

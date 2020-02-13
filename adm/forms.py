@@ -1,19 +1,65 @@
 from django import forms
 
-from .models import Calc
+from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters
+
+
+class SrcParametersForm(forms.ModelForm):
+    class Meta:
+        model = SrcParameters
+        fields = [
+            'lat',
+            'lon',]
+
+        labels = {
+            'lat' : 'Lattitude of source',
+            'lon' : 'Longitude of source',}
+
+class AreaCalcParametersForm(forms.ModelForm):
+    class Meta:
+        model = AreaCalcParameters
+        fields = [
+            'latMin',
+            'lonMin',
+            'latMax',
+            'lonMax',]
+
+        labels = {
+            'latMin' : 'Min lattitude of calculation area',
+            'lonMin' : 'Min longitude of calculation area',
+            'latMax' : 'Max lattitude of calculation area',
+            'lonMax' : 'Max longitude of calculation area',}
+
+class AreaResParametersForm(forms.ModelForm):
+    class Meta:
+        model = AreaResParameters
+        fields = [
+            'latMin',
+            'lonMin',
+            'latMax',
+            'lonMax',
+            'countLon',
+            'countLat',]
+
+        labels = {
+            'latMin' : 'Min lattitude of result area',
+            'lonMin' : 'Min longitude of result area',
+            'latMax' : 'Max lattitude of result area',
+            'lonMax' : 'Max longitude of result area',
+            'countLat' : 'Count cells in lattitude',
+            'countLon' : 'Count cells in longitude',}
+
 
 class CalcForm(forms.ModelForm):
-
-    class Meta:
+    class Meta():
         model = Calc
-        fields = (
+        fields = [
             'name',
             'pathToCalc',
             "pathToADM",
-            'comment',)
+            'comment',]
         labels = {
             'name' : 'Name of calculation',
             'pathToCalc' : 'Path to working folder',
             'pathToADM' : 'Path to Atmospheric Dispersion Model',
-            'comment' : 'Comment of calculation'
+            'comment' : 'Comment of calculation',
         }

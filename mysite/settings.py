@@ -54,7 +54,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
-LOGIN_REDIRECT_URL = '/adm/'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {

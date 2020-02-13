@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import CalcForm
+from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm
 from .models import Calc
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -38,9 +38,17 @@ def calc_new(request):
         print ("Auth i", request.user.get_username())
         if request.method == "POST":
             form = CalcForm(request.POST)
-            if form.is_valid():
-                print ("Valodok")
+            srcParam = SrcParametersForm(request.POST)
+            areaCalcParam = AreaCalcParametersForm(request.POST)
+            areaResParam = AreaResParametersForm(request.POST)
+            if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
                 post = form.save(commit=False)
+                areaResParam.save()
+                post.areaResParameters = areaResParam
+                areaCalcParam.save()
+                post.areaCalcParameters = areaCalcParam
+                srcParam.save()
+                post.srcParameters = srcParam
                 post.author = request.user
                 post.published_date = timezone.now()
                 startAdm(post.pathToADM, post.pathToCalc)
@@ -48,6 +56,9 @@ def calc_new(request):
                 return redirect('calc_started', pk=post.pk)
         else:
             form = CalcForm()
-        return render(request, 'adm/admCalcCreate.html', {'form': form})
+            srcParam = SrcParametersForm()
+            areaCalcParam = AreaCalcParametersForm()
+            areaResParam = AreaResParametersForm()
+        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam})
     else:
         return render(request, 'registration/login.html')

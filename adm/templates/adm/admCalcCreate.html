@@ -4,6 +4,10 @@
     <h1>New calculation parameters:</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Start calculation</button>
+        {{ srcParam.as_p }}
+        {{ areaCalcParam.as_p }}
+        {{ areaResParam.as_p }}
+
+        <button type="submit" class="btn btn-success">Start calculation</button>
     </form>
 {% endblock %}

@@ -43,12 +43,9 @@ def calc_new(request):
             areaResParam = AreaResParametersForm(request.POST)
             if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
                 post = form.save(commit=False)
-                areaResParam.save()
-                post.areaResParameters = areaResParam
-                areaCalcParam.save()
-                post.areaCalcParameters = areaCalcParam
-                srcParam.save()
-                post.srcParameters = srcParam
+                post.areaResParameters = areaResParam.save()
+                post.areaCalcParameters = areaCalcParam.save()
+                post.srcParameters = srcParam.save()
                 post.author = request.user
                 post.published_date = timezone.now()
                 startAdm(post.pathToADM, post.pathToCalc)

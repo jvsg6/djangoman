@@ -33,11 +33,9 @@ class Calc(models.Model):
     pathToADM = models.CharField(max_length=200)
     created_date = models.DateTimeField(default=timezone.now)
     comment = models.CharField(max_length=200, blank=True)
-    areaResParameters = AreaResParameters()
-    areaCalcParameters = AreaCalcParameters()
-    srcParameters = SrcParameters()
-
-
+    areaResParameters = models.ForeignKey(AreaResParameters, on_delete=models.CASCADE)
+    areaCalcParameters = models.ForeignKey(AreaCalcParameters, on_delete=models.CASCADE)
+    srcParameters = models.ForeignKey(SrcParameters, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.pathToCalc

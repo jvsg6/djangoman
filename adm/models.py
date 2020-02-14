@@ -29,8 +29,6 @@ class AreaResParameters(models.Model):
 class Calc(models.Model):
     name = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    pathToCalc = models.CharField(max_length=200)
-    pathToADM = models.CharField(max_length=200)
     created_date = models.DateTimeField(default=timezone.now)
     comment = models.CharField(max_length=200, blank=True)
     areaResParameters = models.ForeignKey(AreaResParameters, on_delete=models.CASCADE)

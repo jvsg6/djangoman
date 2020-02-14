@@ -1,9 +1,27 @@
 {% extends 'adm/admIndex.html' %}
 
 {% block content %}
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Название расчета</th>
+    <th scope="col">Пользователь</th>
+    <th scope="col">Дата создания</th>
+    <th scope="col">Комментарий</th>
+  </tr>
+  </thead>
     {% for post in posts %}
         <div>
-            <h3><a href="{% url 'calc_details' pk=post.pk%}">{{ post.name }}</a> {{ post.author }} {{ post.created_date }} {{post.comment}}</h3>
+
+            <tr>
+              <h3>
+                <td><a href="{% url 'calc_details' pk=post.pk%}">{{ post.name }}</a></td>
+                <td>{{ post.author }}</td>
+                <td>{{ post.created_date }}</td>
+                <td>{{post.comment}}</td>
+              </h3>
+            </tr>
         </div>
     {% endfor %}
+  </table>
 {% endblock %}

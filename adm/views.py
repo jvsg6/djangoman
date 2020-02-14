@@ -4,6 +4,17 @@ from .models import Calc
 from django.utils import timezone
 from django.shortcuts import redirect
 import subprocess
+import os
+import shutil
+
+class ReqPaths():
+    pathToADM = ''
+    pathToWorkingFolder = os.path.dirname(__file__)
+    pathToLanduse =''
+    pathToTemplate = ''
+
+reqPaths = ReqPaths()
+
 def admIndex(request):
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
     return render(request, 'adm/admList.html', {'posts': posts})
@@ -24,18 +35,25 @@ def calc_started(request, pk):
     post = get_object_or_404(Calc, pk=pk)
     return render(request, 'adm/admCalcStarted.html', {'post': post})
 
-def startAdm(pathToADM, pathToCalc):
+def startAdm(pathToCalc):
     try:
-        p = subprocess.Popen([pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
+        p = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
     except OSError:
         print ("Error: Write valid path to ADM!")
-        return
+        return -1
     return
 
 
+def allAdmActions(post):
+    pathToCalc = os.path.dirname(__file__) + "/calculations/" +post.author.get_username().replace(" ", "-") + "/" + str(post.pk)
+    print (pathToCalc)
+    os.makedirs(pathToCalc)
+    shutil.copyfile(reqPaths.pathToLanduse, pathToCalc + "/landuse.asc")
+    shutil.copyfile(reqPaths.pathToTemplate, pathToCalc + "/in.xml")
+    startAdm(pathToCalc)
+
 def calc_new(request):
     if request.user.is_authenticated:
-        print ("Auth i", request.user.get_username())
         if request.method == "POST":
             form = CalcForm(request.POST)
             srcParam = SrcParametersForm(request.POST)
@@ -48,8 +66,9 @@ def calc_new(request):
                 post.srcParameters = srcParam.save()
                 post.author = request.user
                 post.published_date = timezone.now()
-                startAdm(post.pathToADM, post.pathToCalc)
+                post.pk
                 post.save()
+                allAdmActions(post)
                 return redirect('calc_started', pk=post.pk)
         else:
             form = CalcForm()

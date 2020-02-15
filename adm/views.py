@@ -8,10 +8,10 @@ import os
 import shutil
 
 class ReqPaths():
-    pathToADM = ''
+    pathToADM = '/home/ilfa/Programs/release/nostra_build/nostraconsole'
     pathToWorkingFolder = os.path.dirname(__file__)
-    pathToLanduse =''
-    pathToTemplate = ''
+    pathToLanduse ='/home/ilfa/tasks/2019/training/in_clean/nostraconsole.log'
+    pathToTemplate = '/home/ilfa/tasks/2019/training/in_clean/in.xml'
 
 reqPaths = ReqPaths()
 

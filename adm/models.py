@@ -34,6 +34,3 @@ class Calc(models.Model):
     areaResParameters = models.ForeignKey(AreaResParameters, on_delete=models.CASCADE)
     areaCalcParameters = models.ForeignKey(AreaCalcParameters, on_delete=models.CASCADE)
     srcParameters = models.ForeignKey(SrcParameters, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.pathToCalc

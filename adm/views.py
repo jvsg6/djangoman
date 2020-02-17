@@ -6,12 +6,13 @@ from django.shortcuts import redirect
 import subprocess
 import os
 import shutil
+from django.template import Context, Template
 
 class ReqPaths():
-    pathToADM = ''
+    pathToADM = '/home/ilichev/Programs/release/nostra_build_gcc/nostraconsole'
     pathToWorkingFolder = os.path.dirname(__file__)
-    pathToLanduse =''
-    pathToTemplate = ''
+    pathToLanduse ='/home/ilichev/clean_in/landuse.asc'
+    pathToTemplate = '/home/ilichev/clean_in/in_template.xml'
 
 reqPaths = ReqPaths()
 
@@ -44,13 +45,31 @@ def startAdm(pathToCalc):
     return
 
 
+def insertSrcInContext(srcParameters, srcParamCont):
+    srcParamCont['srcLat'] = str(srcParameters.lat).replace(",", ".")
+    srcParamCont['srcLon'] = str(srcParameters.lon).replace(",", ".")
+
+
+def changeAndCopyInFile(pathToTemplate, pathToCalc, post):
+    inFile = open(pathToTemplate, "r")
+    inTemplate = Template(inFile.read())
+    inFile.close()
+    srcParamCont = {}
+    reqIn = insertSrcInContext(post.srcParameters, srcParamCont)
+    reqIn = inTemplate.render(Context(srcParamCont))
+    f = open(pathToCalc + "/in.xml", "w")
+    f.write(reqIn)
+    f.close()
+    return
+
 def allAdmActions(post):
     pathToCalc = os.path.dirname(__file__) + "/calculations/" +post.author.get_username().replace(" ", "-") + "/" + str(post.pk)
     print (pathToCalc)
     os.makedirs(pathToCalc)
     shutil.copyfile(reqPaths.pathToLanduse, pathToCalc + "/landuse.asc")
-    shutil.copyfile(reqPaths.pathToTemplate, pathToCalc + "/in.xml")
+    changeAndCopyInFile(reqPaths.pathToTemplate, pathToCalc, post)
     startAdm(pathToCalc)
+    return
 
 def calc_new(request):
     if request.user.is_authenticated:
@@ -66,7 +85,6 @@ def calc_new(request):
                 post.srcParameters = srcParam.save()
                 post.author = request.user
                 post.published_date = timezone.now()
-                post.pk
                 post.save()
                 allAdmActions(post)
                 return redirect('calc_started', pk=post.pk)

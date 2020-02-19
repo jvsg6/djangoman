@@ -4,6 +4,7 @@
 <table class="table">
   <thead class="thead-dark">
   <tr>
+    <th scope="col">№</th>
     <th scope="col">Название расчета</th>
     <th scope="col">Пользователь</th>
     <th scope="col">Дата создания</th>
@@ -15,6 +16,7 @@
 
             <tr>
               <h3>
+                <td>{{ post.pk }}</td>
                 <td><a href="{% url 'calc_details' pk=post.pk%}">{{ post.name }}</a></td>
                 <td>{{ post.author }}</td>
                 <td>{{ post.created_date }}</td>

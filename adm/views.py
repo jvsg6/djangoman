@@ -3,18 +3,11 @@ from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResP
 from .models import Calc
 from django.utils import timezone
 from django.shortcuts import redirect
-import subprocess
 import os
-import shutil
-from django.template import Context, Template
 
-class ReqPaths():
-    pathToADM = '/home/ilfa/Programs/release/nostra_build/nostraconsole'
-    pathToWorkingFolder = os.path.dirname(__file__)
-    pathToLanduse ='/home/ilfa/tasks/2019/training/in_clean/nostraconsole.log'
-    pathToTemplate = '/home/ilfa/tasks/2019/training/in_clean/in.xml'
+from .prepCalc import allAdmActions
 
-reqPaths = ReqPaths()
+
 
 def admIndex(request):
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
@@ -36,40 +29,7 @@ def calc_started(request, pk):
     post = get_object_or_404(Calc, pk=pk)
     return render(request, 'adm/admCalcStarted.html', {'post': post})
 
-def startAdm(pathToCalc):
-    try:
-        p = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
-    except OSError:
-        print ("Error: Write valid path to ADM!")
-        return -1
-    return
 
-
-def insertSrcInContext(srcParameters, srcParamCont):
-    srcParamCont['srcLat'] = str(srcParameters.lat).replace(",", ".")
-    srcParamCont['srcLon'] = str(srcParameters.lon).replace(",", ".")
-
-
-def changeAndCopyInFile(pathToTemplate, pathToCalc, post):
-    inFile = open(pathToTemplate, "r")
-    inTemplate = Template(inFile.read())
-    inFile.close()
-    srcParamCont = {}
-    reqIn = insertSrcInContext(post.srcParameters, srcParamCont)
-    reqIn = inTemplate.render(Context(srcParamCont))
-    f = open(pathToCalc + "/in.xml", "w")
-    f.write(reqIn)
-    f.close()
-    return
-
-def allAdmActions(post):
-    pathToCalc = os.path.dirname(__file__) + "/calculations/" +post.author.get_username().replace(" ", "-") + "/" + str(post.pk)
-    print (pathToCalc)
-    os.makedirs(pathToCalc)
-    shutil.copyfile(reqPaths.pathToLanduse, pathToCalc + "/landuse.asc")
-    changeAndCopyInFile(reqPaths.pathToTemplate, pathToCalc, post)
-    startAdm(pathToCalc)
-    return
 
 def calc_new(request):
     if request.user.is_authenticated:

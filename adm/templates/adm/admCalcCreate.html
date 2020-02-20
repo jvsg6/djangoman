@@ -3,10 +3,54 @@
 {% block content %}
     <h1>New calculation parameters:</h1>
     <form method="POST" class="post-form">{% csrf_token %}
+      <h2>General information:</h2>
         {{ form.as_p }}
+        <h2>Source Parameters:</h2>
         {{ srcParam.as_p }}
-        {{ areaCalcParam.as_p }}
-        {{ areaResParam.as_p }}
+        <h2>Calculation area parameters:</h2>
+        <table class="table">
+          <tr>
+            <td>{{ areaCalcParam.lonMin.label_tag }}</td>
+            <td>{{ areaCalcParam.lonMax.label_tag }}</td>
+          </tr>
+          <tr>
+            <td>{{ areaCalcParam.lonMin }}</td>
+            <td>{{ areaCalcParam.lonMax }}</td>
+          </tr>
+          <tr>
+            <td>{{ areaCalcParam.latMin.label_tag }}</td>
+            <td>{{ areaCalcParam.latMax.label_tag }}</td>
+          </tr>
+          <tr>
+            <td>{{ areaCalcParam.latMin }}</td>
+            <td>{{ areaCalcParam.latMax }}</td>
+          </tr>
+        </table>
+        <h2>Result area parameters:</h2>
+        <table class="table">
+          <tr>
+            <td>{{ areaResParam.lonMin.label_tag }}</td>
+            <td>{{ areaResParam.lonMax.label_tag }}</td>
+          </tr>
+          <tr>
+            <td>{{ areaResParam.lonMin }}</td>
+            <td>{{ areaResParam.lonMax }}</td>
+          </tr>
+          <tr>
+            <td>{{ areaResParam.latMin.label_tag }}</td>
+            <td>{{ areaResParam.latMax.label_tag }}</td>
+          </tr>
+          <tr>
+            <td>{{ areaResParam.latMin }}</td>
+            <td>{{ areaResParam.latMax }}</td>
+          </tr>
+        </table>
+
+        {{ areaResParam.countLon.label_tag }}
+        {{ areaResParam.countLon }}
+        {{ areaResParam.countLat.label_tag }}
+        {{ areaResParam.countLat }}
+        
 
         <button type="submit" class="btn btn-success">Start calculation</button>
     </form>

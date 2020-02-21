@@ -59,7 +59,6 @@ def calc_new(request):
                 post.calcADMReturn = 0
                 post.save()
                 allAdmActions(post)
-
                 return redirect('calc_started', pk=post.pk)
         else:
             form = CalcForm()

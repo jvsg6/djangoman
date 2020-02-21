@@ -4,16 +4,16 @@ from .models import Calc
 from django.utils import timezone
 from django.shortcuts import redirect
 import os
-
+from django.contrib.auth.decorators import login_required
 from .prepCalc import allAdmActions
 
 
-
+@login_required(login_url='/accounts/login/')
 def admIndex(request):
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
     return render(request, 'adm/admList.html', {'posts': posts})
 
-
+@login_required(login_url='/accounts/login/')
 def admCalc_start(request):
     if request.method == 'POST':
         pass
@@ -21,18 +21,22 @@ def admCalc_start(request):
 
     return #Something, normally a HTTPResponse, using django
 
+
+@login_required(login_url='/accounts/login/')
 def calc_details(request, pk):
     post = get_object_or_404(Calc, pk=pk)
     return render(request, 'adm/admCalcDetails.html', {'post': post})
 
+
+@login_required(login_url='/accounts/login/')
 def calc_started(request, pk):
     post = get_object_or_404(Calc, pk=pk)
     return render(request, 'adm/admCalcStarted.html', {'post': post})
 
 
-
+@login_required(login_url='/accounts/login/')
 def calc_new(request):
-    if request.user.is_authenticated:
+
         if request.method == "POST":
             form = CalcForm(request.POST)
             srcParam = SrcParametersForm(request.POST)
@@ -54,5 +58,3 @@ def calc_new(request):
             areaCalcParam = AreaCalcParametersForm()
             areaResParam = AreaResParametersForm()
         return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam})
-    else:
-        return render(request, 'registration/login.html')

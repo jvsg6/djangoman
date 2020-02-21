@@ -9,6 +9,7 @@
     <th scope="col">Пользователь</th>
     <th scope="col">Дата создания</th>
     <th scope="col">Комментарий</th>
+    <th scope="col">Статус расчета</th>
   </tr>
   </thead>
     {% for post in posts %}
@@ -21,6 +22,7 @@
                 <td>{{ post.author }}</td>
                 <td>{{ post.created_date }}</td>
                 <td>{{post.comment}}</td>
+                <td><span class="glyphicon glyphicon-ok"></span></td>
               </h3>
             </tr>
         </div>

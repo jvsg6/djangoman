@@ -7,5 +7,5 @@ urlpatterns = [
     path('new', views.calc_new, name='calc_new'),
     path('started/<int:pk>/', views.calc_started, name='calc_started'),
     path('details/<int:pk>/', views.calc_details, name='calc_details'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls'), name='logInOut'),
 ]

@@ -14,16 +14,16 @@
             <td>{{ areaCalcParam.lonMax.label_tag }}</td>
           </tr>
           <tr>
-            <td>{{ areaCalcParam.lonMin }}</td>
-            <td>{{ areaCalcParam.lonMax }}</td>
+            <td>{{ areaCalcParam.lonMin.errors }}{{ areaCalcParam.lonMin }}</td>
+            <td>{{ areaCalcParam.lonMax.errors }}{{ areaCalcParam.lonMax }}</td>
           </tr>
           <tr>
             <td>{{ areaCalcParam.latMin.label_tag }}</td>
             <td>{{ areaCalcParam.latMax.label_tag }}</td>
           </tr>
           <tr>
-            <td>{{ areaCalcParam.latMin }}</td>
-            <td>{{ areaCalcParam.latMax }}</td>
+            <td>{{ areaCalcParam.latMin.errors }}{{ areaCalcParam.latMin }}</td>
+            <td>{{ areaCalcParam.latMax.errors }}{{ areaCalcParam.latMax }}</td>
           </tr>
         </table>
         <h2>Result area parameters:</h2>
@@ -33,16 +33,16 @@
             <td>{{ areaResParam.lonMax.label_tag }}</td>
           </tr>
           <tr>
-            <td>{{ areaResParam.lonMin }}</td>
-            <td>{{ areaResParam.lonMax }}</td>
+            <td>{{ areaResParam.lonMin.errors }}{{ areaResParam.lonMin }}</td>
+            <td>{{ areaResParam.lonMax.errors }}{{ areaResParam.lonMax }}</td>
           </tr>
           <tr>
             <td>{{ areaResParam.latMin.label_tag }}</td>
             <td>{{ areaResParam.latMax.label_tag }}</td>
           </tr>
           <tr>
-            <td>{{ areaResParam.latMin }}</td>
-            <td>{{ areaResParam.latMax }}</td>
+            <td>{{ areaResParam.latMin.errors }}{{ areaResParam.latMin }}</td>
+            <td>{{ areaResParam.latMax.errors }}{{ areaResParam.latMax }}</td>
           </tr>
         </table>
 
@@ -50,7 +50,7 @@
         {{ areaResParam.countLon }}
         {{ areaResParam.countLat.label_tag }}
         {{ areaResParam.countLat }}
-        
+
 
         <button type="submit" class="btn btn-success">Start calculation</button>
     </form>

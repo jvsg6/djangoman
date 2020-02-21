@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 import os
 from django.contrib.auth.decorators import login_required
 from .prepCalc import allAdmActions
-
+import random
 
 @login_required(login_url='/accounts/login/')
 def admIndex(request):
@@ -33,6 +33,13 @@ def calc_started(request, pk):
     post = get_object_or_404(Calc, pk=pk)
     return render(request, 'adm/admCalcStarted.html', {'post': post})
 
+def installRandomParameters():
+    latInit = -88.0 + random.random()*176.0
+    lonInit = -178.0 + random.random()*356.0
+    srcParam = SrcParametersForm(initial={'lon': lonInit, 'lat': latInit})
+    areaCalcParam = AreaCalcParametersForm(initial={'lonMin': lonInit-0.5, 'lonMax': lonInit+0.5, 'latMin': latInit-0.5, 'latMax': latInit+0.5})
+    areaResParam = AreaResParametersForm(initial={'lonMin': lonInit-0.5, 'lonMax': lonInit+0.5, 'latMin': latInit-0.5, 'latMax': latInit+0.5, 'countLon': 50, 'countLat': 50})
+    return srcParam, areaCalcParam, areaResParam
 
 @login_required(login_url='/accounts/login/')
 def calc_new(request):
@@ -49,12 +56,22 @@ def calc_new(request):
                 post.srcParameters = srcParam.save()
                 post.author = request.user
                 post.published_date = timezone.now()
+                post.calcADMReturn = 0
                 post.save()
                 allAdmActions(post)
+
                 return redirect('calc_started', pk=post.pk)
         else:
             form = CalcForm()
-            srcParam = SrcParametersForm()
-            areaCalcParam = AreaCalcParametersForm()
-            areaResParam = AreaResParametersForm()
+            srcParam = None
+            areaCalcParam = None
+            areaResParam = None
+            if request.path == "/rand":
+                print ("request.path", request.path)
+                srcParam, areaCalcParam, areaResParam = installRandomParameters()
+            else:
+                print ("request.path", request.path)
+                srcParam = SrcParametersForm()
+                areaCalcParam = AreaCalcParametersForm()
+                areaResParam = AreaResParametersForm()
         return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam})

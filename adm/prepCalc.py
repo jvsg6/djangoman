@@ -10,6 +10,7 @@ import subprocess
 def startAdm(pathToCalc):
     try:
         p = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
+        return p.poll()
     except OSError:
         print ("Error: Write valid path to ADM!")
         return -1
@@ -35,14 +36,18 @@ def insertResAreaInContext(areaResParam, contextParameters):
     contextParameters['countLon'] = str(areaResParam.countLon).replace(",", ".")
     contextParameters['countLat'] = str(areaResParam.countLat).replace(",", ".")
 
+def insertDataInContext(post, contextParameters):
+    insertSrcInContext(post.srcParameters, contextParameters)
+    insertCalcAreaInContext(post.areaCalcParameters, contextParameters)
+    insertResAreaInContext(post.areaResParameters, contextParameters)
+    return
+
 def changeAndCopyInFile(pathToTemplate, pathToCalc, post):
     inFile = open(pathToTemplate, "r")
     inTemplate = Template(inFile.read())
     inFile.close()
     contextParameters = {}
-    insertSrcInContext(post.srcParameters, contextParameters)
-    insertCalcAreaInContext(post.areaCalcParameters, contextParameters)
-    insertResAreaInContext(post.areaResParameters, contextParameters)
+    insertDataInContext(post, contextParameters)
     reqIn = inTemplate.render(Context(contextParameters))
     f = open(pathToCalc + "/in.xml", "w")
     f.write(reqIn)

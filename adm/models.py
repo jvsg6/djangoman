@@ -34,4 +34,5 @@ class Calc(models.Model):
     areaResParameters = models.ForeignKey(AreaResParameters, on_delete=models.CASCADE)
     areaCalcParameters = models.ForeignKey(AreaCalcParameters, on_delete=models.CASCADE)
     srcParameters = models.ForeignKey(SrcParameters, on_delete=models.CASCADE)
-    calcADMPopen = models.IntegerField(blank=True, null=True)
+    calcADMReturn = models.IntegerField(blank=True, null=True)
+    calcAMDPopen = None

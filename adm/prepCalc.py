@@ -10,11 +10,11 @@ import subprocess
 def startAdm(pathToCalc):
     try:
         p = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
-        return p.poll()
+        return p.poll
     except OSError:
         print ("Error: Write valid path to ADM!")
         return -1
-    return
+    return -1
 
 
 def insertSrcInContext(srcParameters, contextParameters):
@@ -55,7 +55,7 @@ def changeAndCopyInFile(pathToTemplate, pathToCalc, post):
     return
 
 def allAdmActions(post):
-    pathToCalc = os.path.dirname(__file__) + "/calculations/" +post.author.get_username().replace(" ", "-") + "/" + str(post.pk)
+    pathToCalc = os.path.dirname(__file__) + "/calculations/" + str(post.pk)
     print (pathToCalc)
     os.makedirs(pathToCalc)
     shutil.copyfile(reqPaths.pathToLanduse, pathToCalc + "/landuse.asc")

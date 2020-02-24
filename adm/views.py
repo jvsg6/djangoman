@@ -22,6 +22,20 @@ def admCalc_start(request):
     return #Something, normally a HTTPResponse, using django
 
 
+def download(request, path):
+    file_path = path
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type='application/force-download')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
+
+@login_required(login_url='/accounts/login/')
+def calc_download(request, pk):
+    post = get_object_or_404(Calc, pk=pk)
+    return render(request, 'adm/admDownload.html', {'post': post})
+
 @login_required(login_url='/accounts/login/')
 def calc_details(request, pk):
     post = get_object_or_404(Calc, pk=pk)

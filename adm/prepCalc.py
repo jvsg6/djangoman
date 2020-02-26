@@ -61,4 +61,6 @@ def allAdmActions(post):
     shutil.copyfile(reqPaths.pathToLanduse, pathToCalc + "/landuse.asc")
     changeAndCopyInFile(reqPaths.pathToTemplate, pathToCalc, post)
     startAdm(pathToCalc)
+    post.pathToInput = pathToCalc + "/in.xml"
+    post.pathToLanduse = pathToCalc + "/landuse.asc"
     return

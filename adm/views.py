@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 import os
 from django.contrib.auth.decorators import login_required
 from .prepCalc import allAdmActions
+from .downloadCalc import downloadFiles
 import random
 
 @login_required(login_url='/accounts/login/')
@@ -22,24 +23,16 @@ def admCalc_start(request):
     return #Something, normally a HTTPResponse, using django
 
 
-def download(request, path):
-    file_path = path
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type='application/force-download')
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-            return response
-    raise Http404
+
 
 @login_required(login_url='/accounts/login/')
 def calc_download(request, pk):
-    post = get_object_or_404(Calc, pk=pk)
+    calc = get_object_or_404(Calc, pk=pk)
     if request.method == "POST":
-        print ( request.POST.getlist('vehicle'))
-        return redirect('calc_download', pk=post.pk)
-
+        print ( request.POST.getlist('download'))
+        return downloadFiles(request.POST.getlist('download'), calc)
     else:
-        return render(request, 'adm/admDownload.html', {'post': post})
+        return render(request, 'adm/admDownload.html', {'post': calc})
 
 @login_required(login_url='/accounts/login/')
 def calc_details(request, pk):
@@ -78,6 +71,7 @@ def calc_new(request):
                 post.calcADMReturn = 0
                 post.save()
                 allAdmActions(post)
+                post.save()
                 return redirect('calc_started', pk=post.pk)
         else:
             form = CalcForm()

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm
+from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm
 from .models import Calc
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -34,7 +34,12 @@ def download(request, path):
 @login_required(login_url='/accounts/login/')
 def calc_download(request, pk):
     post = get_object_or_404(Calc, pk=pk)
-    return render(request, 'adm/admDownload.html', {'post': post})
+    if request.method == "POST":
+        print ( request.POST.getlist('vehicle'))
+        return redirect('calc_download', pk=post.pk)
+
+    else:
+        return render(request, 'adm/admDownload.html', {'post': post})
 
 @login_required(login_url='/accounts/login/')
 def calc_details(request, pk):

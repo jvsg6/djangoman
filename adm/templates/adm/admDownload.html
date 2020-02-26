@@ -1,8 +1,15 @@
 {% extends 'adm/admIndex.html' %}
 
 {% block content %}
-
         <h2>Download:</h2>
-        {{ post.author }}
-
+        <form method="post">
+          {% csrf_token %}
+          <input type="checkbox" id="InputFile" name="vehicle" value="InputFile">
+          <label for="InputFile"> Input file</label><span class="glyphicon glyphicon-download-alt"></span><br>
+          <input type="checkbox" id="LanduseFile" name="vehicle" value="LanduseFile">
+          <label for="LanduseFile"> Landuse file</label><span class="glyphicon glyphicon-download-alt"></span><br>
+          <input type="checkbox" id="OutputFile" name="vehicle" value="OutputFile">
+          <label for="OutputFile"> Output file</label><span class="glyphicon glyphicon-download-alt"></span><br><br>
+          <input type="submit" value="Submit">
+        </form>
 {% endblock %}

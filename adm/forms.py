@@ -3,6 +3,17 @@ from django import forms
 from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters
 
 
+class DownloadForm():
+    # filesToDownload = forms.MultipleChoiceField(
+    #     label='label',
+    #     help_text='help',
+    #     choices=['A', 'B', 'C'],
+    #     widget=forms.CheckboxSelectMultiple,)
+
+    isInputFileReq = forms.BooleanField()
+    isLanduseFileReq = forms.BooleanField()
+    isOutFileReq = forms.BooleanField()
+
 class SrcParametersForm(forms.ModelForm):
     class Meta:
         model = SrcParameters

@@ -4,7 +4,14 @@
     <h1>New calculation parameters:</h1>
     <form method="POST" class="post-form">{% csrf_token %}
       <h2>General information:</h2>
-        {{ form.as_p }}
+        {{ form.name.label_tag }}
+        {{ form.name }}
+        {{ form.comment.label_tag }}
+        {{ form.comment }}
+        <div class="related-widget-wrapper">
+            {{ form.windLevels.label_tag }}
+            {{ form.windLevels }}
+        </div>
         <h2>Source Parameters:</h2>
         {{ srcParam.as_p }}
         <h2>Calculation area parameters:</h2>
@@ -51,6 +58,7 @@
         {{ areaResParam.countLat.label_tag }}
         {{ areaResParam.countLat }}
 
+        {{ commonWindParametersForm.as_p }}
 
         <button type="submit" class="btn btn-success">Start calculation</button>
     </form>

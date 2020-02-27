@@ -26,6 +26,21 @@ class AreaResParameters(models.Model):
     countLon = models.IntegerField()
     countLat = models.IntegerField()
 
+class WindarametersInAlt(models.Model):
+    height = models.FloatField(validators=[MinValueValidator(0.)])
+    direction = models.FloatField(validators=[MinValueValidator(0.)])
+    speed = models.FloatField(validators=[MinValueValidator(0.)])
+
+class CommonWindParameters(models.Model):
+    meteoType = models.IntegerField(validators=[MinValueValidator(0)])
+    meteoPhaseStart = models.IntegerField(validators=[MinValueValidator(0)])
+    windConst = models.IntegerField(validators=[MinValueValidator(0)])
+    precipitationsRate = models.FloatField(validators=[MinValueValidator(0.)])
+    precipitationType = models.FloatField(validators=[MinValueValidator(0.)])
+    stab = models.CharField(max_length=1)
+    roughness = models.FloatField(validators=[MinValueValidator(0.)])
+    windLevels = models.ManyToManyField(WindarametersInAlt)
+
 class Calc(models.Model):
     name = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -38,4 +53,5 @@ class Calc(models.Model):
     pathToInput = models.CharField(max_length=1000, blank=True)
     pathToLanduse = models.CharField(max_length=1000, blank=True)
     pathToOut = models.CharField(max_length=1000, blank=True)
+    windLevels = models.ManyToManyField(WindarametersInAlt, blank=True)
     calcAMDPopen = None

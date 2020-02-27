@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters
+from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters, WindarametersInAlt
 
 
 class DownloadForm():
@@ -13,6 +13,8 @@ class DownloadForm():
     isInputFileReq = forms.BooleanField()
     isLanduseFileReq = forms.BooleanField()
     isOutFileReq = forms.BooleanField()
+
+
 
 class SrcParametersForm(forms.ModelForm):
     class Meta:
@@ -65,8 +67,10 @@ class CalcForm(forms.ModelForm):
         model = Calc
         fields = [
             'name',
-            'comment',]
+            'comment',
+            'windLevels',]
         labels = {
             'name' : 'Name of calculation',
             'comment' : 'Comment of calculation',
+            'windLevels' : 'Input wind levels'
         }

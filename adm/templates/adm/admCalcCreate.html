@@ -1,65 +1,100 @@
 {% extends 'adm/admIndex.html' %}
 
 {% block content %}
-    <h1>New calculation parameters:</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-      <h2>General information:</h2>
+<h1>New calculation parameters:</h1>
+<form method="POST" class="post-form">{% csrf_token %}
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Common</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Source</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Area</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <h2>General information:</h2>
+    <div class="container">
+      <div class="row">
         {{ form.name.label_tag }}
         {{ form.name }}
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
         {{ form.comment.label_tag }}
         {{ form.comment }}
-        <div class="related-widget-wrapper">
-            {{ form.windLevels.label_tag }}
-            {{ form.windLevels }}
-        </div>
-        <h2>Source Parameters:</h2>
-        {{ srcParam.as_p }}
-        <h2>Calculation area parameters:</h2>
-        <table class="table">
-          <tr>
-            <td>{{ areaCalcParam.lonMin.label_tag }}</td>
-            <td>{{ areaCalcParam.lonMax.label_tag }}</td>
-          </tr>
-          <tr>
-            <td>{{ areaCalcParam.lonMin.errors }}{{ areaCalcParam.lonMin }}</td>
-            <td>{{ areaCalcParam.lonMax.errors }}{{ areaCalcParam.lonMax }}</td>
-          </tr>
-          <tr>
-            <td>{{ areaCalcParam.latMin.label_tag }}</td>
-            <td>{{ areaCalcParam.latMax.label_tag }}</td>
-          </tr>
-          <tr>
-            <td>{{ areaCalcParam.latMin.errors }}{{ areaCalcParam.latMin }}</td>
-            <td>{{ areaCalcParam.latMax.errors }}{{ areaCalcParam.latMax }}</td>
-          </tr>
-        </table>
-        <h2>Result area parameters:</h2>
-        <table class="table">
-          <tr>
-            <td>{{ areaResParam.lonMin.label_tag }}</td>
-            <td>{{ areaResParam.lonMax.label_tag }}</td>
-          </tr>
-          <tr>
-            <td>{{ areaResParam.lonMin.errors }}{{ areaResParam.lonMin }}</td>
-            <td>{{ areaResParam.lonMax.errors }}{{ areaResParam.lonMax }}</td>
-          </tr>
-          <tr>
-            <td>{{ areaResParam.latMin.label_tag }}</td>
-            <td>{{ areaResParam.latMax.label_tag }}</td>
-          </tr>
-          <tr>
-            <td>{{ areaResParam.latMin.errors }}{{ areaResParam.latMin }}</td>
-            <td>{{ areaResParam.latMax.errors }}{{ areaResParam.latMax }}</td>
-          </tr>
-        </table>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <h2>Source Parameters:</h2>
+    {{ srcParam.as_p }}
+  </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <h2>Calculation area parameters:</h2>
+    <div class="form-group">
+        {{ areaCalcParam.lonMin.label_tag }}
+        {{ areaCalcParam.lonMin.errors }}{{ areaCalcParam.lonMin }}
+    </div>
+    <div class="container">
+      <div class="row">
+        {{ areaCalcParam.lonMax.label_tag }}
+        {{ areaCalcParam.lonMax.errors }}{{ areaCalcParam.lonMax }}
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {{ areaCalcParam.latMin.label_tag }}
+        {{ areaCalcParam.latMin.errors }}{{ areaCalcParam.latMin }}
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {{ areaCalcParam.latMax.label_tag }}
+        {{ areaCalcParam.latMax.errors }}{{ areaCalcParam.latMax }}
+      </div>
+    </div>
 
-        {{ areaResParam.countLon.label_tag }}
-        {{ areaResParam.countLon }}
-        {{ areaResParam.countLat.label_tag }}
-        {{ areaResParam.countLat }}
+    <h2>Result area parameters:</h2>
+    <div class="container">
+      <div class="row">
+        {{ areaResParam.lonMin.label_tag }}
+        {{ areaResParam.lonMin.errors }}{{ areaCalcParam.lonMin }}
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {{ areaResParam.lonMax.label_tag }}
+        {{ areaResParam.lonMax.errors }}{{ areaCalcParam.lonMax }}
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {{ areaResParam.latMin.label_tag }}
+        {{ areaResParam.latMin.errors }}{{ areaCalcParam.latMin }}
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {{ areaResParam.latMax.label_tag }}
+        {{ areaResParam.latMax.errors }}{{ areaCalcParam.latMax }}
+      </div>
+  </div>
+    {{ areaResParam.countLon.label_tag }}
+    {{ areaResParam.countLon }}
+    {{ areaResParam.countLat.label_tag }}
+    {{ areaResParam.countLat }}
 
-        {{ commonWindParametersForm.as_p }}
+    {{ commonWindParametersForm.as_p }}
+  </div>
 
-        <button type="submit" class="btn btn-success">Start calculation</button>
-    </form>
+
+<button type="submit" class="btn btn-success">Start calculation</button>
+</form>
+
+
+
+
+
+
 {% endblock %}

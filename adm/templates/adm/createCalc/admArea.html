@@ -1,0 +1,55 @@
+<h2>Calculation area parameters:</h2>
+<div class="form-group">
+    {{ areaCalcParam.lonMin.label_tag }}
+    {{ areaCalcParam.lonMin.errors }}{{ areaCalcParam.lonMin }}
+</div>
+<div class="container">
+  <div class="row">
+    {{ areaCalcParam.lonMax.label_tag }}
+    {{ areaCalcParam.lonMax.errors }}{{ areaCalcParam.lonMax }}
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {{ areaCalcParam.latMin.label_tag }}
+    {{ areaCalcParam.latMin.errors }}{{ areaCalcParam.latMin }}
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {{ areaCalcParam.latMax.label_tag }}
+    {{ areaCalcParam.latMax.errors }}{{ areaCalcParam.latMax }}
+  </div>
+</div>
+
+<h2>Result area parameters:</h2>
+<div class="container">
+  <div class="row">
+    {{ areaResParam.lonMin.label_tag }}
+    {{ areaResParam.lonMin.errors }}{{ areaCalcParam.lonMin }}
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {{ areaResParam.lonMax.label_tag }}
+    {{ areaResParam.lonMax.errors }}{{ areaCalcParam.lonMax }}
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {{ areaResParam.latMin.label_tag }}
+    {{ areaResParam.latMin.errors }}{{ areaCalcParam.latMin }}
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {{ areaResParam.latMax.label_tag }}
+    {{ areaResParam.latMax.errors }}{{ areaCalcParam.latMax }}
+  </div>
+</div>
+{{ areaResParam.countLon.label_tag }}
+{{ areaResParam.countLon }}
+{{ areaResParam.countLat.label_tag }}
+{{ areaResParam.countLat }}
+
+{{ commonWindParametersForm.as_p }}

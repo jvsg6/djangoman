@@ -12,82 +12,15 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-    <h2>General information:</h2>
-    <div class="container">
-      <div class="row">
-        {{ form.name.label_tag }}
-        {{ form.name }}
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        {{ form.comment.label_tag }}
-        {{ form.comment }}
-      </div>
-    </div>
+    {% include 'adm/createCalc/admCommon.html'%}
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-    <h2>Source Parameters:</h2>
-    {{ srcParam.as_p }}
-  </div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-    <h2>Calculation area parameters:</h2>
-    <div class="form-group">
-        {{ areaCalcParam.lonMin.label_tag }}
-        {{ areaCalcParam.lonMin.errors }}{{ areaCalcParam.lonMin }}
-    </div>
-    <div class="container">
-      <div class="row">
-        {{ areaCalcParam.lonMax.label_tag }}
-        {{ areaCalcParam.lonMax.errors }}{{ areaCalcParam.lonMax }}
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        {{ areaCalcParam.latMin.label_tag }}
-        {{ areaCalcParam.latMin.errors }}{{ areaCalcParam.latMin }}
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        {{ areaCalcParam.latMax.label_tag }}
-        {{ areaCalcParam.latMax.errors }}{{ areaCalcParam.latMax }}
-      </div>
-    </div>
-
-    <h2>Result area parameters:</h2>
-    <div class="container">
-      <div class="row">
-        {{ areaResParam.lonMin.label_tag }}
-        {{ areaResParam.lonMin.errors }}{{ areaCalcParam.lonMin }}
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        {{ areaResParam.lonMax.label_tag }}
-        {{ areaResParam.lonMax.errors }}{{ areaCalcParam.lonMax }}
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        {{ areaResParam.latMin.label_tag }}
-        {{ areaResParam.latMin.errors }}{{ areaCalcParam.latMin }}
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        {{ areaResParam.latMax.label_tag }}
-        {{ areaResParam.latMax.errors }}{{ areaCalcParam.latMax }}
-      </div>
-  </div>
-    {{ areaResParam.countLon.label_tag }}
-    {{ areaResParam.countLon }}
-    {{ areaResParam.countLat.label_tag }}
-    {{ areaResParam.countLat }}
-
-    {{ commonWindParametersForm.as_p }}
-  </div>
-
+</div>
+<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    {% include 'adm/createCalc/admSource.html'%}
+</div>
+<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+  {% include 'adm/createCalc/admArea.html'%}
+</div>
 
 <button type="submit" class="btn btn-success">Start calculation</button>
 </form>

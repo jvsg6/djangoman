@@ -1,33 +1,57 @@
 {% extends 'adm/admIndex.html' %}
 
 {% block content %}
-<table class="table">
-  <thead class="thead-dark">
-  <tr>
-    <th scope="col">№</th>
-    <th scope="col">Название расчета</th>
-    <th scope="col">Пользователь</th>
-    <th scope="col">Дата создания</th>
-    <th scope="col">Комментарий</th>
-    <th scope="col">Статус расчета</th>
-    <th scope="col">Страница загрузки</th>
-  </tr>
-  </thead>
-    {% for post in posts %}
-        <div>
+<div class="container">
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">№</th>
+      <th scope="col">Название расчета</th>
+      <th scope="col">Пользователь</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">Комментарий</th>
+      <th scope="col">Статус расчета</th>
+      <th scope="col">Страница загрузки</th>
+    </tr>
+    </thead>
+      {% for post in posts %}
 
-            <tr>
-              <h3>
-                <td>{{ post.pk }}</td>
-                <td><a href="{% url 'calc_details' pk=post.pk%}">{{ post.name }}</a></td>
-                <td>{{ post.author }}</td>
-                <td>{{ post.created_date }}</td>
-                <td>{{ post.comment }}</td>
-                <td><span class="glyphicon glyphicon-ok"></span></td>
-		<td><a href="{% url 'calc_download' pk=post.pk%}" ><span class="glyphicon glyphicon-download-alt"></span></a></td>
-              </h3>
-            </tr>
-        </div>
-    {% endfor %}
-  </table>
+          <div class="row">
+              <tr>
+                <h3>
+                  <td>{{ post.pk }}</td>
+                  <td><a href="{% url 'calc_details' pk=post.pk%}" >{{ post.name }}</a></td>
+                  <td>{{ post.author }}</td>
+                  <td>{{ post.created_date }}</td>
+                  <td>{{ post.comment }}</td>
+                  <td>ok</td>
+  		            <td><a href="{% url 'calc_download' pk=post.pk%}" >download</a></td>
+                </h3>
+              </tr>
+          </div>
+      {% endfor %}
+    </table>
+</div>
+
+
+
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        {% for post in posts %}
+          <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">№{{ post.pk }} {{ post.author }} {{ post.name }} </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        {% for post in posts %}
+          <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+
 {% endblock %}

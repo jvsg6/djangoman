@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters, WindarametersInAlt
-
+from django.forms import ModelForm, Textarea
 
 class DownloadForm():
     # filesToDownload = forms.MultipleChoiceField(
@@ -26,6 +26,9 @@ class SrcParametersForm(forms.ModelForm):
         labels = {
             'lat' : 'Lattitude of source',
             'lon' : 'Longitude of source',}
+        # widgets = {
+        #     'lon': Textarea(attrs={'cols': 80, 'rows': 20}),
+        # }
 
 class AreaCalcParametersForm(forms.ModelForm):
     class Meta:

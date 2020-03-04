@@ -1,2 +1,15 @@
-<h2>Source Parameters:</h2>
-{{ srcParam.as_p }}
+{% load widget_tweaks %}
+
+<div class="container-fluid">
+  <div class="row">
+    <h2>Source Parameters:</h2>
+  </div>
+  <div class="row">
+    {{ srcParam.lon.label_tag }}
+    {% render_field srcParam.lon class+="form-control" %}
+  </div>
+  <div class="row">
+      {{ srcParam.lat.label_tag }}
+      {% render_field srcParam.lat class+="form-control" %}
+  </div>
+</div>

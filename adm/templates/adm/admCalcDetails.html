@@ -1,8 +1,42 @@
-{% extends 'adm/admIndex.html' %}
-
-{% block content %}
-
-        <h2>Author of calculation:</h2>
-        {{ post.author }}
-
-{% endblock %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      Номер расчета
+    </div>
+    <div class="col-2">
+      Название расчета
+    </div>
+    <div class="col-2">
+      Автор
+    </div>
+    <div class="col-2">
+      Дата создания
+    </div>
+    <div class="col-2">
+      Комментарий
+    </div>
+    <div class="col-2">
+      Ссылка на скачивание
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      {{ post.pk }}
+    </div>
+    <div class="col-2">
+      {{ post.name }}
+    </div>
+    <div class="col-2">
+      {{ post.author }}
+    </div>
+    <div class="col-2">
+      {{ post.created_date }}
+    </div>
+    <div class="col-2">
+      {{ post.comment }}
+    </div>
+    <div class="col-2">
+      <a href="{% url 'calc_download' pk=post.pk%}" >download</a>
+    </div>
+  </div>
+</div>

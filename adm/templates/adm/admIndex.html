@@ -13,36 +13,30 @@
 
     </head>
     <body>
-      <header>
-
-        <div class="">
-          <div class="row">
-            <div class="col-4">
-              <h1><a href="{% url 'admIndex' %}">Atmospheric dispersion model</a></h1>
+      <header class="container-flow">
+        <div class="row">
+          <div class="col-4">
+            <h1><a href="{% url 'admIndex' %}">Atmospheric dispersion model</a></h1>
+          </div>
+          <div class="col-4">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <a href="{% url 'calc_new' %}" type="button" class="btn btn-secondary">New calculation</a>
+              <a href="{% url 'calc_rand' %}" type="button" class="btn btn-secondary">Random calculation</a>
             </div>
-            <div class="col-4">
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="{% url 'calc_new' %}" type="button" class="btn btn-secondary">New calculation</a>
-                <a href="{% url 'calc_rand' %}" type="button" class="btn btn-secondary">Random calculation</a>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="/accounts/login/" type="button" class="btn btn-secondary">Login</a>
-                <a href="/accounts/logout/" type="button" class="btn btn-secondary">Logout</a>
-              </div>
+          </div>
+          <div class="col-4">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <a href="/accounts/login/" type="button" class="btn btn-secondary">Login</a>
+              <a href="/accounts/logout/" type="button" class="btn btn-secondary">Logout</a>
             </div>
           </div>
         </div>
-
       </header>
-        <div class="content container">
-
-                    {% block content %}
-                    {% endblock %}
-
+        <div class="container-flow">
+          {% block content %}
+          {% endblock %}
         </div>
-        <footer class="container">
+        <footer class="container-flow">
           <div class="row">
             <small class="d-block mb-3 text-muted">© 2020</small>
           </div>

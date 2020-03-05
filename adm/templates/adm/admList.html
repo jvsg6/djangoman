@@ -1,24 +1,43 @@
 {% extends 'adm/admIndex.html' %}
 
 {% block content %}
-<div class="row">
-  <div class="col-3">
-  <!-- List group -->
-    <div class="list-group" id="myList" role="tablist">
-      {% for post in posts %}
-          <a class="list-group-item list-group-item-action" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
-      {% endfor %}
-    </div>
-  </div>
+<section>
+  <div id="dtBasicExample_wrapper" class="dataTables_wrapper dt-bootstrap4">
+    <div class="row">
+      <div class="col-3">
+      <!-- List group -->
+        <div class="list-group" id="myList" role="tablist">
+          {% for post in posts %}
+              <a class="list-group-item list-group-item-action" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
 
-  <div class="col-9">
-    <div class="tab-content">
-      {% for post in posts %}
-        <div class="tab-pane" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}</div>
-      {% endfor %}
+      <div class="col-9">
+        <div class="tab-content">
+          {% for post in posts %}
+            <div class="tab-pane" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}</div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-start">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
   </div>
-</div>
+</section>
+
 
 
 {% endblock %}

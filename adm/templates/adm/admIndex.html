@@ -14,35 +14,38 @@
     </head>
     <body>
       <header class="container-flow">
-        <div class="row">
-          <div class="col-4">
-            <h1><a href="{% url 'admIndex' %}">Atmospheric dispersion model</a></h1>
-          </div>
-          <div class="col-4">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <a href="{% url 'calc_new' %}" type="button" class="btn btn-secondary">New calculation</a>
-              <a href="{% url 'calc_rand' %}" type="button" class="btn btn-secondary">Random calculation</a>
-            </div>
-          </div>
+        <nav class="navbar navbar-light bg-light">
+          <a class="navbar-brand" href="{% url 'admIndex' %}">
+            <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Atmospheric dispersion model
+          </a>
+
           <div class="col-4">
             <div class="btn-group" role="group" aria-label="Basic example">
               <a href="/accounts/login/" type="button" class="btn btn-secondary">Login</a>
               <a href="/accounts/logout/" type="button" class="btn btn-secondary">Logout</a>
             </div>
           </div>
-        </div>
+        </nav>
       </header>
-        <div class="container-flow">
-          {% block content %}
-          {% endblock %}
-        </div>
-        <footer class="container-flow">
-          <div class="row">
-            <small class="d-block mb-3 text-muted">© 2020</small>
+      <div class="container-flow">
+        <div class="row">
+          <div class="col-2">
+              {% include 'adm/admLeftBar.html'%}
           </div>
-        </footer>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+          <div class="col-10">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+      <footer class="container">
+        <div class="row">
+          <small class="d-block mb-3 text-muted">© 2020</small>
+        </div>
+      </footer>
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </body>
 </html>

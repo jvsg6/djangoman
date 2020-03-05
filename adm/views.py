@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm
+from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm, CommonWindParametersForm
 from .models import Calc
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -57,6 +57,8 @@ def installRandomParameters():
 def calc_new(request):
 
         if request.method == "POST":
+            print (request)
+            print(request.POST)
             form = CalcForm(request.POST)
             srcParam = SrcParametersForm(request.POST)
             areaCalcParam = AreaCalcParametersForm(request.POST)
@@ -78,6 +80,7 @@ def calc_new(request):
             srcParam = None
             areaCalcParam = None
             areaResParam = None
+            wind = None
             if request.path == "/rand":
                 print ("request.path", request.path)
                 srcParam, areaCalcParam, areaResParam = installRandomParameters()
@@ -86,4 +89,5 @@ def calc_new(request):
                 srcParam = SrcParametersForm()
                 areaCalcParam = AreaCalcParametersForm()
                 areaResParam = AreaResParametersForm()
-        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam})
+                wind = CommonWindParametersForm()
+        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam, 'wind': wind})

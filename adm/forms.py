@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters, WindarametersInAlt
+from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters, WindarametersInAlt, CommonWindParameters
 from django.forms import ModelForm, Textarea
 
 class DownloadForm():
@@ -63,6 +63,28 @@ class AreaResParametersForm(forms.ModelForm):
             'lonMax' : 'Max longitude of result area',
             'countLat' : 'Count cells in lattitude',
             'countLon' : 'Count cells in longitude',}
+
+
+class WindarametersInAltForm(forms.ModelForm):
+    class Meta():
+        model = WindarametersInAlt
+        fields = [
+            'height',
+            'direction',
+            'speed',]
+
+class CommonWindParametersForm(forms.ModelForm):
+    class Meta():
+        model = CommonWindParameters
+        fields = [
+            'meteoType',
+            'meteoPhaseStart',
+            'windConst',
+            'precipitationsRate',
+            'precipitationType',
+            'stab',
+            'roughness',
+            'windLevels',]
 
 
 class CalcForm(forms.ModelForm):

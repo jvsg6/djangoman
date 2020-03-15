@@ -32,6 +32,8 @@ CREATE DATABASE mydb;
 GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser;
 
 
+sudo netstat -pant | grep postgres
+
 
 
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -

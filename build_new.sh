@@ -21,6 +21,7 @@ sudo apt -y install postgresql-contrib
 
 
 
+
 su - postgres
 sudo -u postgres psql
 ALTER USER postgres PASSWORD '123'; #set password 123 for user postgres

@@ -3,7 +3,8 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.admIndex, name='admIndex'),
+    path('', views.admListPart, name='admListPart'),
+    path('<int:pagId>/', views.admListPart, name='admListPart'),
     path('new', views.calc_new, name='calc_new'),
     path('rand', views.calc_new, name='calc_rand'),
     path('started/<int:pk>/', views.calc_started, name='calc_started'),

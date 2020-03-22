@@ -2,6 +2,7 @@
   <ul class="pagination">
     
     {% for pagIdFor in pagList %}
+
         {% if forloop.first %}
           {% ifnotequal pagPrev -1 %}
             <li class="page-item"><a class="page-link" href="{% url 'admListPart' pagId=pagPrev %}">Previous</a></li>
@@ -11,7 +12,13 @@
             </li>
           {% endifnotequal%}
         {% endif %}
-        <li class="page-item"><a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a></li>
+
+        {% ifequal pagIdFor currPagId %}
+          <li class="page-item active"><a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a></li>
+        {% endifequal%}
+          
         {% if forloop.last %}
           {% ifnotequal pagNext -1 %}
             <li class="page-item"><a class="page-link" href="{% url 'admListPart' pagId=pagNext%}">Next</a></li>
@@ -21,6 +28,7 @@
             </li>
           {% endifnotequal %}
         {% endif %}
+
     {% endfor %}
     
   </ul>

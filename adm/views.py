@@ -13,7 +13,7 @@ import random
 def admListPart(request, pagId = 1):
     pagDelta = 3   # только нечетное!!! количество пагинаций
     pagShift = pagDelta//2
-    calcDelta = 3    # Количество расчетов в одной пагинации
+    calcDelta = 4    # Количество расчетов в одной пагинации
     pagCount = 0
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
     calcCount = len(posts)

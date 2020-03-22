@@ -3,6 +3,6 @@
 {% block content %}
 
 {% include 'adm/admListPart.html' %}
-{% include 'adm/admPagination.html' with pagList=pagList pagNext=pagNext pagPrev=pagPrev %}
+{% include 'adm/admPagination.html' with pagList=pagList pagNext=pagNext pagPrev=pagPrev currPagId=currPagId%}
 
 {% endblock %}

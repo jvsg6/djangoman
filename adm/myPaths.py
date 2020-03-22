@@ -4,9 +4,9 @@ import sys
 import os
 
 class ReqPaths():
-    pathToADM = '/home/ilichev/Programs/release/nostra_build_gcc/nostraconsole'
+    pathToADM = '/home/ilichev/tasks/2020/dust/nostra/nostra_build/nostraconsole'
     pathToWorkingFolder = os.path.dirname(__file__)
-    pathToLanduse ='/home/ilichev/clean_in/landuse.asc'
-    pathToTemplate = '/home/ilichev/clean_in/in_template.xml'
+    pathToLanduse ='/home/ilichev/Downloads/landuse.asc'
+    pathToTemplate = '/home/ilichev/Downloads/in_template.xml'
 
 reqPaths = ReqPaths()

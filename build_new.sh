@@ -74,7 +74,7 @@ pip3 install psycopg2
 pip3 install GDAL==2.4.2
 pip install six
 pip install django-leaflet
-
+pip install django-leaflet
 
 
 cd ..

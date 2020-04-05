@@ -7,54 +7,13 @@ import os
 from django.contrib.auth.decorators import login_required
 from .prepCalc import allAdmActions
 from .downloadCalc import downloadFiles
+from .pagination import pagListPagNextPagPrev
 import random
 
 @login_required(login_url='/accounts/login/')
 def admListPart(request, pagId = 1):
-    pagDelta = 3   # только нечетное!!! количество пагинаций
-    pagShift = pagDelta//2
-    calcDelta = 4    # Количество расчетов в одной пагинации
-    pagCount = 0
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
-    calcCount = len(posts)
-    if calcCount % calcDelta == 0:
-        pagCount = calcCount//calcDelta
-    else:
-        pagCount = calcCount//calcDelta + 1
-
-    pagList = []
-    pagNext = -1
-    pagPrev = -1
-    posts = posts[calcDelta*(pagId - 1): calcDelta*pagId] #Расчеты в данной пагинации
-    if pagId <= pagCount:
-        if pagId < pagDelta:
-            if pagCount - pagId >= pagShift:
-                #pagList = range(1, pagId + pagShift + 1)
-                pagList = range(1, pagDelta + 1)
-            else:
-                pagList = range(1, pagId + 1)
-        else:
-            if pagCount - pagId >= pagShift:
-                pagList = range(pagId - pagShift, pagId + pagShift + 1)
-            else:
-                pagList = range(pagCount - pagDelta + 1, pagId+1)
-
-    if pagId != 1:
-        if pagId != pagCount:
-            pagNext = pagId + 1
-            pagPrev = pagId -1
-        else:
-            pagNext = -1
-            pagPrev = pagId -1
-    else:
-        if pagId != pagCount:
-            pagNext = pagId + 1
-            pagPrev = -1
-        else:
-            pagNext = -1
-            pagPrev = -1
-    #pagList = [str(i) for i in pagList]
-    #assert False
+    posts, pagList, pagNext, pagPrev = pagListPagNextPagPrev(posts, pagId)
     return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 'pagNext': pagNext, 'pagPrev': pagPrev})
 
 @login_required(login_url='/accounts/login/')

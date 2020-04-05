@@ -9,8 +9,8 @@ import subprocess
 
 def startAdm(pathToCalc):
     try:
-        p = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
-        return p.poll
+        #p = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
+        return 0#p.poll
     except OSError:
         print ("Error: Write valid path to ADM!")
         return -1

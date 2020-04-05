@@ -3,7 +3,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from .choices import *
 
 class SrcParameters(models.Model):
     lat = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)])
@@ -34,12 +34,12 @@ class WindarametersInAlt(models.Model):
 class CommonWindParameters(models.Model):
     meteoType = models.IntegerField(validators=[MinValueValidator(0)])
     meteoPhaseStart = models.IntegerField(validators=[MinValueValidator(0)])
-    windConst = models.IntegerField(validators=[MinValueValidator(0)])
+    windConst = models.IntegerField(choices=WIND_CONST_CHOICES, default=0)
     precipitationsRate = models.FloatField(validators=[MinValueValidator(0.)])
-    precipitationType = models.FloatField(validators=[MinValueValidator(0.)])
-    stab = models.CharField(max_length=1)
+    precipitationType = models.FloatField(choices=PRECIPITATION_TYPE, default=0)
+    stab = models.CharField(max_length=1, choices=STABILITY_CLASS, default="D")
     roughness = models.FloatField(validators=[MinValueValidator(0.)])
-    windLevels = models.ManyToManyField(WindarametersInAlt)
+    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False)
 
 class Calc(models.Model):
     name = models.CharField(max_length=200)
@@ -53,5 +53,5 @@ class Calc(models.Model):
     pathToInput = models.CharField(max_length=1000, blank=True)
     pathToLanduse = models.CharField(max_length=1000, blank=True)
     pathToOut = models.CharField(max_length=1000, blank=True)
-    windLevels = models.ManyToManyField(WindarametersInAlt, blank=True)
+    windPhaseList = models.ManyToManyField(CommonWindParameters, blank=True, symmetrical=False)
     calcAMDPopen = None

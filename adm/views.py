@@ -121,7 +121,6 @@ def calc_new(request):
             srcParam = None
             areaCalcParam = None
             areaResParam = None
-            wind = None
             if request.path == "/rand":
                 print ("request.path", request.path)
                 srcParam, areaCalcParam, areaResParam = installRandomParameters()
@@ -130,5 +129,4 @@ def calc_new(request):
                 srcParam = SrcParametersForm()
                 areaCalcParam = AreaCalcParametersForm()
                 areaResParam = AreaResParametersForm()
-                wind = CommonWindParametersForm()
-        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam, 'wind': wind})
+        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam,})

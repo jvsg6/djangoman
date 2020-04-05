@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters, WindarametersInAlt, CommonWindParameters
 from django.forms import ModelForm, Textarea
-
+from .choices import *
 class DownloadForm():
     # filesToDownload = forms.MultipleChoiceField(
     #     label='label',
@@ -72,12 +72,16 @@ class WindarametersInAltForm(forms.ModelForm):
             'height',
             'direction',
             'speed',]
+        labels = {
+            'height' : 'Height of the wind',
+            'direction' : 'Dierction of the wind',
+            'Speed' : 'Speed of the wind',
+        }
 
 class CommonWindParametersForm(forms.ModelForm):
     class Meta():
         model = CommonWindParameters
         fields = [
-            'meteoType',
             'meteoPhaseStart',
             'windConst',
             'precipitationsRate',
@@ -85,6 +89,15 @@ class CommonWindParametersForm(forms.ModelForm):
             'stab',
             'roughness',
             'windLevels',]
+        labels = {
+            'meteoPhaseStart' : 'Meteo phase start time, s',
+            'windConst' : 'Is wind constant in all height?',
+            'precipitationsRate' : 'Rate of precipitation, mm/h',
+            'precipitationType' : 'Type of precipitation',
+            'stab' : 'Stability class',
+            'roughness' : 'Roughness',
+            'windLevels' : 'Wind on the varoius heights',
+        }
 
 
 class CalcForm(forms.ModelForm):
@@ -93,9 +106,9 @@ class CalcForm(forms.ModelForm):
         fields = [
             'name',
             'comment',
-            'windLevels',]
+            'windPhaseList',]
         labels = {
             'name' : 'Name of calculation',
             'comment' : 'Comment of calculation',
-            'windLevels' : 'Input wind levels'
+            'windPhaseList' : 'Input meteo phases',
         }

@@ -1,8 +1,9 @@
 
 <script>
 function myFunction(pk) {
-  var pk123 = pk;
-  window.open("/details/"+pk123+"/");
+  var ppp = "{% url 'calc_details' pk=123321123321%}";
+  var pk123 = ppp.replace("123321123321", pk);
+  window.open(pk123);
 }
 </script>
 

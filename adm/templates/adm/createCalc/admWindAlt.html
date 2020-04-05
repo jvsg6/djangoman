@@ -1,0 +1,108 @@
+{% load widget_tweaks %}
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table">
+{% for currMeteoPhase in meteoPhaseList %}
+  {% if forloop.first %}
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">currMeteoPhase.meteoPhaseStart.label_tag</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+  {% else %}
+
+  {% endif %}
+    
+{% endfor %}
+</table>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            {{ wind.meteoPhaseStart.label_tag }}
+            {% render_field wind.meteoPhaseStart class+="form-control" %}
+          </div>
+          <div class="row">
+              {{ wind.windConst.label_tag }}
+              {% render_field wind.windConst class+="form-control" %}
+          </div>
+          <div class="row">
+              {{ wind.precipitationsRate.label_tag }}
+              {% render_field wind.precipitationsRate class+="form-control" %}
+          </div>
+          <div class="row">
+              {{ wind.precipitationType.label_tag }}
+              {% render_field wind.precipitationType class+="form-control" %}
+          </div>
+          <div class="row">
+              {{ wind.stab.label_tag }}
+              {% render_field wind.stab class+="form-control" %}
+          </div>
+          <div class="row">
+              {{ wind.roughness.label_tag }}
+              {% render_field wind.roughness class+="form-control" %}
+          </div>
+          <div class="row">
+              {{ wind.windLevels.label_tag }}
+              {% render_field wind.windLevels class+="form-control" %}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add Wind Phase</button>
+      </div>
+    </div>
+  </div>
+</div>

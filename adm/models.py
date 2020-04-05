@@ -54,4 +54,5 @@ class Calc(models.Model):
     pathToLanduse = models.CharField(max_length=1000, blank=True)
     pathToOut = models.CharField(max_length=1000, blank=True)
     windPhaseList = models.ManyToManyField(CommonWindParameters, blank=True, symmetrical=False)
+
     calcAMDPopen = None

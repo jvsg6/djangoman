@@ -1,4 +1,4 @@
-
+{% load static %}
 <script>
 function myFunction(pk) {
   var ppp = "{% url 'calc_details' pk=123321123321%}";
@@ -35,6 +35,7 @@ function myFunction(pk) {
 
           {% endfor %}
         </div>
+        <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
       </div>
     </div>
   </div>

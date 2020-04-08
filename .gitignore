@@ -6,5 +6,6 @@ db.sqlite3
 /static
 .DS_Store
 /adm/calculations
-/adm/static
+/adm/static/js
+/adm/static/css
 .idea

@@ -2,63 +2,56 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
-<div class="container-fluid">
-  <div class="row">
-      <h1>New calculation parameters:</h1>
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Common</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Meteo</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Source</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact2" aria-selected="false">Area</a>
   </div>
-  <form method="POST" class="post-form">{% csrf_token %}
-    <nav>
-      <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Common</a>
-        <a class="nav-item nav-link" id="nav-meteo-tab" data-toggle="tab" href="#nav-meteo" role="tab" aria-controls="nav-meteo" aria-selected="false">Meteo</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Source</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Area</a>
-      </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-        <div class="row">
-        <div class="col-5">
-          {% include 'adm/createCalc/admCommon.html'%}
-        </div>
-          <div class="col-5">
-          <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
-        </div>
-      </div>
-    </div>
-    <div class="tab-pane fade" id="nav-meteo" role="tabpanel" aria-labelledby="nav-meteo-tab">
-      <div class="row">
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="row">
       <div class="col-5">
-        {% include 'adm/createCalc/admMeteo.html' with meteoPhaseList=form.windPhaseList%}
-      </div>
-        <div class="col-5">
-          <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
-        </div>
-      </div>
+    {% include 'adm/createCalc/admCommon.html'%}
     </div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-      <div class="row">
       <div class="col-5">
-        {% include 'adm/createCalc/admSource.html'%}
-      </div>
+    <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
+    </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div class="row">
       <div class="col-5">
-          <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
-        </div>
-      </div>
+    {% include 'adm/createCalc/admMeteo.html' with meteoPhaseList=form.windPhaseList%}
     </div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-      <div class="row">
-        <div class="col-5">
-          {% include 'adm/createCalc/admArea.html'%}
-        </div>
-        <div class="col-5">
-          <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
-        </div>
-      </div>
+      <div class="col-5">
+    <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
     </div>
-    
-    <button type="submit" class="btn btn-success">Start calculation</button>
-  </form>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div class="row">
+      <div class="col-5">
+    {% include 'adm/createCalc/admSource.html'%}
+    </div>
+      <div class="col-5">
+    <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
+    </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact2-tab">
+    <div class="row">
+      <div class="col-5">
+    {% include 'adm/createCalc/admArea.html'%}
+    </div>
+    <div class="col-5">
+    <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
+    </div>
+    </div>
+  </div>
 </div>
 
 

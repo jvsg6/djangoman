@@ -11,17 +11,21 @@
         <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap');
         </style>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/static/adm/css/main.css">
 
     </head>
     <body>
+
       <header class="container-fluid px-0">
         <nav class="navbar navbar-dark bg-dark sticky-top">
-          <a class="navbar-brand col-7" href="{% url 'admListPart' pagId=1 %}">
-            <img src="{% static 'adm/labels/draft_label.png' %}" width="50" height="25" class="" alt="">
-            ATMOSPHERIC DISPERSION MODEL
+          <a class="navbar-brand col-1 mx-0 py-0 px-0" href="{% url 'admListPart' pagId=1 %}">
+            <img src="{% static 'adm/labels/LOGO.png' %}" width="40" class="" alt="">
           </a>
-
+          <a class="navbar-brand col-4" href="{% url 'admListPart' pagId=1 %}">
+            <p class="text text-left my-0 texttopadm">ATMOSPHERIC DISPERSION MODEL</p>
+          </a>
           <div class="col-2 ml-auto">
             <div class="btn-group" role="group" aria-label="Basic example">
               <a href="/accounts/login/" type="button" class="btn btn-secondary">Login</a>
@@ -30,6 +34,8 @@
           </div>
         </nav>
       </header>
+
+
       <div class="container-fluid">
           <div class="row">
                 {% include 'adm/admLeftBar.html'%}
@@ -41,7 +47,7 @@
       </div>
 
       <footer>
-        <div class="container-fluid footer">
+        <div class="container-fluid footer sticky-bottom">
           <div class="row">
             <small class="d-block mb-3 ml-4 text-muted">© 2019</small>
           </div>

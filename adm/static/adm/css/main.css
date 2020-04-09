@@ -1,3 +1,19 @@
 .btnleftbar{
   color: #043c53;
 }
+
+.ftrdown{
+  padding-top: 310px;
+  padding-bottom: 0px;
+  margin: 0px;
+}
+
+.tabup {
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.texttopadm {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 30px;
+}

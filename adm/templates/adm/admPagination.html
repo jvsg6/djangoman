@@ -1,35 +1,47 @@
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    
-    {% for pagIdFor in pagList %}
+<div class="container-fluid ftrdown">
+  <div class="row">
+    <nav class=" mr-auto mt-auto" aria-label="Page navigation example">
+        <ul class="pagination my-0">
 
-        {% if forloop.first %}
-          {% ifnotequal pagPrev -1 %}
-            <li class="page-item"><a class="page-link" href="{% url 'admListPart' pagId=pagPrev %}">Previous</a></li>
-          {% else %}
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-          {% endifnotequal%}
-        {% endif %}
+        {% for pagIdFor in pagList %}
 
-        {% ifequal pagIdFor currPagId %}
-          <li class="page-item active"><a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a></li>
-        {% else %}
-          <li class="page-item"><a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a></li>
-        {% endifequal%}
-          
-        {% if forloop.last %}
-          {% ifnotequal pagNext -1 %}
-            <li class="page-item"><a class="page-link" href="{% url 'admListPart' pagId=pagNext%}">Next</a></li>
-          {% else %}
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-            </li>
-          {% endifnotequal %}
-        {% endif %}
+            {% if forloop.first %}
+              {% ifnotequal pagPrev -1 %}
+                <li class="page-item">
+                  <a class="page-link" href="{% url 'admListPart' pagId=pagPrev %}">Previous</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+              {% endifnotequal%}
+            {% endif %}
 
-    {% endfor %}
-    
-  </ul>
-</nav>
+            {% ifequal pagIdFor currPagId %}
+              <li class="page-item active">
+                <a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a>
+              </li>
+            {% endifequal%}
+
+            {% if forloop.last %}
+              {% ifnotequal pagNext -1 %}
+                <li class="page-item">
+                  <a class="page-link" href="{% url 'admListPart' pagId=pagNext%}">Next</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                </li>
+              {% endifnotequal %}
+            {% endif %}
+
+        {% endfor %}
+
+        </ul>
+    </nav>
+  </div>
+</div>

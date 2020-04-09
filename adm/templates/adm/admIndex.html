@@ -16,11 +16,12 @@
         <link rel="stylesheet" href="/static/adm/css/main.css">
 
     </head>
+
     <body>
 
       <header class="container-fluid px-0">
         <nav class="navbar navbar-dark bg-dark sticky-top">
-          <a class="navbar-brand col-1 mx-0 py-0 px-0" href="{% url 'admListPart' pagId=1 %}">
+          <a class="navbar-brand mx-0 py-0 px-0" href="{% url 'admListPart' pagId=1 %}">
             <img src="{% static 'adm/labels/LOGO.png' %}" width="40" class="" alt="">
           </a>
           <a class="navbar-brand col-4" href="{% url 'admListPart' pagId=1 %}">
@@ -35,7 +36,7 @@
         </nav>
       </header>
 
-
+    <maincontent>
       <div class="container-fluid">
           <div class="row">
                 {% include 'adm/admLeftBar.html'%}
@@ -45,16 +46,17 @@
             </div>
           </div>
       </div>
+    </maincontent>
 
-      <footer>
-        <div class="container-fluid footer sticky-bottom">
-          <div class="row">
-            <small class="d-block mb-3 ml-4 text-muted">© 2020</small>
-          </div>
+      <footer class="footer">
+        <div class="container-fluid px-auto py-auto">
+          <span class="text-muted">© 2020</span>
         </div>
       </footer>
+
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     </body>
 </html>

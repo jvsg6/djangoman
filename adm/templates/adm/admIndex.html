@@ -1,5 +1,5 @@
 {% load static %}
-{% load widget_tweaks %} 
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,17 +11,18 @@
         <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap');
         </style>
+        <link rel="stylesheet" href="/static/adm/css/main.css">
 
     </head>
-    <body class="container-fluid d-flex flex-column h-100">
-      <header class="container-fluid">
-        <nav class="navbar navbar-dark bg-dark">
-          <a class="navbar-brand" href="{% url 'admListPart' pagId=1 %}">
-            <img src="{% static 'adm/labels/draft_label.png' %}" width="50" height="25" class="d-inline-block align-top" alt="">
-            Atmospheric dispersion model
+    <body>
+      <header class="container-fluid px-0">
+        <nav class="navbar navbar-dark bg-dark sticky-top">
+          <a class="navbar-brand col-7" href="{% url 'admListPart' pagId=1 %}">
+            <img src="{% static 'adm/labels/draft_label.png' %}" width="50" height="25" class="" alt="">
+            ATMOSPHERIC DISPERSION MODEL
           </a>
 
-          <div class="col-4">
+          <div class="col-2 ml-auto">
             <div class="btn-group" role="group" aria-label="Basic example">
               <a href="/accounts/login/" type="button" class="btn btn-secondary">Login</a>
               <a href="/accounts/logout/" type="button" class="btn btn-secondary">Logout</a>
@@ -30,10 +31,8 @@
         </nav>
       </header>
       <div class="container-fluid">
-          <div class="row no-gutters">
-            <div class="col-2 bg-light">
+          <div class="row">
                 {% include 'adm/admLeftBar.html'%}
-            </div>
             <div class="col-10">
               {% block content %}
               {% endblock %}

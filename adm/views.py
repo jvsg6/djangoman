@@ -67,6 +67,7 @@ def calc_new(request):
             srcParam = SrcParametersForm(request.POST)
             areaCalcParam = AreaCalcParametersForm(request.POST)
             areaResParam = AreaResParametersForm(request.POST)
+            meteoWindOro = CommonWindParametersForm(request.POST)
             if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
                 post = form.save(commit=False)
                 post.areaResParameters = areaResParam.save()
@@ -84,6 +85,7 @@ def calc_new(request):
             srcParam = None
             areaCalcParam = None
             areaResParam = None
+            meteoWindOro = None
             if request.path == "/rand":
                 print ("request.path", request.path)
                 srcParam, areaCalcParam, areaResParam = installRandomParameters()
@@ -92,7 +94,10 @@ def calc_new(request):
                 srcParam = SrcParametersForm()
                 areaCalcParam = AreaCalcParametersForm()
                 areaResParam = AreaResParametersForm()
-        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam,})
+                meteoWindOro = CommonWindParametersForm()
+        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 
+                                                          'areaCalcParam': areaCalcParam, 
+                                                          'areaResParam': areaResParam, "meteoWindOro": meteoWindOro})
 
 
 @login_required(login_url='/accounts/login/')

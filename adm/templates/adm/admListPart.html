@@ -15,9 +15,9 @@ function myFunction(pk) {
         <div class="list-group" id="myList" role="tablist">
           {% for post in posts %}
             {% if forloop.first %}
-              <a class="list-group-item list-group-item-action active rounded-0" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+              <a class="list-group-item list-group-item-action active rounded-0 pagestyle" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
             {% else %}
-              <a class="list-group-item list-group-item-action rounded-0" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+              <a class="list-group-item list-group-item-action rounded-0 pagestyle" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
             {% endif %}
 
           {% endfor %}

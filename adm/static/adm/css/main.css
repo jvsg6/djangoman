@@ -16,6 +16,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: calc(100vh - 50px);
     height: 50px;
     line-height: 50px;
     background-color: #A5A5A5;
@@ -72,4 +73,8 @@
 
 .page-link:hover {
   color: #000;
+}
+
+.pagestyle {
+  font-family: 'Montserrat', sans-serif;
 }

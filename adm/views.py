@@ -12,7 +12,7 @@ import random
 
 @login_required(login_url='/accounts/login/')
 def admListPart(request, pagId = 1):
-    posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
+    posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
     posts, pagList, pagNext, pagPrev = pagListPagNextPagPrev(posts, pagId)
     return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 'pagNext': pagNext, 'pagPrev': pagPrev})
 
@@ -55,9 +55,13 @@ def installRandomParameters():
 
 @login_required(login_url='/accounts/login/')
 def calc_new(request):
-
+        print ("------------------------------------------------------")
+        print (request)
+        print ("------------------------------------------------------")
         if request.method == "POST":
+            print("request")
             print (request)
+            print("request.POST")
             print(request.POST)
             form = CalcForm(request.POST)
             srcParam = SrcParametersForm(request.POST)
@@ -89,3 +93,13 @@ def calc_new(request):
                 areaCalcParam = AreaCalcParametersForm()
                 areaResParam = AreaResParametersForm()
         return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 'areaCalcParam': areaCalcParam, 'areaResParam': areaResParam,})
+
+
+@login_required(login_url='/accounts/login/')
+def addFullWindParameters(request, form):
+    if request.method == "POST":
+        print("request.POST")
+        print(request.POST)
+    else:
+        windForm = CommonWindParametersForm()
+        return render(request, 'adm/createCalc/admCommonWind.html', {'windForm': windForm})

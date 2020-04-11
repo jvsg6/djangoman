@@ -35,11 +35,11 @@ class CommonWindParameters(models.Model):
     meteoType = models.IntegerField(validators=[MinValueValidator(0)])
     meteoPhaseStart = models.IntegerField(validators=[MinValueValidator(0)])
     windConst = models.IntegerField(choices=WIND_CONST_CHOICES, default=0)
-    precipitationsRate = models.FloatField(validators=[MinValueValidator(0.)])
+    precipitationsRate = models.FloatField(validators=[MinValueValidator(0.)], blank=True)
     precipitationType = models.FloatField(choices=PRECIPITATION_TYPE, default=0)
     stab = models.CharField(max_length=1, choices=STABILITY_CLASS, default="D")
-    roughness = models.FloatField(validators=[MinValueValidator(0.)])
-    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False)
+    roughness = models.FloatField(validators=[MinValueValidator(0.)], blank=True)
+    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False, blank=True)
 
 class Calc(models.Model):
     name = models.CharField(max_length=200)

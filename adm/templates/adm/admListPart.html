@@ -10,7 +10,7 @@ function myFunction(pk) {
 
   <div id="dtBasicExample_wrapper" class="dataTables_wrapper dt-bootstrap4">
     <div class="row">
-      <div class="col-3 px-0">
+      <div class="col-2 pr-0 paginationwithpage">
       <!-- List group -->
         <div class="list-group" id="myList" role="tablist">
           {% for post in posts %}
@@ -21,10 +21,11 @@ function myFunction(pk) {
             {% endif %}
 
           {% endfor %}
+          {% include 'adm/admPagination.html' with pagList=pagList pagNext=pagNext pagPrev=pagPrev currPagId=currPagId%}
         </div>
       </div>
 
-      <div class="col-9 px-0">
+      <div class="col-10">
         <div class="tab-content">
           {% for post in posts %}
             {% if forloop.first %}

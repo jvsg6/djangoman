@@ -65,7 +65,7 @@ class AreaResParametersForm(forms.ModelForm):
             'countLon' : 'Count cells in longitude',}
 
 
-class WindarametersInAltForm(forms.ModelForm):
+class WindOroPametersInAltForm(forms.ModelForm):
     class Meta():
         model = WindarametersInAlt
         fields = [
@@ -98,6 +98,7 @@ class CommonWindParametersForm(forms.ModelForm):
             'roughness' : 'Roughness',
             'windLevels' : 'Wind on the varoius heights',
         }
+        #widgets = {'windLevels': forms.widgets.CheckboxSelectMultiple() }
 
 
 class CalcForm(forms.ModelForm):

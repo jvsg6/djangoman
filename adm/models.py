@@ -6,53 +6,53 @@ from django.contrib.auth.models import User
 from .choices import *
 
 class SrcParameters(models.Model):
-    lat = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)])
-    lon = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)])
+    lat = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lon = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
 
     def getPosition(self):
         return {"lat":self.lat, "lon":self.lon}
 
 class AreaCalcParameters(models.Model):
-    latMin = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)])
-    lonMin = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)])
-    latMax = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)])
-    lonMax = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)])
+    latMin = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMin = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    latMax = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMax = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
 
 class AreaResParameters(models.Model):
-    latMin = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)])
-    lonMin = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)])
-    latMax = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)])
-    lonMax = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)])
-    countLon = models.IntegerField()
-    countLat = models.IntegerField()
+    latMin = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMin = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    latMax = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMax = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    countLon = models.IntegerField(null=True, blank=True)
+    countLat = models.IntegerField(null=True, blank=True)
 
 class WindarametersInAlt(models.Model):
-    height = models.FloatField(validators=[MinValueValidator(0.)])
-    direction = models.FloatField(validators=[MinValueValidator(0.)])
-    speed = models.FloatField(validators=[MinValueValidator(0.)])
+    height = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
+    direction = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
+    speed = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
 
 class CommonWindParameters(models.Model):
-    meteoType = models.IntegerField(validators=[MinValueValidator(0)])
-    meteoPhaseStart = models.IntegerField(validators=[MinValueValidator(0)])
-    windConst = models.IntegerField(choices=WIND_CONST_CHOICES, default=0)
-    precipitationsRate = models.FloatField(validators=[MinValueValidator(0.)], blank=True)
-    precipitationType = models.FloatField(choices=PRECIPITATION_TYPE, default=0)
-    stab = models.CharField(max_length=1, choices=STABILITY_CLASS, default="D")
-    roughness = models.FloatField(validators=[MinValueValidator(0.)], blank=True)
-    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False, blank=True)
+    meteoType = models.IntegerField(validators=[MinValueValidator(0)], null=True, blank=True)
+    meteoPhaseStart = models.IntegerField(validators=[MinValueValidator(0)], null=True, blank=True)
+    windConst = models.IntegerField(choices=WIND_CONST_CHOICES, default=0, null=True, blank=True)
+    precipitationsRate = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
+    precipitationType = models.FloatField(choices=PRECIPITATION_TYPE, default=0, null=True, blank=True)
+    stab = models.CharField(max_length=1, choices=STABILITY_CLASS, default="D", null=True, blank=True)
+    roughness = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
+    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False, null=True, blank=True)
 
 class Calc(models.Model):
-    name = models.CharField(max_length=200)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_date = models.DateTimeField(default=timezone.now)
-    comment = models.CharField(max_length=200, blank=True)
-    areaResParameters = models.ForeignKey(AreaResParameters, on_delete=models.CASCADE)
-    areaCalcParameters = models.ForeignKey(AreaCalcParameters, on_delete=models.CASCADE)
-    srcParameters = models.ForeignKey(SrcParameters, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    created_date = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    comment = models.CharField(max_length=200, null=True, blank=True)
+    areaResParam = models.ForeignKey(AreaResParameters, on_delete=models.CASCADE, null=True, blank=True)
+    areaCalcParam = models.ForeignKey(AreaCalcParameters, on_delete=models.CASCADE, null=True, blank=True)
+    srcParam= models.ForeignKey(SrcParameters, on_delete=models.CASCADE, null=True, blank=True)
     calcADMReturn = models.IntegerField(blank=True, null=True)
-    pathToInput = models.CharField(max_length=1000, blank=True)
-    pathToLanduse = models.CharField(max_length=1000, blank=True)
-    pathToOut = models.CharField(max_length=1000, blank=True)
-    windPhaseList = models.ManyToManyField(CommonWindParameters, blank=True, symmetrical=False)
+    pathToInput = models.CharField(max_length=1000, null=True, blank=True)
+    pathToLanduse = models.CharField(max_length=1000, null=True, blank=True)
+    pathToOut = models.CharField(max_length=1000, null=True, blank=True)
+    windPhaseList = models.ManyToManyField(CommonWindParameters, null=True, blank=True, symmetrical=False)
 
     calcAMDPopen = None

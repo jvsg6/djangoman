@@ -1,6 +1,66 @@
 {% load widget_tweaks %}
 
+<script>
+function myFunction(form, meteoWindOro) {
+  meteoWindOro.meteoPhaseStart = 1;
+}
+</script>
+<!--
 {{meteoWindOro.as_p}}
+<button type="button" onclick="myFunction(form, meteoWindOro)">Click me to display Date and Time.</button>
+-->
+<!--
+<div class="container-fluid">
+  
+  <div class="row">
+    {{ meteoWindOro.meteoPhaseStart.label_tag }}
+    {% render_field meteoWindOro.meteoPhaseStart class+="form-control" %}
+  </div>
+  <div class="row">
+      {{ meteoWindOro.windConst.label_tag }}
+      {% render_field meteoWindOro.windConst class+="form-control" %}
+  </div>
+  <div class="row">
+      {{ meteoWindOro.precipitationsRate.label_tag }}
+      {% render_field meteoWindOro.precipitationsRate class+="form-control" %}
+  </div>
+  <div class="row">
+      {{ meteoWindOro.precipitationType.label_tag }}
+      {% render_field meteoWindOro.precipitationType class+="form-control" %}
+  </div>
+  <div class="row">
+      {{ meteoWindOro.stab.label_tag }}
+      {% render_field meteoWindOro.stab class+="form-control" %}
+  </div>
+  <div class="row">
+      {{ meteoWindOro.roughness.label_tag }}
+      {% render_field meteoWindOro.roughness class+="form-control" %}
+  </div>
+-->
+{{ windOroInAlt.as_p }}
+<!--
+{{ windOroInAlt.as_p }}
+{{ meteoWindOro.windLevels }}
+
+
+    {% for p in meteoWindOro.windLevels.all %}
+        {{ p }}
+    {% endfor %}
+-->
+<!--
+  <div class="row">
+      {{ meteoWindOro.windLevels.label_tag }}
+      {{meteoWindOro.windLevels }}
+      {% for windLevel in meteoWindOro.windLevels %}
+          {{ windLevel.height }}
+          {{ windLevel.direction }}
+          {{ windLevel.speed }}
+          {{ windLevel }}
+      {% endfor %}
+  </div>
+</div>
+-->
+<!--
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -50,14 +110,14 @@
 {% endfor %}
 </table>
 
+-->
 
-
-<!-- Button trigger modal -->
+<!-- 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
   Launch demo modal
 </button>
-
-<!-- Modal -->
+-->
+<!-- 
 <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
@@ -106,3 +166,4 @@
     </div>
   </div>
 </div>
+-->

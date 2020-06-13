@@ -25,7 +25,7 @@
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
     <div class="row">
       <div class="col-5">
-    {% include 'adm/createCalc/admMeteo.html' with meteoWindOro=meteoWindOro%}
+    {% include 'adm/createCalc/admMeteo.html' with meteoWindOro=meteoWindOro form=form%}
     </div>
       <div class="col-5">
     <img src="{% static 'adm/gis/default.png' %}"  class="d-inline-block align-top" alt="Gis picture">
@@ -53,8 +53,9 @@
     </div>
   </div>
 </div>
-    <button type="submit" class="btn btn-success">Start calculation</button>
-  </form>
+  <button type="submit" class="btn btn-primary" name="save_calc">Save scenario</button>
+  <button type="submit" class="btn btn-success" name="start_calc">Start calculation</button>
+</form>
 
 
 {% endblock %}

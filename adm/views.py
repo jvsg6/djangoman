@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm, CommonWindParametersForm
-from .models import Calc
+from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm, CommonWindParametersForm, WindOroPametersInAltForm
+from .models import Calc, SrcParameters
 from django.utils import timezone
 from django.shortcuts import redirect
 import os
@@ -9,6 +9,25 @@ from .prepCalc import allAdmActions
 from .downloadCalc import downloadFiles
 from .pagination import pagListPagNextPagPrev
 import random
+
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(data)
+
+
+class SignUpView(CreateView):
+    template_name = 'adm/signup.html'
+    form_class = UserCreationForm
+
 
 @login_required(login_url='/accounts/login/')
 def admListPart(request, pagId = 1):
@@ -54,11 +73,12 @@ def installRandomParameters():
     return srcParam, areaCalcParam, areaResParam
 
 @login_required(login_url='/accounts/login/')
-def calc_new(request):
+def calc_edit(request, pk):
         print ("------------------------------------------------------")
         print (request)
         print ("------------------------------------------------------")
         if request.method == "POST":
+            print("POST in calc_new")
             print("request")
             print (request)
             print("request.POST")
@@ -68,37 +88,121 @@ def calc_new(request):
             areaCalcParam = AreaCalcParametersForm(request.POST)
             areaResParam = AreaResParametersForm(request.POST)
             meteoWindOro = CommonWindParametersForm(request.POST)
+            windOroInAlt = WindOroPametersInAltForm(request.POST)
             if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
                 post = form.save(commit=False)
-                post.areaResParameters = areaResParam.save()
+                post.areaResParam = areaResParam.save()
                 post.areaCalcParameters = areaCalcParam.save()
-                post.srcParameters = srcParam.save()
+                post.srcParam = srcParam.save()
                 post.author = request.user
                 post.published_date = timezone.now()
                 post.calcADMReturn = 0
                 post.save()
-                allAdmActions(post)
-                post.save()
-                return redirect('calc_started', pk=post.pk)
+                if 'start_calc' in request.POST:
+                    print("Start calc button was pressed")
+                    allAdmActions(post)
+                    post.save()
+                    return redirect('calc_started', pk=post.pk)
+                else:
+                    print("Save button was pressed")
+                    allAdmActions(post)
+                    post.save()
+                    return redirect('calc_started', pk=post.pk)
         else:
-            form = CalcForm()
-            srcParam = None
-            areaCalcParam = None
-            areaResParam = None
-            meteoWindOro = None
-            if request.path == "/rand":
-                print ("request.path", request.path)
-                srcParam, areaCalcParam, areaResParam = installRandomParameters()
-            else:
-                print ("request.path", request.path)
-                srcParam = SrcParametersForm()
-                areaCalcParam = AreaCalcParametersForm()
-                areaResParam = AreaResParametersForm()
-                meteoWindOro = CommonWindParametersForm()
+            post = get_object_or_404(Calc, pk=pk)
+            form = CalcForm(instance=post)
+            srcParam = SrcParametersForm(instance=post.srcParam)
+            areaCalcParam = AreaCalcParametersForm(instance=post.areaCalcParam)
+            areaResParam = AreaResParametersForm(instance=post.areaResParam)
+            meteoWindOro = CommonWindParametersForm(instance=post)
+            windOroInAlt = WindOroPametersInAltForm(instance=post)
         return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 
                                                           'areaCalcParam': areaCalcParam, 
-                                                          'areaResParam': areaResParam, "meteoWindOro": meteoWindOro})
+                                                          'areaResParam': areaResParam, "meteoWindOro": meteoWindOro, "windOroInAlt": windOroInAlt})
 
+
+@login_required(login_url='/accounts/login/')
+def calc_new(request):
+    print ("------------------------------------------------------")
+    print (request)
+    print ("------------------------------------------------------")
+
+    print("Get in calc_new")
+    print ("request.path", request.path)
+
+    form = CalcForm(request.GET)
+    srcParam = SrcParametersForm(request.GET)
+    areaCalcParam = AreaCalcParametersForm(request.GET)
+    areaResParam = AreaResParametersForm(request.GET)
+    meteoWindOro = CommonWindParametersForm(request.GET)
+    windOroInAlt = WindOroPametersInAltForm(request.GET)
+    print(form.is_valid(),  srcParam.is_valid(), areaCalcParam.is_valid(), areaResParam.is_valid())
+    if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
+        post = form.save(commit=False)
+        post.areaResParam = areaResParam.save()
+        post.areaCalcParam = areaCalcParam.save()
+        post.srcParam = srcParam.save()
+        post.author = request.user
+        post.published_date = timezone.now()
+        post.calcADMReturn = 0
+        post.save()
+        return redirect(calc_edit, pk = post.pk)
+
+
+def setRandParametersForPost(post, areaResParam):
+    countCalcs = Calc.objects.count()
+    post.name = "Calculation " + str(countCalcs+1)
+    latInit = -88.0 + random.random()*176.0
+    lonInit = -178.0 + random.random()*356.0
+    lonMin = lonInit-0.5
+    lonMax = lonInit+0.5
+    latMin = latInit-0.5
+    latMax = latInit+0.5
+    post.areaResParam.lonMin = lonMin
+    post.areaResParam.latMin = latMin
+    post.areaResParam.lonMax = lonMax
+    post.areaResParam.latMax = latMax
+    post.areaResParam.countLon = 51
+    post.areaResParam.countLat = 51
+    post.areaCalcParam.lonMin = lonMin
+    post.areaCalcParam.latMin = latMin
+    post.areaCalcParam.lonMax = lonMax
+    post.areaCalcParam.latMax = latMax
+    post.srcParam.lon = lonInit
+    post.srcParam.lat = latInit
+
+
+@login_required(login_url='/accounts/login/')
+def calc_rand(request):
+    print ("------------------------------------------------------")
+    print (request)
+    print ("------------------------------------------------------")
+
+    print ("request.path", request.path)
+    countCalcs = Calc.objects.count()
+    form = CalcForm(request.GET)
+    srcParam = SrcParametersForm(request.GET)
+    areaCalcParam = AreaCalcParametersForm(request.GET)
+    areaResParam = AreaResParametersForm(request.GET)
+    meteoWindOro = CommonWindParametersForm(request.GET)
+    windOroInAlt = WindOroPametersInAltForm(request.GET)
+    
+    print(form.is_valid(),  srcParam.is_valid(), areaCalcParam.is_valid(), areaResParam.is_valid())
+    if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
+
+        post = form.save(commit=False)
+        post.areaResParam = areaResParam.save(commit=False)
+        post.areaCalcParam = areaCalcParam.save(commit=False)
+        post.srcParam = srcParam.save(commit=False)
+        setRandParametersForPost(post, areaResParam)
+        post.author = request.user
+        post.published_date = timezone.now()
+        post.calcADMReturn = 0
+        post.areaResParam = areaResParam.save()
+        post.areaCalcParam = areaCalcParam.save()
+        post.srcParam = srcParam.save()
+        post.save()
+        return redirect(calc_edit, pk = post.pk)
 
 @login_required(login_url='/accounts/login/')
 def addFullWindParameters(request, form):

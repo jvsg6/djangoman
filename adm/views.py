@@ -78,36 +78,48 @@ def calc_edit(request, pk):
         print (request)
         print ("------------------------------------------------------")
         if request.method == "POST":
-            print("POST in calc_new")
-            print("request")
-            print (request)
-            print("request.POST")
-            print(request.POST)
-            form = CalcForm(request.POST)
-            srcParam = SrcParametersForm(request.POST)
-            areaCalcParam = AreaCalcParametersForm(request.POST)
-            areaResParam = AreaResParametersForm(request.POST)
-            meteoWindOro = CommonWindParametersForm(request.POST)
-            windOroInAlt = WindOroPametersInAltForm(request.POST)
-            if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
-                post = form.save(commit=False)
-                post.areaResParam = areaResParam.save()
-                post.areaCalcParameters = areaCalcParam.save()
-                post.srcParam = srcParam.save()
-                post.author = request.user
-                post.published_date = timezone.now()
-                post.calcADMReturn = 0
-                post.save()
-                if 'start_calc' in request.POST:
+            if 'start_calc' in request.POST:
+                print("POST in calc_new")
+                print("request")
+                print (request)
+                print("request.POST")
+                print(request.POST)
+                form = CalcForm(request.POST)
+                srcParam = SrcParametersForm(request.POST)
+                areaCalcParam = AreaCalcParametersForm(request.POST)
+                areaResParam = AreaResParametersForm(request.POST)
+                meteoWindOro = CommonWindParametersForm(request.POST)
+                windOroInAlt = WindOroPametersInAltForm(request.POST)
+                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
+                    post = form.save(commit=False)
+                    post.areaResParam = areaResParam.save()
+                    post.areaCalcParameters = areaCalcParam.save()
+                    post.srcParam = srcParam.save()
+                    post.author = request.user
+                    post.published_date = timezone.now()
+                    post.calcADMReturn = 0
+                    post.save()
+                    
                     print("Start calc button was pressed")
                     allAdmActions(post)
                     post.save()
                     return redirect('calc_started', pk=post.pk)
-                else:
-                    print("Save button was pressed")
-                    allAdmActions(post)
+            else:
+                print("Save button was pressed")
+                post = get_object_or_404(Calc, pk=pk)
+                form = CalcForm(request.POST, instance=post)
+                srcParam = SrcParametersForm(request.POST, instance=post.srcParam)
+                areaCalcParam = AreaCalcParametersForm(request.POST, instance=post.areaCalcParam)
+                areaResParam = AreaResParametersForm(request.POST, instance=post.areaResParam)
+                meteoWindOro = CommonWindParametersForm(request.POST, instance=post)
+                windOroInAlt = WindOroPametersInAltForm(request.POST, instance=post)
+                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
+                    post = form.save(commit=False)
+                    post.areaResParam = areaResParam.save()
+                    post.areaCalcParam = areaCalcParam.save()
+                    post.srcParam = srcParam.save()
                     post.save()
-                    return redirect('calc_started', pk=post.pk)
+                    return redirect('calc_edit', pk=post.pk)
         else:
             post = get_object_or_404(Calc, pk=pk)
             form = CalcForm(instance=post)

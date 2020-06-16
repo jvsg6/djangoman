@@ -37,9 +37,9 @@ def insertResAreaInContext(areaResParam, contextParameters):
     contextParameters['countLat'] = str(areaResParam.countLat).replace(",", ".")
 
 def insertDataInContext(post, contextParameters):
-    insertSrcInContext(post.srcParameters, contextParameters)
-    insertCalcAreaInContext(post.areaCalcParameters, contextParameters)
-    insertResAreaInContext(post.areaResParameters, contextParameters)
+    insertSrcInContext(post.srcParam, contextParameters)
+    insertCalcAreaInContext(post.areaCalcParam, contextParameters)
+    insertResAreaInContext(post.areaResParam, contextParameters)
     return
 
 def changeAndCopyInFile(pathToTemplate, pathToCalc, post):

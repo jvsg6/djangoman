@@ -2,9 +2,9 @@ import sys
 import os
 
 def pagListPagNextPagPrev(posts, pagId):
-    pagDelta = 3   # только нечетное!!! количество пагинаций
+    pagDelta = 3   # только нечетное!!! количество пагинаций оторое показывается
     pagShift = pagDelta//2
-    calcDelta = 4    # Количество расчетов в одной пагинации
+    calcDelta = 5    # Количество расчетов в одной пагинации
     pagCount = 0
     calcCount = len(posts)
     if calcCount % calcDelta == 0:

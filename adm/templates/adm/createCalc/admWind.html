@@ -37,29 +37,33 @@ function myFunction(form, meteoWindOro) {
       {% render_field meteoWindOro.roughness class+="form-control" %}
   </div>
 -->
-{{ windOroInAlt.as_p }}
-<!--
-{{ windOroInAlt.as_p }}
-{{ meteoWindOro.windLevels }}
 
-
-    {% for p in meteoWindOro.windLevels.all %}
-        {{ p }}
-    {% endfor %}
--->
-<!--
-  <div class="row">
-      {{ meteoWindOro.windLevels.label_tag }}
-      {{meteoWindOro.windLevels }}
-      {% for windLevel in meteoWindOro.windLevels %}
-          {{ windLevel.height }}
-          {{ windLevel.direction }}
-          {{ windLevel.speed }}
-          {{ windLevel }}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">{{ meteoWindOroNew.meteoPhaseStart.label_tag }}</th>
+      <th scope="col">{{ meteoWindOroNew.windConst.label_tag }}</th>
+      <th scope="col">{{ meteoWindOroNew.precipitationsRate.label_tag }}</th>
+      <th scope="col">{{ meteoWindOroNew.precipitationType.label_tag }}</th>
+      <th scope="col">{{ meteoWindOroNew.stab.label_tag }}</th>
+      <th scope="col">{{ meteoWindOroNew.roughness.label_tag }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for meteo in meteoWindOroOldList.all %}
+        <td>{% render_field meteo.meteoPhaseStart %}</td>
+        <td>{% render_field meteo.windConst %}</td>
+        <td>{% render_field meteo.precipitationsRate %}</td>
+        <td>{% render_field meteo.precipitationType %}</td>
+        <td>{% render_field meteo.stab %}</td>
+        <td>{% render_field meteo.roughness %}</td>
       {% endfor %}
-  </div>
-</div>
--->
+    </tr>
+  </tbody>
+</table>
+{{meteoWindOroNew.as_p}}
+
 <!--
 <table class="table">
   <thead class="thead-dark">

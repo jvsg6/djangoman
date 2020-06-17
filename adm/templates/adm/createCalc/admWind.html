@@ -47,23 +47,33 @@ function myFunction(form, meteoWindOro) {
       <th scope="col">{{ meteoWindOroNew.precipitationType.label_tag }}</th>
       <th scope="col">{{ meteoWindOroNew.stab.label_tag }}</th>
       <th scope="col">{{ meteoWindOroNew.roughness.label_tag }}</th>
+      <th scope="col"><i class="fa fa-question" aria-hidden="true"></i></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+    
       {% for meteo in meteoWindOroOldList.all %}
+      <tr>
         <td>{% render_field meteo.meteoPhaseStart %}</td>
         <td>{% render_field meteo.windConst %}</td>
         <td>{% render_field meteo.precipitationsRate %}</td>
         <td>{% render_field meteo.precipitationType %}</td>
         <td>{% render_field meteo.stab %}</td>
         <td>{% render_field meteo.roughness %}</td>
+        <td><button type="button" class="btn btn-danger"><i class="fa fa-trash mr-2"></button></td>
+      </tr>
       {% endfor %}
+    <tr>
+        <td>{% render_field meteoWindOroNew.meteoPhaseStart  class+="form-control" form+="WindOroForm"%}</td>
+        <td>{% render_field meteoWindOroNew.windConst  class+="form-control"  form+="WindOroForm"%}</td>
+        <td>{% render_field meteoWindOroNew.precipitationsRate  class+="form-control"  form+="WindOroForm"%}</td>
+        <td>{% render_field meteoWindOroNew.precipitationType  class+="form-control"  form+="WindOroForm"%}</td>
+        <td>{% render_field meteoWindOroNew.stab  class+="form-control"  form+="WindOroForm"%}</td>
+        <td>{% render_field meteoWindOroNew.roughness  class+="form-control"  form+="WindOroForm"%}</td>
+        <td><button type="submit" name="addWindOroPhaseBtn" class="btn btn-primary" form="WindOroForm"><i class="fa fa-plus-square" aria-hidden="true"></button></td>
     </tr>
   </tbody>
 </table>
-{{meteoWindOroNew.as_p}}
-
 <!--
 <table class="table">
   <thead class="thead-dark">

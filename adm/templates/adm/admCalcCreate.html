@@ -2,7 +2,8 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
-<form method="POST" class="post-form">{% csrf_token %}
+<form id="WindOroForm" method="POST" class="post-form">{% csrf_token %}
+<form id="FullCalcForm" method="POST" class="post-form">{% csrf_token %}
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Common</a>

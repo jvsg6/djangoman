@@ -88,9 +88,9 @@ def calc_edit(request, pk):
                 srcParam = SrcParametersForm(request.POST)
                 areaCalcParam = AreaCalcParametersForm(request.POST)
                 areaResParam = AreaResParametersForm(request.POST)
-                meteoWindOro = CommonWindParametersForm(request.POST)
+                meteoWindOroNew = CommonWindParametersForm(request.POST)
                 #windOroInAlt = WindOroPametersInAltForm(request.POST)
-                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOro.is_valid():
+                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
                     post = form.save(commit=False)
                     post.areaResParam = areaResParam.save()
                     post.areaCalcParam = areaCalcParam.save()
@@ -103,10 +103,21 @@ def calc_edit(request, pk):
                     print("Start calc button was pressed")
                     allAdmActions(post)
                     post.save()
-                    m = meteoWindOro.save()
+                    m = meteoWindOroNew.save()
                     post.windPhaseList.add(m)
                     post.save()
                     return redirect('calc_started', pk=post.pk)
+            elif "addWindOroPhaseBtn" in request.POST:
+                print("Add WindOroPhase button was pressed")
+                post = get_object_or_404(Calc, pk=pk)
+                meteoWindOroNew = CommonWindParametersForm(request.POST)
+                if meteoWindOroNew.is_valid():
+                    post.save()
+                    m = meteoWindOroNew.save()
+                    post.windPhaseList.add(m)
+                    post.save()
+                    return redirect('calc_edit', pk=post.pk)
+
             else:
                 print("Save button was pressed")
                 post = get_object_or_404(Calc, pk=pk)
@@ -114,13 +125,17 @@ def calc_edit(request, pk):
                 srcParam = SrcParametersForm(request.POST, instance=post.srcParam)
                 areaCalcParam = AreaCalcParametersForm(request.POST, instance=post.areaCalcParam)
                 areaResParam = AreaResParametersForm(request.POST, instance=post.areaResParam)
-                meteoWindOro = post.windPhaseList.all()
+                meteoWindOroOldList = post.windPhaseList.all()
+                meteoWindOroNew = CommonWindParametersForm(request.POST)
                 windOroInAlt = "Null" #WindOroPametersInAltForm(request.POST, instance=post)
-                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid():
+                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
                     post = form.save(commit=False)
                     post.areaResParam = areaResParam.save()
                     post.areaCalcParam = areaCalcParam.save()
                     post.srcParam = srcParam.save()
+                    post.save()
+                    m = meteoWindOroNew.save()
+                    post.windPhaseList.add(m)
                     post.save()
                     return redirect('calc_edit', pk=post.pk)
         else:
@@ -162,9 +177,6 @@ def calc_new(request):
         post.author = request.user
         post.published_date = timezone.now()
         post.calcADMReturn = 0
-        post.save()
-        m = meteoWindOro.save()
-        post.windPhaseList.add(m)
         post.save()
         return redirect(calc_edit, pk = post.pk)
 
@@ -219,9 +231,6 @@ def calc_rand(request):
         post.areaResParam = areaResParam.save()
         post.areaCalcParam = areaCalcParam.save()
         post.srcParam = srcParam.save()
-        post.save()
-        m = meteoWindOro.save()
-        post.windPhaseList.add(m)
         post.save()
         return redirect(calc_edit, pk = post.pk)
 

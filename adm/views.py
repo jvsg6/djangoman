@@ -9,13 +9,14 @@ from .prepCalc import allAdmActions
 from .downloadCalc import downloadFiles
 from .pagination import pagListPagNextPagPrev
 import random
-
+from django.http import JsonResponse
+from django.forms.models import model_to_dict
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-
+from copy import deepcopy
 def validate_username(request):
     username = request.GET.get('username', None)
     data = {
@@ -73,17 +74,22 @@ def installRandomParameters():
     return srcParam, areaCalcParam, areaResParam
 
 @login_required(login_url='/accounts/login/')
-def calc_edit(request, pk):
+def calc_edit(request, pk, page = ""):
         print ("------------------------------------------------------")
         print (request)
         print ("------------------------------------------------------")
         if request.method == "POST":
+            print("request")
+            print (request)
+            print("request.POST")
+            print(request.POST)
+            addWindPhaseKeys = ['csrfmiddlewaretoken', 'meteoPhaseStart', 'windConst', 'precipitationsRate', 'precipitationType', 'stab', 'roughness']
+            addWindPhaseKeys.sort()
+            postKeys = list(request.POST.keys())
+            postKeys.sort()
+
             if 'start_calc' in request.POST:
                 print("POST in calc_new")
-                print("request")
-                print (request)
-                print("request.POST")
-                print(request.POST)
                 form = CalcForm(request.POST)
                 srcParam = SrcParametersForm(request.POST)
                 areaCalcParam = AreaCalcParametersForm(request.POST)
@@ -107,16 +113,18 @@ def calc_edit(request, pk):
                     post.windPhaseList.add(m)
                     post.save()
                     return redirect('calc_started', pk=post.pk)
-            elif "addWindOroPhaseBtn" in request.POST:
+            elif postKeys == addWindPhaseKeys:
                 print("Add WindOroPhase button was pressed")
                 post = get_object_or_404(Calc, pk=pk)
                 meteoWindOroNew = CommonWindParametersForm(request.POST)
                 if meteoWindOroNew.is_valid():
+                    print('windOroValid')
                     post.save()
                     m = meteoWindOroNew.save()
                     post.windPhaseList.add(m)
                     post.save()
-                    return redirect('calc_edit', pk=post.pk)
+                    print(model_to_dict(m))
+                    return JsonResponse({'newWindOroPhase': model_to_dict(m)}, status=200) #redirect('calc_edit', pk=post.pk)
 
             else:
                 print("Save button was pressed")
@@ -127,7 +135,6 @@ def calc_edit(request, pk):
                 areaResParam = AreaResParametersForm(request.POST, instance=post.areaResParam)
                 meteoWindOroOldList = post.windPhaseList.all()
                 meteoWindOroNew = CommonWindParametersForm(request.POST)
-                windOroInAlt = "Null" #WindOroPametersInAltForm(request.POST, instance=post)
                 if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
                     post = form.save(commit=False)
                     post.areaResParam = areaResParam.save()

@@ -157,7 +157,7 @@ def calc_edit(request, pk, page = ""):
             windOroInAlt = "Null" #WindOroPametersInAltForm(instance=post.windPhaseList)
         return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 
                                                           'areaCalcParam': areaCalcParam, 
-                                                          'areaResParam': areaResParam, "meteoWindOroOldList": meteoWindOroOldList, "meteoWindOroNew": meteoWindOroNew})
+                                                          'areaResParam': areaResParam, "meteoWindOroOldList": meteoWindOroOldList, "meteoWindOroNew": meteoWindOroNew, "pk": pk})
 
 
 @login_required(login_url='/accounts/login/')

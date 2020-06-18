@@ -2,6 +2,7 @@ $(document).ready(function(){
     $("#WindOroFormBtn").click(function(){
        var serializedData = $("#WindOroForm").serialize();
        console.log(serializedData);
+       var endpoint = $("#WindOroForm").attr("data-url");
        $.ajax({
             url: '/edit/29/',
             data: serializedData,

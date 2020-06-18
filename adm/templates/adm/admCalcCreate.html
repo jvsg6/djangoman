@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
-<form id="WindOroForm" data-url="{% url 'calc_edit' pk=29 %}" method="POST" class="post-form" name="WindOroForm">{% csrf_token %}</form>
+<form id="WindOroForm" data-url="{% url 'calc_edit' pk=pk %}" method="POST" class="post-form" name="WindOroForm">{% csrf_token %}</form>
 <form id="FullCalcForm" method="POST" class="post-form" name="allCalcName">{% csrf_token %}
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">

@@ -30,21 +30,33 @@ class SignUpView(CreateView):
     form_class = UserCreationForm
 
 
-@login_required(login_url='/accounts/login/')
-def admListPart(request, pagId = 1):
-    posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
-    print("request.GET['min|max']", request.GET['min'], request.GET['max'])
+def getMinId(request):
     minId = 0
-    maxId = len(posts)-1
-    if request.method == "GET":
+    if "min" in request.GET.keys():
         if int(request.GET['min']) or int(request.GET['min'])>maxId:
             minId = int(request.GET['min'])
         else:
             minId = 0
+    else:
+        minId = 0
+    return minId
+
+def getMaxId(request, maxId):
+    if "min" in request.GET.keys():
         if int(request.GET['max']) or int(request.GET['max'])+1 < minId:
             maxId = int(request.GET['max'])+1
         else:
-            maxId = len(posts)-1
+            maxId = maxId
+    else:
+        maxId = maxId
+    return maxId
+
+@login_required(login_url='/accounts/login/')
+def admListPart(request, pagId = 1):
+    posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
+    if request.method == "GET":
+        minId = getMinId(request)
+        maxId = getMaxId(request, len(posts)-1)
         posts = posts[minId:maxId:]
         posts, pagList, pagNext, pagPrev = pagListPagNextPagPrev(posts, pagId)
         return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 'pagNext': pagNext, 'pagPrev': pagPrev})
@@ -86,6 +98,64 @@ def installRandomParameters():
     areaResParam = AreaResParametersForm(initial={'lonMin': lonInit-0.5, 'lonMax': lonInit+0.5, 'latMin': latInit-0.5, 'latMax': latInit+0.5, 'countLon': 50, 'countLat': 50})
     return srcParam, areaCalcParam, areaResParam
 
+
+def startCalcLogic(request):
+    print("Start calc button was pressed")
+    form = CalcForm(request.POST)
+    srcParam = SrcParametersForm(request.POST)
+    areaCalcParam = AreaCalcParametersForm(request.POST)
+    areaResParam = AreaResParametersForm(request.POST)
+    meteoWindOroNew = CommonWindParametersForm(request.POST)
+    if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
+        post = form.save(commit=False)
+        post.areaResParam = areaResParam.save()
+        post.areaCalcParam = areaCalcParam.save()
+        post.srcParam = srcParam.save()
+        post.author = request.user
+        post.published_date = timezone.now()
+        post.calcADMReturn = 0
+        post.save()
+
+        allAdmActions(post)
+        post.save()
+        m = meteoWindOroNew.save()
+        post.windPhaseList.add(m)
+        post.save()
+        return redirect('calc_started', pk=post.pk)
+
+def addWindPhaseLogic(request, pk):
+    print("Add WindOroPhase button was pressed")
+    post = get_object_or_404(Calc, pk=pk)
+    meteoWindOroNew = CommonWindParametersForm(request.POST)
+    if meteoWindOroNew.is_valid():
+        print('windOroValid')
+        post.save()
+        m = meteoWindOroNew.save()
+        post.windPhaseList.add(m)
+        post.save()
+        print(model_to_dict(m))
+        return JsonResponse({'newWindOroPhase': model_to_dict(m)}, status=200)
+
+def saveCalcLogic(request, pk):
+    print("Save button was pressed")
+    post = get_object_or_404(Calc, pk=pk)
+    form = CalcForm(request.POST, instance=post)
+    srcParam = SrcParametersForm(request.POST, instance=post.srcParam)
+    areaCalcParam = AreaCalcParametersForm(request.POST, instance=post.areaCalcParam)
+    areaResParam = AreaResParametersForm(request.POST, instance=post.areaResParam)
+    meteoWindOroOldList = post.windPhaseList.all()
+    meteoWindOroNew = CommonWindParametersForm(request.POST)
+    if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
+        post = form.save(commit=False)
+        post.areaResParam = areaResParam.save()
+        post.areaCalcParam = areaCalcParam.save()
+        post.srcParam = srcParam.save()
+        post.save()
+        m = meteoWindOroNew.save()
+        post.windPhaseList.add(m)
+        post.save()
+        return redirect('calc_edit', pk=post.pk)
+
 @login_required(login_url='/accounts/login/')
 def calc_edit(request, pk, page = ""):
         print ("------------------------------------------------------")
@@ -102,62 +172,11 @@ def calc_edit(request, pk, page = ""):
             postKeys.sort()
 
             if 'start_calc' in request.POST:
-                print("POST in calc_new")
-                form = CalcForm(request.POST)
-                srcParam = SrcParametersForm(request.POST)
-                areaCalcParam = AreaCalcParametersForm(request.POST)
-                areaResParam = AreaResParametersForm(request.POST)
-                meteoWindOroNew = CommonWindParametersForm(request.POST)
-                #windOroInAlt = WindOroPametersInAltForm(request.POST)
-                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
-                    post = form.save(commit=False)
-                    post.areaResParam = areaResParam.save()
-                    post.areaCalcParam = areaCalcParam.save()
-                    post.srcParam = srcParam.save()
-                    post.author = request.user
-                    post.published_date = timezone.now()
-                    post.calcADMReturn = 0
-                    post.save()
-                    
-                    print("Start calc button was pressed")
-                    allAdmActions(post)
-                    post.save()
-                    m = meteoWindOroNew.save()
-                    post.windPhaseList.add(m)
-                    post.save()
-                    return redirect('calc_started', pk=post.pk)
+                return startCalcLogic(request)
             elif postKeys == addWindPhaseKeys:
-                print("Add WindOroPhase button was pressed")
-                post = get_object_or_404(Calc, pk=pk)
-                meteoWindOroNew = CommonWindParametersForm(request.POST)
-                if meteoWindOroNew.is_valid():
-                    print('windOroValid')
-                    post.save()
-                    m = meteoWindOroNew.save()
-                    post.windPhaseList.add(m)
-                    post.save()
-                    print(model_to_dict(m))
-                    return JsonResponse({'newWindOroPhase': model_to_dict(m)}, status=200) #redirect('calc_edit', pk=post.pk)
-
+                return addWindPhaseLogic(request, pk)
             else:
-                print("Save button was pressed")
-                post = get_object_or_404(Calc, pk=pk)
-                form = CalcForm(request.POST, instance=post)
-                srcParam = SrcParametersForm(request.POST, instance=post.srcParam)
-                areaCalcParam = AreaCalcParametersForm(request.POST, instance=post.areaCalcParam)
-                areaResParam = AreaResParametersForm(request.POST, instance=post.areaResParam)
-                meteoWindOroOldList = post.windPhaseList.all()
-                meteoWindOroNew = CommonWindParametersForm(request.POST)
-                if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
-                    post = form.save(commit=False)
-                    post.areaResParam = areaResParam.save()
-                    post.areaCalcParam = areaCalcParam.save()
-                    post.srcParam = srcParam.save()
-                    post.save()
-                    m = meteoWindOroNew.save()
-                    post.windPhaseList.add(m)
-                    post.save()
-                    return redirect('calc_edit', pk=post.pk)
+                return saveCalcLogic(request, pk)
         else:
             post = get_object_or_404(Calc, pk=pk)
             form = CalcForm(instance=post)
@@ -167,10 +186,10 @@ def calc_edit(request, pk, page = ""):
             areaResParam = AreaResParametersForm(instance=post.areaResParam)
             meteoWindOroOldList = post.windPhaseList.all()
             meteoWindOroNew = CommonWindParametersForm()
-            windOroInAlt = "Null" #WindOroPametersInAltForm(instance=post.windPhaseList)
-        return render(request, 'adm/admCalcCreate.html', {'form': form, 'srcParam': srcParam, 
+            dictToRender = {'form': form, 'srcParam': srcParam, 
                                                           'areaCalcParam': areaCalcParam, 
-                                                          'areaResParam': areaResParam, "meteoWindOroOldList": meteoWindOroOldList, "meteoWindOroNew": meteoWindOroNew, "pk": pk})
+                                                          'areaResParam': areaResParam, "meteoWindOroOldList": meteoWindOroOldList, "meteoWindOroNew": meteoWindOroNew, "pk": pk}
+            return render(request, 'adm/admCalcCreate.html', dictToRender)
 
 
 @login_required(login_url='/accounts/login/')
@@ -236,9 +255,7 @@ def calc_rand(request):
     srcParam = SrcParametersForm(request.GET)
     areaCalcParam = AreaCalcParametersForm(request.GET)
     areaResParam = AreaResParametersForm(request.GET)
-    meteoWindOro = CommonWindParametersForm(request.GET)
-    #windOroInAlt = WindOroPametersInAltForm(request.GET)
-    
+    meteoWindOro = CommonWindParametersForm(request.GET)    
     if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOro.is_valid():
         post = form.save(commit=False)
         post.areaResParam = areaResParam.save(commit=False)

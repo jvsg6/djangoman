@@ -39,7 +39,7 @@ class CommonWindParameters(models.Model):
     precipitationType = models.FloatField(choices=PRECIPITATION_TYPE, default=0, null=True, blank=True)
     stab = models.CharField(max_length=1, choices=STABILITY_CLASS, default="D", null=True, blank=True)
     roughness = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
-    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False, null=True, blank=True)
+    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False, blank=True)
 
 class Calc(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
@@ -53,6 +53,6 @@ class Calc(models.Model):
     pathToInput = models.CharField(max_length=1000, null=True, blank=True)
     pathToLanduse = models.CharField(max_length=1000, null=True, blank=True)
     pathToOut = models.CharField(max_length=1000, null=True, blank=True)
-    windPhaseList = models.ManyToManyField(CommonWindParameters, null=True, blank=True, symmetrical=False)
+    windPhaseList = models.ManyToManyField(CommonWindParameters, blank=True, symmetrical=False)
 
     calcAMDPopen = None

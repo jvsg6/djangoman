@@ -7,4 +7,27 @@
   <a class="nav-link border-bottom btnleftbar mb-1" href="{% url 'calc_rand' %}"><i class="fa fa-random mr-2"></i>Random Calculation</a>
   <a class="nav-link border-bottom btnleftbar mb-1" href="{% url 'calc_rand' %}"><i class="fa fa-trash mr-2"></i>Delete</a>
 
+  <div class="container-fluid">
+  <form action="/all/1"  method="get" >
+    <div class="column">
+        <div class="row">
+            <label for="min">Min calc Id</label>
+        </div>
+        <div class="row">
+            <input type="number" min="1" max="999" name = "min" id="min" class="form-control">
+        </div>
+
+        <div class="row">
+            <label for="max">Max calc id</label>
+        </div>
+        <div class="row">
+            <input type="number" min="1" max="999" name = "max" id="max" class="form-control">
+        </div>
+
+        <div class="row">
+            <input type="submit"value="Search"/>
+        </div>
+    </div>
+  </form>
+</div>
 </nav>

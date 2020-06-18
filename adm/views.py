@@ -33,8 +33,21 @@ class SignUpView(CreateView):
 @login_required(login_url='/accounts/login/')
 def admListPart(request, pagId = 1):
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
-    posts, pagList, pagNext, pagPrev = pagListPagNextPagPrev(posts, pagId)
-    return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 'pagNext': pagNext, 'pagPrev': pagPrev})
+    print("request.GET['min|max']", request.GET['min'], request.GET['max'])
+    minId = 0
+    maxId = len(posts)-1
+    if request.method == "GET":
+        if int(request.GET['min']) or int(request.GET['min'])>maxId:
+            minId = int(request.GET['min'])
+        else:
+            minId = 0
+        if int(request.GET['max']) or int(request.GET['max'])+1 < minId:
+            maxId = int(request.GET['max'])+1
+        else:
+            maxId = len(posts)-1
+        posts = posts[minId:maxId:]
+        posts, pagList, pagNext, pagPrev = pagListPagNextPagPrev(posts, pagId)
+        return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 'pagNext': pagNext, 'pagPrev': pagPrev})
 
 @login_required(login_url='/accounts/login/')
 def admCalc_start(request):

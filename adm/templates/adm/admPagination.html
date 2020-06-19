@@ -7,7 +7,7 @@
             {% if forloop.first %}
               {% ifnotequal pagPrev -1 %}
                 <li class="page-item">
-                  <a class="page-link" href="{% url 'admListPart' pagId=pagPrev %}"><i class="fa fa-chevron-left pagination_arrows"></i></a>
+                  <a class="page-link" href="{% url 'admListPart' pagId=pagPrev %}?min={{minNum}}&max={{maxNum}}"><i class="fa fa-chevron-left pagination_arrows"></i></a>
                 </li>
               {% else %}
                 <li class="page-item disabled">
@@ -18,18 +18,18 @@
 
             {% ifequal pagIdFor currPagId %}
               <li class="page-item active">
-                <a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a>
+                <a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}?min={{minNum}}&max={{maxNum}}">{{pagIdFor}}</a>
               </li>
             {% else %}
               <li class="page-item">
-                <a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}">{{pagIdFor}}</a>
+                <a class="page-link" href="{% url 'admListPart' pagId=pagIdFor %}?min={{minNum}}&max={{maxNum}}">{{pagIdFor}}</a>
               </li>
             {% endifequal%}
 
             {% if forloop.last %}
               {% ifnotequal pagNext -1 %}
                 <li class="page-item">
-                  <a class="page-link" href="{% url 'admListPart' pagId=pagNext%}"><i class="fa fa-chevron-right pagination_arrows"></i></a>
+                  <a class="page-link" href="{% url 'admListPart' pagId=pagNext%}?min={{minNum}}&max={{maxNum}}"><i class="fa fa-chevron-right pagination_arrows"></i></a>
                 </li>
               {% else %}
                 <li class="page-item disabled">

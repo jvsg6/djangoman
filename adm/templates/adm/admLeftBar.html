@@ -11,17 +11,26 @@
   <form action="/all/1"  method="get" >
     <div class="column">
         <div class="row">
-            <label for="min">Min calc Id</label>
+            <label for="min">Min calc number</label>
         </div>
         <div class="row">
-            <input type="number" min="1" max="999" name = "min" id="min" class="form-control">
+            {% if minNum %}
+                <input type="number" min="1" max="999" name = "min" id="min" class="form-control" value={{minNum}}>
+            {% else %}
+                <input type="number" min="1" max="999" name = "min" id="min" class="form-control">
+            {% endif %}
+            
         </div>
 
         <div class="row">
-            <label for="max">Max calc id</label>
+            <label for="max">Max calc number</label>
         </div>
         <div class="row">
-            <input type="number" min="1" max="999" name = "max" id="max" class="form-control">
+            {% if maxNum %}
+                <input type="number" min="1" max="999" name = "max" id="max" class="form-control" value={{maxNum}}>
+            {% else %}
+                <input type="number" min="1" max="999" name = "max" id="max" class="form-control">
+            {% endif %}
         </div>
 
         <div class="row">

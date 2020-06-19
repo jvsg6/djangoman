@@ -30,36 +30,52 @@ class SignUpView(CreateView):
     form_class = UserCreationForm
 
 
-def getMinId(request):
-    minId = 0
+def getMinNum(request, postsCount):
+    minNum = 1
     if "min" in request.GET.keys():
-        if int(request.GET['min']) or int(request.GET['min'])>maxId:
-            minId = int(request.GET['min'])
+        if request.GET['min'] != '':
+            if int(request.GET['min'])>postsCount:
+                minNum = 1
+                return minId, True
+            else:
+                minNum = int(request.GET['min'])
+                return minNum, True
         else:
-            minId = 0
+            minNum = 1
+            return minNum, False
     else:
-        minId = 0
-    return minId
+        minNum = 1
+        return minNum, False
+    
 
-def getMaxId(request, maxId):
-    if "min" in request.GET.keys():
-        if int(request.GET['max']) or int(request.GET['max'])+1 < minId:
-            maxId = int(request.GET['max'])+1
+def getMaxNum(request, minId, postsCount):
+    if "max" in request.GET.keys():
+        if request.GET['max'] != '':
+            if int(request.GET['max']) < minId:
+                maxNum =  postsCount
+                return maxNum, True
+            else:
+                maxNum = int(request.GET['max'])
+                return maxNum, True
         else:
-            maxId = maxId
+            maxNum = postsCount
+            return maxNum, False
     else:
-        maxId = maxId
-    return maxId
+        maxNum = postsCount
+        return maxNum, False
 
 @login_required(login_url='/accounts/login/')
 def admListPart(request, pagId = 1):
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
     if request.method == "GET":
-        minId = getMinId(request)
-        maxId = getMaxId(request, len(posts)-1)
-        posts = posts[minId:maxId:]
+        postsCount = len(posts)
+        minNum, minNumFlag = getMinNum(request, postsCount)
+        maxNum, maxNumFlag = getMaxNum(request, minNum, postsCount)
+        print(maxNum)
+        posts = posts[minNum-1:maxNum:]
         posts, pagList, pagNext, pagPrev = pagListPagNextPagPrev(posts, pagId)
-        return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 'pagNext': pagNext, 'pagPrev': pagPrev})
+        return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 
+                                                    'pagNext': pagNext, 'pagPrev': pagPrev, 'minNum':minNum, 'maxNum':maxNum, 'minNumFlag': minNumFlag, 'maxNumFlag':maxNumFlag})
 
 @login_required(login_url='/accounts/login/')
 def admCalc_start(request):

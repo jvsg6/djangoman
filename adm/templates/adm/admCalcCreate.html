@@ -2,6 +2,56 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
+
+<script>
+function addReadonlyToAll() {
+    var checkBox = document.getElementById("editModeCheckBox");
+    if (checkBox.checked == true)
+    {
+      console.log("True");
+      document.getElementById('id_name').setAttribute('readonly', true); 
+      document.getElementById('id_comment').setAttribute('readonly', true); 
+      document.getElementById('id_meteoPhaseStart').setAttribute('readonly', true);
+      document.getElementById('id_windConst').setAttribute('readonly', true);
+      document.getElementById('id_precipitationsRate').setAttribute('readonly', true);
+      document.getElementById('id_precipitationType').setAttribute('readonly', true);
+      document.getElementById('id_stab').setAttribute('readonly', true);
+      document.getElementById('id_roughness').setAttribute('readonly', true);
+      document.getElementById('id_lon').setAttribute('readonly', true);
+      document.getElementById('id_lat').setAttribute('readonly', true);
+      document.getElementById('id_lonMin').setAttribute('readonly', true);
+      document.getElementById('id_lonMax').setAttribute('readonly', true);
+      document.getElementById('id_latMin').setAttribute('readonly', true);
+      document.getElementById('id_latMax').setAttribute('readonly', true);
+      document.getElementById('id_countLon').setAttribute('readonly', true);
+      document.getElementById('id_countLat').setAttribute('readonly', true);
+    } 
+    else 
+    {
+      console.log("False");
+      document.getElementById('id_name').removeAttribute("readonly"); 
+      document.getElementById('id_comment').removeAttribute("readonly"); 
+      document.getElementById('id_meteoPhaseStart').removeAttribute("readonly");
+      document.getElementById('id_windConst').removeAttribute("readonly");
+      document.getElementById('id_precipitationsRate').removeAttribute("readonly");
+      document.getElementById('id_precipitationType').removeAttribute("readonly");
+      document.getElementById('id_stab').removeAttribute("readonly");
+      document.getElementById('id_roughness').removeAttribute("readonly");
+      document.getElementById('id_lon').removeAttribute("readonly");
+      document.getElementById('id_lat').removeAttribute("readonly");
+      document.getElementById('id_lonMin').removeAttribute("readonly");
+      document.getElementById('id_lonMax').removeAttribute("readonly");
+      document.getElementById('id_latMin').removeAttribute("readonly");
+      document.getElementById('id_latMax').removeAttribute("readonly");
+      document.getElementById('id_countLon').removeAttribute("readonly");
+      document.getElementById('id_countLat').removeAttribute("readonly");
+    }
+}
+</script>
+
+
+
+
 <form id="WindOroForm" data-url="{% url 'calc_edit' pk=pk %}" method="POST" class="post-form" name="WindOroForm">{% csrf_token %}</form>
 <form id="FullCalcForm" method="POST" class="post-form" name="allCalcName">{% csrf_token %}
 <nav>
@@ -10,6 +60,7 @@
     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Meteo</a>
     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Source</a>
     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact2" aria-selected="false">Area</a>
+    <a class="nav-item nav-link"  aria-selected="false">Edit mode:<input type="checkbox" data-size="sm" id="editModeCheckBox" onclick="addReadonlyToAll()"></a>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">

@@ -110,8 +110,8 @@ def installRandomParameters():
     latInit = -88.0 + random.random()*176.0
     lonInit = -178.0 + random.random()*356.0
     srcParam = SrcParametersForm(initial={'lon': lonInit, 'lat': latInit})
-    areaCalcParam = AreaCalcParametersForm(initial={'lonMin': lonInit-0.5, 'lonMax': lonInit+0.5, 'latMin': latInit-0.5, 'latMax': latInit+0.5})
-    areaResParam = AreaResParametersForm(initial={'lonMin': lonInit-0.5, 'lonMax': lonInit+0.5, 'latMin': latInit-0.5, 'latMax': latInit+0.5, 'countLon': 50, 'countLat': 50})
+    areaCalcParam = AreaCalcParametersForm(initial={'lonMinCalc': lonInit-0.5, 'lonMaxCalc': lonInit+0.5, 'latMinCalc': latInit-0.5, 'latMaxCalc': latInit+0.5})
+    areaResParam = AreaResParametersForm(initial={'lonMinRes': lonInit-0.5, 'lonMaxRes': lonInit+0.5, 'latMinRes': latInit-0.5, 'latMaxRes': latInit+0.5, 'countLonRes': 50, 'countLatRes': 50})
     return srcParam, areaCalcParam, areaResParam
 
 
@@ -245,16 +245,16 @@ def setRandParametersForPost(post, areaResParam):
     lonMax = lonInit+0.5
     latMin = latInit-0.5
     latMax = latInit+0.5
-    post.areaResParam.lonMin = lonMin
-    post.areaResParam.latMin = latMin
-    post.areaResParam.lonMax = lonMax
-    post.areaResParam.latMax = latMax
-    post.areaResParam.countLon = 51
-    post.areaResParam.countLat = 51
-    post.areaCalcParam.lonMin = lonMin
-    post.areaCalcParam.latMin = latMin
-    post.areaCalcParam.lonMax = lonMax
-    post.areaCalcParam.latMax = latMax
+    post.areaResParam.lonMinRes = lonMin
+    post.areaResParam.latMinRes = latMin
+    post.areaResParam.lonMaxRes = lonMax
+    post.areaResParam.latMaxRes = latMax
+    post.areaResParam.countLonRes = 51
+    post.areaResParam.countLatRes = 51
+    post.areaCalcParam.lonMinCalc = lonMin
+    post.areaCalcParam.latMinCalc = latMin
+    post.areaCalcParam.lonMaxCalc = lonMax
+    post.areaCalcParam.latMaxCalc = latMax
     post.srcParam.lon = lonInit
     post.srcParam.lat = latInit
 

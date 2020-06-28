@@ -13,18 +13,18 @@ class SrcParameters(models.Model):
         return {"lat":self.lat, "lon":self.lon}
 
 class AreaCalcParameters(models.Model):
-    latMin = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
-    lonMin = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
-    latMax = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
-    lonMax = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    latMinCalc = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMinCalc = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    latMaxCalc = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMaxCalc = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
 
 class AreaResParameters(models.Model):
-    latMin = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
-    lonMin = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
-    latMax = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
-    lonMax = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
-    countLon = models.IntegerField(null=True, blank=True)
-    countLat = models.IntegerField(null=True, blank=True)
+    latMinRes = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMinRes = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    latMaxRes = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
+    lonMaxRes = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    countLonRes = models.IntegerField(null=True, blank=True)
+    countLatRes = models.IntegerField(null=True, blank=True)
 
 class WindarametersInAlt(models.Model):
     height = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)

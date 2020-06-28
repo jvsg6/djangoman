@@ -1,5 +1,5 @@
 from django import forms
-
+from django.utils.translation import ugettext_lazy as _
 from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters, WindarametersInAlt, CommonWindParameters
 from django.forms import ModelForm, Textarea
 from .choices import *
@@ -24,8 +24,8 @@ class SrcParametersForm(forms.ModelForm):
             'lon',]
 
         labels = {
-            'lat' : 'Lattitude of source',
-            'lon' : 'Longitude of source',}
+            'lat' : _('Latitude of source'),
+            'lon' : _('Longitude of source'),}
         # widgets = {
         #     'lon': Textarea(attrs={'cols': 80, 'rows': 20}),
         # }
@@ -34,35 +34,35 @@ class AreaCalcParametersForm(forms.ModelForm):
     class Meta:
         model = AreaCalcParameters
         fields = [
-            'latMin',
-            'lonMin',
-            'latMax',
-            'lonMax',]
+            'latMinCalc',
+            'lonMinCalc',
+            'latMaxCalc',
+            'lonMaxCalc',]
 
         labels = {
-            'latMin' : 'Min lattitude of calculation area',
-            'lonMin' : 'Min longitude of calculation area',
-            'latMax' : 'Max lattitude of calculation area',
-            'lonMax' : 'Max longitude of calculation area',}
+            'latMinCalc' : _('Min latitude of calculation area'),
+            'lonMinCalc' : _('Min longitude of calculation area'),
+            'latMaxCalc' : _('Max latitude of calculation area'),
+            'lonMaxCalc' : _('Max longitude of calculation area'),}
 
 class AreaResParametersForm(forms.ModelForm):
     class Meta:
         model = AreaResParameters
         fields = [
-            'latMin',
-            'lonMin',
-            'latMax',
-            'lonMax',
-            'countLon',
-            'countLat',]
+            'latMinRes',
+            'lonMinRes',
+            'latMaxRes',
+            'lonMaxRes',
+            'countLonRes',
+            'countLatRes',]
 
         labels = {
-            'latMin' : 'Min lattitude of result area',
-            'lonMin' : 'Min longitude of result area',
-            'latMax' : 'Max lattitude of result area',
-            'lonMax' : 'Max longitude of result area',
-            'countLat' : 'Count cells in lattitude',
-            'countLon' : 'Count cells in longitude',}
+            'latMinRes' : _('Min latitude of result area'),
+            'lonMinRes' : _('Min longitude of result area'),
+            'latMaxRes' : _('Max latitude of result area'),
+            'lonMaxRes' : _('Max longitude of result area'),
+            'countLatRes' : _('Count cells in latitude'),
+            'countLonRes' : _('Count cells in longitude'),}
 
 
 class WindOroPametersInAltForm(forms.ModelForm):
@@ -73,9 +73,9 @@ class WindOroPametersInAltForm(forms.ModelForm):
             'direction',
             'speed',]
         labels = {
-            'height' : 'Height of the wind',
-            'direction' : 'Dierction of the wind',
-            'Speed' : 'Speed of the wind',
+            'height' : _('Height of the wind'),
+            'direction' : _('Dierction of the wind'),
+            'Speed' : _('Speed of the wind'),
         }
 
 class CommonWindParametersForm(forms.ModelForm):
@@ -90,13 +90,13 @@ class CommonWindParametersForm(forms.ModelForm):
             'roughness',
             'windLevels',]
         labels = {
-            'meteoPhaseStart' : 'Meteo phase start time, s',
-            'windConst' : 'Is wind constant in all height?',
-            'precipitationsRate' : 'Rate of precipitation, mm/h',
-            'precipitationType' : 'Type of precipitation',
-            'stab' : 'Stability class',
-            'roughness' : 'Roughness',
-            'windLevels' : 'Wind on the varoius heights',
+            'meteoPhaseStart' : _('Meteo phase start time, s'),
+            'windConst' : _('Is wind constant in all height?'),
+            'precipitationsRate' : _('Rate of precipitation, mm/h'),
+            'precipitationType' : _('Type of precipitation'),
+            'stab' : _('Stability class'),
+            'roughness' : _('Roughness'),
+            'windLevels' : _('Wind on the varoius heights'),
         }
         #widgets = {'windLevels': forms.widgets.CheckboxSelectMultiple() }
 
@@ -109,7 +109,7 @@ class CalcForm(forms.ModelForm):
             'comment',
             'windPhaseList',]
         labels = {
-            'name' : 'Name of calculation',
-            'comment' : 'Comment of calculation',
-            'windPhaseList' : 'Input meteo phases',
+            'name' : _('Name of calculation'),
+            'comment' : _('Comment of calculation'),
+            'windPhaseList' : _('Input meteo phases'),
         }

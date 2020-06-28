@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
-
+{% load i18n %}
 <script>
 function addReadonlyToAll() {
     var checkBox = document.getElementById("editModeCheckBox");
@@ -19,12 +19,16 @@ function addReadonlyToAll() {
       document.getElementById('id_roughness').setAttribute('readonly', true);
       document.getElementById('id_lon').setAttribute('readonly', true);
       document.getElementById('id_lat').setAttribute('readonly', true);
-      document.getElementById('id_lonMin').setAttribute('readonly', true);
-      document.getElementById('id_lonMax').setAttribute('readonly', true);
-      document.getElementById('id_latMin').setAttribute('readonly', true);
-      document.getElementById('id_latMax').setAttribute('readonly', true);
-      document.getElementById('id_countLon').setAttribute('readonly', true);
-      document.getElementById('id_countLat').setAttribute('readonly', true);
+      document.getElementById('id_lonMinCalc').setAttribute('readonly', true);
+      document.getElementById('id_lonMaxCalc').setAttribute('readonly', true);
+      document.getElementById('id_latMinCalc').setAttribute('readonly', true);
+      document.getElementById('id_latMaxCalc').setAttribute('readonly', true);
+      document.getElementById('id_lonMinRes').setAttribute('readonly', true);
+      document.getElementById('id_lonMaxRes').setAttribute('readonly', true);
+      document.getElementById('id_latMinRes').setAttribute('readonly', true);
+      document.getElementById('id_latMaxRes').setAttribute('readonly', true);
+      document.getElementById('id_countLonRes{% load i18n %}').setAttribute('readonly', true);
+      document.getElementById('id_countLatRes').setAttribute('readonly', true);
     } 
     else 
     {
@@ -39,12 +43,16 @@ function addReadonlyToAll() {
       document.getElementById('id_roughness').removeAttribute("readonly");
       document.getElementById('id_lon').removeAttribute("readonly");
       document.getElementById('id_lat').removeAttribute("readonly");
-      document.getElementById('id_lonMin').removeAttribute("readonly");
-      document.getElementById('id_lonMax').removeAttribute("readonly");
-      document.getElementById('id_latMin').removeAttribute("readonly");
-      document.getElementById('id_latMax').removeAttribute("readonly");
-      document.getElementById('id_countLon').removeAttribute("readonly");
-      document.getElementById('id_countLat').removeAttribute("readonly");
+      document.getElementById('id_lonMinCalc').removeAttribute("readonly");
+      document.getElementById('id_lonMaxCalc').removeAttribute("readonly");
+      document.getElementById('id_latMinCalc').removeAttribute("readonly");
+      document.getElementById('id_latMaxCalc').removeAttribute("readonly");
+      document.getElementById('id_lonMinRes').removeAttribute("readonly");
+      document.getElementById('id_lonMaxRes').removeAttribute("readonly");
+      document.getElementById('id_latMinRes').removeAttribute("readonly");
+      document.getElementById('id_latMaxRes').removeAttribute("readonly");
+      document.getElementById('id_countLonRes').removeAttribute("readonly");
+      document.getElementById('id_countLatRes').removeAttribute("readonly");
     }
 }
 </script>
@@ -56,11 +64,11 @@ function addReadonlyToAll() {
 <form id="FullCalcForm" method="POST" class="post-form" name="allCalcName">{% csrf_token %}
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Common</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Meteo</a>
-    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Source</a>
-    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact2" aria-selected="false">Area</a>
-    <a class="nav-item nav-link"  aria-selected="false">Edit mode:<input type="checkbox" data-size="sm" id="editModeCheckBox" onclick="addReadonlyToAll()"></a>
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{% trans "Common" %}</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">{% trans "Meteo" %}</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">{% trans "Source" %}</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact2" aria-selected="false">{% trans "Area" %}</a>
+    <a class="nav-item nav-link"  aria-selected="false">{% trans "Edit mode:" %}<input type="checkbox" data-size="sm" id="editModeCheckBox" onclick="addReadonlyToAll()"></a>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -105,8 +113,8 @@ function addReadonlyToAll() {
     </div>
   </div>
 </div>
-  <button type="submit" class="btn btn-primary" name="save_calc">Save scenario</button>
-  <button type="submit" class="btn btn-success" name="start_calc">Start calculation</button>
+  <button type="submit" class="btn btn-primary" name="save_calc">{% trans "Save scenario" %}</button>
+  <button type="submit" class="btn btn-success" name="start_calc">{% trans "Start calculation" %}</button>
 </form>
 
 

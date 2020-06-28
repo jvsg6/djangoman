@@ -1,0 +1,249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-28 17:23+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: forms.py:27
+msgid "Latitude of source"
+msgstr "Широта источника"
+
+#: forms.py:28
+msgid "Longitude of source"
+msgstr "Долгота источника"
+
+#: forms.py:43
+msgid "Min latitude of calculation area"
+msgstr "Минимальная широта расчетной области"
+
+#: forms.py:44
+msgid "Min longitude of calculation area"
+msgstr "Минимальная долгота расчетной области"
+
+#: forms.py:45
+msgid "Max latitude of calculation area"
+msgstr "Максимальная широта расчетной области"
+
+#: forms.py:46
+msgid "Max longitude of calculation area"
+msgstr "Максимальная долгота расчетной области"
+
+#: forms.py:60
+msgid "Min latitude of result area"
+msgstr "Минимальная широта сетки результатов"
+
+#: forms.py:61
+msgid "Min longitude of result area"
+msgstr "Минимальная долгота сетки результатов"
+
+#: forms.py:62
+msgid "Max latitude of result area"
+msgstr "Максимальная широта сетки результатов"
+
+#: forms.py:63
+msgid "Max longitude of result area"
+msgstr "Максимальная долгота сетки результатов"
+
+#: forms.py:64
+msgid "Count cells in latitude"
+msgstr "Количество ячеек по широте"
+
+#: forms.py:65
+msgid "Count cells in longitude"
+msgstr "Количество ячеек по долготе"
+
+#: forms.py:76
+msgid "Height of the wind"
+msgstr "Высота ветра"
+
+#: forms.py:77
+msgid "Dierction of the wind"
+msgstr "Направление ветра"
+
+#: forms.py:78
+msgid "Speed of the wind"
+msgstr "Скорость ветра"
+
+#: forms.py:93
+msgid "Meteo phase start time, s"
+msgstr "Время начала метео фазы"
+
+#: forms.py:94
+msgid "Is wind constant in all height?"
+msgstr "Постоянство ветра по высоте"
+
+#: forms.py:95
+msgid "Rate of precipitation, mm/h"
+msgstr "Количество осадков, мм/ч"
+
+#: forms.py:96
+msgid "Type of precipitation"
+msgstr "Тип осадков"
+
+#: forms.py:97
+msgid "Stability class"
+msgstr "Класс стабильности"
+
+#: forms.py:98
+msgid "Roughness"
+msgstr "Шероховатость"
+
+#: forms.py:99
+msgid "Wind on the varoius heights"
+msgstr "Ветер на разных высотах"
+
+#: forms.py:112
+msgid "Name of calculation"
+msgstr "Имя расчета"
+
+#: forms.py:113
+msgid "Comment of calculation"
+msgstr "Комментарии к расчету"
+
+#: forms.py:114
+msgid "Input meteo phases"
+msgstr "Входные метео фазы"
+
+#: templates/adm/admCalcCreate.html:67
+msgid "Common"
+msgstr "Общие параметры"
+
+#: templates/adm/admCalcCreate.html:68
+msgid "Meteo"
+msgstr "Метеорология"
+
+#: templates/adm/admCalcCreate.html:69
+msgid "Source"
+msgstr "Источник"
+
+#: templates/adm/admCalcCreate.html:70
+msgid "Area"
+msgstr "Расчетная область"
+
+#: templates/adm/admCalcCreate.html:71
+msgid "Edit mode:"
+msgstr "Редактирование:"
+
+#: templates/adm/admCalcCreate.html:116
+msgid "Save scenario"
+msgstr "Сохранить расчет"
+
+#: templates/adm/admCalcCreate.html:117
+msgid "Start calculation"
+msgstr "Начало расчета"
+
+#: templates/adm/admCalcDetails.html:5
+msgid "Calculation number"
+msgstr "Номер расчета"
+
+#: templates/adm/admCalcDetails.html:8
+msgid "Name"
+msgstr "Название расчета"
+
+#: templates/adm/admCalcDetails.html:11
+msgid "Author"
+msgstr "Автор"
+
+#: templates/adm/admCalcDetails.html:14
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: templates/adm/admCalcDetails.html:17
+msgid "Comment"
+msgstr "Общие параметры"
+
+#: templates/adm/admCalcDetails.html:20
+msgid "Link to download"
+msgstr "Ссылка на скачивание"
+
+#: templates/adm/admCalcDetails.html:40
+msgid "download"
+msgstr "Ссылка на скачивание"
+
+#: templates/adm/admIndex.html:9
+msgid "ADM"
+msgstr "МАД"
+
+#: templates/adm/admIndex.html:31
+msgid "ATMOSPHERIC DISPERSION MODEL"
+msgstr "МОДЕЛЬ АТМОСФЕРНОЙ ДИСПЕРСИИ"
+
+#: templates/adm/admIndex.html:36
+msgid "Login"
+msgstr "Войти"
+
+#: templates/adm/admIndex.html:37
+msgid "Logout"
+msgstr "Выйти"
+
+#: templates/adm/admLeftBar.html:5
+msgid "Menu:"
+msgstr "Меню:"
+
+#: templates/adm/admLeftBar.html:6
+msgid "New Calculation"
+msgstr "Новый расчет"
+
+#: templates/adm/admLeftBar.html:7
+msgid "Random Calculation"
+msgstr "Случайный расчет"
+
+#: templates/adm/admLeftBar.html:8
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/adm/admLeftBarSearch.html:7
+msgid "Min calc number"
+msgstr "Минимальный номер расчета"
+
+#: templates/adm/admLeftBarSearch.html:19
+msgid "Max calc number"
+msgstr "Максимальный номер расчета"
+
+#: templates/adm/admLeftBarSearch.html:30
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/adm/createCalc/admArea.html:5
+msgid "Calculation area parameters"
+msgstr "Параметры расчетной области"
+
+#: templates/adm/createCalc/admArea.html:33
+msgid "Result area parameters"
+msgstr "Параметры области результатов"
+
+#: templates/adm/createCalc/admCommon.html:5
+msgid "General information"
+msgstr "Общая информация"
+
+#: templates/adm/createCalc/admMeteo.html:5
+msgid "Prognoz"
+msgstr "Метеопрогноз"
+
+#: templates/adm/createCalc/admMeteo.html:8
+msgid "WingOrography"
+msgstr "Метеообстановка"
+
+#: templates/adm/createCalc/admSource.html:5
+msgid "Source Parameters"
+msgstr "Параметры источника"
+
+#: templates/adm/langSelect.html:17
+msgid "Select Lang"
+msgstr "Выбор языка"

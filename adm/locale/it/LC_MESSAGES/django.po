@@ -1,0 +1,247 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-28 17:23+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:27
+msgid "Latitude of source"
+msgstr "Latitudine della fonte"
+
+#: forms.py:28
+msgid "Longitude of source"
+msgstr "Longitudine della fonte"
+
+#: forms.py:43
+msgid "Min latitude of calculation area"
+msgstr "Latitudine minima dell'area di calcolo"
+
+#: forms.py:44
+msgid "Min longitude of calculation area"
+msgstr "Longitudine minima dell'area di calcolo"
+
+#: forms.py:45
+msgid "Max latitude of calculation area"
+msgstr "Latitudine massima dell'area di calcolo"
+
+#: forms.py:46
+msgid "Max longitude of calculation area"
+msgstr "Longitudine massima dell'area di calcolo"
+
+#: forms.py:60
+msgid "Min latitude of result area"
+msgstr "Latitudine minima dell'area dei risultati"
+
+#: forms.py:61
+msgid "Min longitude of result area"
+msgstr "Longitudine minima dell'area dei risultati"
+
+#: forms.py:62
+msgid "Max latitude of result area"
+msgstr "Latitudine massima dell'area dei risultati"
+
+#: forms.py:63
+msgid "Max longitude of result area"
+msgstr "Longitudine massima dell'area dei risultati"
+
+#: forms.py:64
+msgid "Count cells in latitude"
+msgstr "Contare le cellule in latitudine"
+
+#: forms.py:65
+msgid "Count cells in longitude"
+msgstr "Conta le cellule in longitudine"
+
+#: forms.py:76
+msgid "Height of the wind"
+msgstr "Altezza del vento"
+
+#: forms.py:77
+msgid "Dierction of the wind"
+msgstr "Direzione del vento"
+
+#: forms.py:78
+msgid "Speed of the wind"
+msgstr "Velocità del vento"
+
+#: forms.py:93
+msgid "Meteo phase start time, s"
+msgstr "Ora di inizio della fase Meteo, s"
+
+#: forms.py:94
+msgid "Is wind constant in all height?"
+msgstr "Il vento è costante a tutte le altezze?"
+
+#: forms.py:95
+msgid "Rate of precipitation, mm/h"
+msgstr "Tasso di precipitazione, mm / h"
+
+#: forms.py:96
+msgid "Type of precipitation"
+msgstr "Tipo di precipitazione"
+
+#: forms.py:97
+msgid "Stability class"
+msgstr "Classe di stabilità"
+
+#: forms.py:98
+msgid "Roughness"
+msgstr "Rugosità"
+
+#: forms.py:99
+msgid "Wind on the varoius heights"
+msgstr "Vento sulle varie altezze"
+
+#: forms.py:112
+msgid "Name of calculation"
+msgstr "Nome del calcolo"
+
+#: forms.py:113
+msgid "Comment of calculation"
+msgstr "Commento del calcolo"
+
+#: forms.py:114
+msgid "Input meteo phases"
+msgstr "Immettere le fasi meteo"
+
+#: templates/adm/admCalcCreate.html:67
+msgid "Common"
+msgstr "Comune"
+
+#: templates/adm/admCalcCreate.html:68
+msgid "Meteo"
+msgstr "Meteo"
+
+#: templates/adm/admCalcCreate.html:69
+msgid "Source"
+msgstr "Fonte"
+
+#: templates/adm/admCalcCreate.html:70
+msgid "Area"
+msgstr "La zona"
+
+#: templates/adm/admCalcCreate.html:71
+msgid "Edit mode:"
+msgstr "Modalità Modifica:"
+
+#: templates/adm/admCalcCreate.html:116
+msgid "Save scenario"
+msgstr "Salva scenario"
+
+#: templates/adm/admCalcCreate.html:117
+msgid "Start calculation"
+msgstr "Inizia il calcolo"
+
+#: templates/adm/admCalcDetails.html:5
+msgid "Calculation number"
+msgstr "Numero di calcolo"
+
+#: templates/adm/admCalcDetails.html:8
+msgid "Name"
+msgstr "Nome del calcolo"
+
+#: templates/adm/admCalcDetails.html:11
+msgid "Author"
+msgstr "Autore"
+
+#: templates/adm/admCalcDetails.html:14
+msgid "Creation date"
+msgstr "Data di creazione"
+
+#: templates/adm/admCalcDetails.html:17
+msgid "Comment"
+msgstr "Commento"
+
+#: templates/adm/admCalcDetails.html:20
+msgid "Link to download"
+msgstr "Link per il download"
+
+#: templates/adm/admCalcDetails.html:40
+msgid "download"
+msgstr "Scarica"
+
+#: templates/adm/admIndex.html:9
+msgid "ADM"
+msgstr "MDA"
+
+#: templates/adm/admIndex.html:31
+msgid "ATMOSPHERIC DISPERSION MODEL"
+msgstr "MODELLO DI DISPERSIONE ATMOSFERICA"
+
+#: templates/adm/admIndex.html:36
+msgid "Login"
+msgstr "Accesso"
+
+#: templates/adm/admIndex.html:37
+msgid "Logout"
+msgstr "Disconnettersi"
+
+#: templates/adm/admLeftBar.html:5
+msgid "Menu:"
+msgstr "Menù:"
+
+#: templates/adm/admLeftBar.html:6
+msgid "New Calculation"
+msgstr "Nuovo calcolo"
+
+#: templates/adm/admLeftBar.html:7
+msgid "Random Calculation"
+msgstr "Calcolo casuale"
+
+#: templates/adm/admLeftBar.html:8
+msgid "Delete"
+msgstr "Elimina"
+
+#: templates/adm/admLeftBarSearch.html:7
+msgid "Min calc number"
+msgstr "Numero di calc minimo"
+
+#: templates/adm/admLeftBarSearch.html:19
+msgid "Max calc number"
+msgstr "Numero massimo di calc"
+
+#: templates/adm/admLeftBarSearch.html:30
+msgid "Search"
+msgstr "Ricerca"
+
+#: templates/adm/createCalc/admArea.html:5
+msgid "Calculation area parameters"
+msgstr "Parametri dell'area di calcolo"
+
+#: templates/adm/createCalc/admArea.html:33
+msgid "Result area parameters"
+msgstr "Parametri dell'area dei risultati"
+
+#: templates/adm/createCalc/admCommon.html:5
+msgid "General information"
+msgstr "Informazione Generale"
+
+#: templates/adm/createCalc/admMeteo.html:5
+msgid "Prognoz"
+msgstr "Ricerca"
+
+#: templates/adm/createCalc/admMeteo.html:8
+msgid "WingOrography"
+msgstr "Impostazione del tempo"
+
+#: templates/adm/createCalc/admSource.html:5
+msgid "Source Parameters"
+msgstr "Parametri sorgente"
+
+#: templates/adm/langSelect.html:17
+msgid "Select Lang"
+msgstr "Seleziona la lingua"

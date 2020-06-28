@@ -1,11 +1,12 @@
 {% load static %}
 {% load widget_tweaks %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <link rel="shortcut icon" type="image/png" href="{% static 'adm/labels/icon.png' %}"/>
-        <title>ADM</title>
+        <title>{% trans "ADM" %}</title>
         <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
         <link href="/static/css/sticky-footer.css" rel="stylesheet">
         <style>
@@ -16,6 +17,7 @@
         <link rel="stylesheet" href="/static/adm/css/main.css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
     </head>
 
     <body>
@@ -26,12 +28,15 @@
             <img src="{% static 'adm/labels/LOGO.png' %}" width="40" class="" alt="">
           </a>
           <a class="navbar-brand col-4" href="{% url 'admListPart' pagId=1 %}">
-            <p class="text text-left my-0 texttopadm">ATMOSPHERIC DISPERSION MODEL</p>
+            <p class="text text-left my-0 texttopadm">{% trans "ATMOSPHERIC DISPERSION MODEL" %}</p>
           </a>
           <div class="ml-auto">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <a href="/accounts/login/" type="button" class="btn btn-secondary">Login</a>
-              <a href="/accounts/logout/" type="button" class="btn btn-secondary">Logout</a>
+            <div class="row">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="/accounts/login/" type="button" class="btn btn-secondary">{% trans "Login" %}</a>
+                <a href="/accounts/logout/" type="button" class="btn btn-secondary">{% trans "Logout" %}</a>
+              </div>
+            {% include 'adm/langSelect.html'%}
             </div>
           </div>
         </nav>
@@ -50,7 +55,6 @@
           </div>
       </div>
     </maincontent>
-
       <footer class="footer">
         <div class="container-fluid px-auto py-auto">
           <span class="text-muted">© 2020</span>

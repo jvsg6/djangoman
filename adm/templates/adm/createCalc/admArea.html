@@ -1,28 +1,28 @@
 {% load widget_tweaks %}
-
+{% load i18n %}
 <div class="container-fluid">
   <div class="row">
-    <h2>Calculation area parameters:</h2>
+    <h2>{% trans "Calculation area parameters" %}:</h2>
   </div>
   <div class="row">
-      {{ areaCalcParam.lonMin.label_tag }}
-      {{ areaCalcParam.lonMin.errors }}
-      {% render_field areaCalcParam.lonMin class+="form-control" %}
+      {{ areaCalcParam.lonMinCalc.label_tag }}
+      {{ areaCalcParam.lonMinCalc.errors }}
+      {% render_field areaCalcParam.lonMinCalc class+="form-control" %}
   </div>
   <div class="row">
-    {{ areaCalcParam.lonMax.label_tag }}
-    {{ areaCalcParam.lonMax.errors }}
-    {% render_field areaCalcParam.lonMax class+="form-control" %}
+    {{ areaCalcParam.lonMaxCalc.label_tag }}
+    {{ areaCalcParam.lonMaxCalc.errors }}
+    {% render_field areaCalcParam.lonMaxCalc class+="form-control" %}
   </div>
   <div class="row">
-    {{ areaCalcParam.latMin.label_tag }}
-    {{ areaCalcParam.latMin.errors }}
-    {% render_field areaCalcParam.latMin class+="form-control" %}
+    {{ areaCalcParam.latMinCalc.label_tag }}
+    {{ areaCalcParam.latMinCalc.errors }}
+    {% render_field areaCalcParam.latMinCalc class+="form-control" %}
   </div>
   <div class="row">
-    {{ areaCalcParam.latMax.label_tag }}
-    {{ areaCalcParam.latMax.errors }}
-    {% render_field areaCalcParam.latMax class+="form-control" %}
+    {{ areaCalcParam.latMaxCalc.label_tag }}
+    {{ areaCalcParam.latMaxCalc.errors }}
+    {% render_field areaCalcParam.latMaxCalc class+="form-control" %}
   </div>
 </div>
 
@@ -30,45 +30,38 @@
 
 <div class="container-fluid">
   <div class="row">
-    <h2>Result area parameters:</h2>
+    <h2>{% trans "Result area parameters" %}:</h2>
   </div>
   <div class="row">
-    {{ areaResParam.lonMin.label_tag }}
-    {{ areaResParam.lonMin.errors }}
-    {% render_field areaCalcParam.lonMin class+="form-control" %}
+    {{ areaResParam.lonMinRes.label_tag }}
+    {{ areaResParam.lonMinRes.errors }}
+    {% render_field areaResParam.lonMinRes class+="form-control" %}
   </div>
   <div class="row">
-    {{ areaResParam.lonMax.label_tag }}
-    {{ areaResParam.lonMax.errors }}
-    {% render_field areaCalcParam.lonMax class+="form-control" %}
+    {{ areaResParam.lonMaxRes.label_tag }}
+    {{ areaResParam.lonMaxRes.errors }}
+    {% render_field areaResParam.lonMaxRes class+="form-control" %}
   </div>
   <div class="row">
-    {{ areaResParam.latMin.label_tag }}
-    {{ areaResParam.latMin.errors }}
-    {% render_field areaCalcParam.latMin class+="form-control" %}
+    {{ areaResParam.latMinRes.label_tag }}
+    {{ areaResParam.latMinRes.errors }}
+    {% render_field areaResParam.latMinRes class+="form-control" %}
   </div>
   <div class="row">
-    {{ areaResParam.latMax.label_tag }}
-    {{ areaResParam.latMax.errors }}
-    {% render_field areaCalcParam.latMax class+="form-control" %}
-  </div>
-</div>
-
-
-<div class="container-fluid">
-  <div class="row">
-    {{ areaResParam.countLon.label_tag }}
-    {% render_field areaResParam.countLon class+="form-control" %}
-  </div>
-  <div class="row">
-    {{ areaResParam.countLat.label_tag }}
-    {% render_field areaResParam.countLat class+="form-control" %}
+    {{ areaResParam.latMaxRes.label_tag }}
+    {{ areaResParam.latMaxRes.errors }}
+    {% render_field areaResParam.latMaxRes class+="form-control" %}
   </div>
 </div>
 
 
 <div class="container-fluid">
   <div class="row">
-    {{ commonWindParametersForm.as_p }}
+    {{ areaResParam.countLonRes.label_tag }}
+    {% render_field areaResParam.countLonRes class+="form-control" %}
+  </div>
+  <div class="row">
+    {{ areaResParam.countLatRes.label_tag }}
+    {% render_field areaResParam.countLatRes class+="form-control" %}
   </div>
 </div>

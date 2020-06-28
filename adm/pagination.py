@@ -1,17 +1,15 @@
 import sys
 import os
-
+from math import ceil
 def pagListPagNextPagPrev(posts, pagId):
     pagDelta = 3   # только нечетное!!! количество пагинаций оторое показывается
     pagShift = pagDelta//2
     calcDelta = 10    # Количество расчетов в одной пагинации
     pagCount = 0
     calcCount = len(posts)
-    if calcCount % calcDelta == 0:
-        pagCount = calcCount//calcDelta
-    else:
-        pagCount = calcCount//calcDelta + 1
-
+    pagCount = ceil(calcCount/calcDelta)
+    pagDelta = min(pagDelta, pagCount)
+    print(pagCount)
     pagList = []
     pagNext = -1
     pagPrev = -1

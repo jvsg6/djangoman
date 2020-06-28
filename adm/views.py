@@ -36,7 +36,7 @@ def getMinNum(request, postsCount):
         if request.GET['min'] != '':
             if int(request.GET['min'])>postsCount:
                 minNum = 1
-                return minId, True
+                return minNum, True
             else:
                 minNum = int(request.GET['min'])
                 return minNum, True

@@ -3,6 +3,7 @@
 
 <nav class="bg-light fixedleftbar">
   <h6 class="nav-link border-bottom btnleftbar mb-1">{% trans "Menu:" %}</h6>
+  <a class="nav-link border-bottom btnleftbar mb-1" href="{% url 'admListPart' pagId=1 %}"><i class="fa fa-home mr-2"></i>{% trans "Home" %}</a>
   <a class="nav-link border-bottom btnleftbar mb-1" href="{% url 'calc_new' %}"><i class="fa fa-file mr-2"></i>{% trans "New Calculation" %}</a>
   <a class="nav-link border-bottom btnleftbar mb-1" href="{% url 'calc_rand' %}"><i class="fa fa-random mr-2"></i>{% trans "Random Calculation" %}</a>
   <a class="nav-link border-bottom btnleftbar mb-1" href="{% url 'calc_rand' %}"><i class="fa fa-trash mr-2"></i>{% trans "Delete" %}</a>

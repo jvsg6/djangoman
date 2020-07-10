@@ -4,7 +4,9 @@
   <form action="/all/1"  method="get" >
     <div class="column">
         <div class="row">
-            <label for="min">{% trans "Min calc number" %}</label>
+            <label for="min">
+                <a class="text-leftbar" style="margin-bottom: 10px;">{% trans "Min calc number" %}</a>
+            </label>
         </div>
         <div class="row">
             {% if minNum %}
@@ -16,7 +18,9 @@
         </div>
 
         <div class="row">
-            <label for="max">{% trans "Max calc number" %}</label>
+            <label for="max">
+                <a class="text-leftbar">{% trans "Max calc number" %}</a>
+            </label>
         </div>
         <div class="row">
             {% if maxNum %}

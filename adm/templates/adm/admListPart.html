@@ -10,24 +10,27 @@ function myFunction(pk) {
 
   <div id="dtBasicExample_wrapper" class="dataTables_wrapper dt-bootstrap4">
     <div class="row">
-      <div class="col-2 pr-0 paginationwithpage">
-   
-
-        <div class="list-group" id="myList" role="tablist">
-          {% for post in posts %}
+      <div class="col-3">
+  
+        <div class="card bg-white pages-shadow-history" style="padding: 1.25rem;">
+          <h5 class="mb-4 ">History</h5>
+          <div class="list-group" id="myList" role="tablist">
+            {% for post in posts %}
             {% if forloop.first %}
-              <a class="list-group-item list-group-item-action active rounded-0 pagestyle" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+            <a class="pages-wrapper-history pages-active active" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
             {% else %}
-              <a class="list-group-item list-group-item-action rounded-0 pagestyle" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+            <a class="pages-wrapper-history" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
             {% endif %}
 
-          {% endfor %}
-          {% include 'adm/admPagination.html' with pagList=pagList pagNext=pagNext pagPrev=pagPrev currPagId=currPagId%}
+            {% endfor %}
+            {% include 'adm/admPagination.html' with pagList=pagList pagNext=pagNext pagPrev=pagPrev currPagId=currPagId%}
+          </div>
         </div>
       </div>
 
-      <div class="col-10">
-        <div class="tab-content">
+      <div class="col-9">
+        <div class="tab-content card bg-white pages-shadow-history" style="padding: 1.25rem;">
+          <h5 class="mb-4">Calculation Details</h5>
           {% for post in posts %}
             {% if forloop.first %}
               <div class="tab-pane show active" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}</div>

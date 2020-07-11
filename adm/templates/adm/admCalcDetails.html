@@ -1,43 +1,58 @@
 {% load i18n %}
-<div class="container-fluid">
-  <div class="row" style="background-color: #808080">
-    <div class="col-2">
-      <p class="tabup mb-0 text-center">{% trans "Calculation number" %}</p>
-    </div>
-    <div class="col-2">
-      <p class="tabup mb-0 text-center">{% trans "Name" %}</p>
-    </div>
-    <div class="col-2">
-      <p class="tabup mb-0 text-center">{% trans "Author" %}</p>
-    </div>
-    <div class="col-2">
-      <p class="tabup mb-0 text-center">{% trans "Creation date" %}</p>
-    </div>
-    <div class="col-2">
-      <p class="tabup mb-0 text-center">{% trans "Comment" %}</p>
-    </div>
-    <div class="col-2">
-      <p class="tabup mb-0 text-center">{% trans "Link to download" %}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-2">
-      {{ post.pk }}
-    </div>
-    <div class="col-2">
-      {{ post.name }}
-    </div>
-    <div class="col-2">
-      {{ post.author }}
-    </div>
-    <div class="col-2">
-      {{ post.created_date }}
-    </div>
-    <div class="col-2">
-      {{ post.comment }}
-    </div>
-    <div class="col-2">
-      <a href="{% url 'calc_download' pk=post.pk%}" >{% trans "download" %}</a>
-    </div>
-  </div>
-</div>
+
+ 
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            {% trans "Calculation number" %}
+          </th>
+          <th>
+            {% trans "Name" %}
+          </th>
+          <th>
+            {% trans "Author" %}
+          </th>
+          <th>
+            {% trans "Creation date" %}
+          </th>
+          <th>
+            {% trans "Comment" %}
+          </th>
+          <th>
+            {% trans "Link to download" %}
+          </th>
+        </tr>
+      </thead>
+ 
+      <tbody>
+        <tr>
+          <th>
+            {{ post.pk }}
+          </th>
+          <th>
+            {{ post.name }}
+          </th>
+          <th>
+            {{ post.author }}
+          </th>
+          <th>
+            {{ post.created_date }}
+          </th>
+          <th>
+            {{ post.comment }}
+          </th>
+          <th>
+            <a href="{% url 'calc_download' pk=post.pk%}" style="text-decoration: none; display: block; color: #333;">
+              <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
+                <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
+                <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
+              </svg>
+            </a>
+          </th>
+        </tr>
+      </tbody>
+     </table>
+
+

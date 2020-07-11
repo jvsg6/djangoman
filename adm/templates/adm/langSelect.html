@@ -18,7 +18,7 @@ function changeLink(currFullPath, currLangCode, reqLangCode) {
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     {% for language in allLanguages %}
-          <a class="dropdown-item lang_dropdown" href="#" onclick="changeLink('{{ request.path }}', '{{LANGUAGE_CODE}}', '{{language.code}}');return false;"> {{language.name}}</a>
+          <a class="dropdown-item dropdown_text" href="#" onclick="changeLink('{{ request.path }}', '{{LANGUAGE_CODE}}', '{{language.code}}');return false;"> {{language.name}}</a>
     {% endfor %}
   </div>
 </div>

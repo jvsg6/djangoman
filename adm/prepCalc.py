@@ -6,16 +6,7 @@ import shutil
 from .myPaths import reqPaths
 from django.template import Context, Template
 import subprocess
-
-def startAdm(pathToCalc):
-    try:
-        #p = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE)
-        return 0#p.poll
-    except OSError:
-        print ("Error: Write valid path to ADM!")
-        return -1
-    return -1
-
+from .tasks import startAdm
 
 def insertSrcInContext(srcParameters, contextParameters):
     contextParameters['srcLat'] = str(srcParameters.lat).replace(",", ".")
@@ -23,18 +14,18 @@ def insertSrcInContext(srcParameters, contextParameters):
 
 
 def insertCalcAreaInContext(areaCalcParam, contextParameters):
-    contextParameters['lonMinCalc'] = str(areaCalcParam.lonMin).replace(",", ".")
-    contextParameters['lonMaxCalc'] = str(areaCalcParam.lonMax).replace(",", ".")
-    contextParameters['latMinCalc'] = str(areaCalcParam.latMin).replace(",", ".")
-    contextParameters['latMaxCalc'] = str(areaCalcParam.latMax).replace(",", ".")
+    contextParameters['lonMinCalc'] = str(areaCalcParam.lonMinCalc).replace(",", ".")
+    contextParameters['lonMaxCalc'] = str(areaCalcParam.lonMaxCalc).replace(",", ".")
+    contextParameters['latMinCalc'] = str(areaCalcParam.latMinCalc).replace(",", ".")
+    contextParameters['latMaxCalc'] = str(areaCalcParam.latMaxCalc).replace(",", ".")
 
 def insertResAreaInContext(areaResParam, contextParameters):
-    contextParameters['lonMinRes'] = str(areaResParam.lonMin).replace(",", ".")
-    contextParameters['lonMaxRes'] = str(areaResParam.lonMax).replace(",", ".")
-    contextParameters['latMinRes'] = str(areaResParam.latMin).replace(",", ".")
-    contextParameters['latMaxRes'] = str(areaResParam.latMax).replace(",", ".")
-    contextParameters['countLon'] = str(areaResParam.countLon).replace(",", ".")
-    contextParameters['countLat'] = str(areaResParam.countLat).replace(",", ".")
+    contextParameters['lonMinRes'] = str(areaResParam.lonMinRes).replace(",", ".")
+    contextParameters['lonMaxRes'] = str(areaResParam.lonMaxRes).replace(",", ".")
+    contextParameters['latMinRes'] = str(areaResParam.latMinRes).replace(",", ".")
+    contextParameters['latMaxRes'] = str(areaResParam.latMaxRes).replace(",", ".")
+    contextParameters['countLon'] = str(areaResParam.countLonRes).replace(",", ".")
+    contextParameters['countLat'] = str(areaResParam.countLatRes).replace(",", ".")
 
 def insertDataInContext(post, contextParameters):
     insertSrcInContext(post.srcParam, contextParameters)
@@ -60,7 +51,8 @@ def allAdmActions(post):
     os.makedirs(pathToCalc)
     shutil.copyfile(reqPaths.pathToLanduse, pathToCalc + "/landuse.asc")
     changeAndCopyInFile(reqPaths.pathToTemplate, pathToCalc, post)
-    startAdm(pathToCalc)
+    
+    startAdm.delay(pathToCalc)
     post.pathToInput = pathToCalc + "/in.xml"
     post.pathToLanduse = pathToCalc + "/landuse.asc"
     return

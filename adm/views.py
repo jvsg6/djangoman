@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.shortcuts import redirect
 import os
 from django.contrib.auth.decorators import login_required
-from .prepCalc import allAdmActions
 from .downloadCalc import downloadFiles
 from .pagination import pagListPagNextPagPrev
 import random
@@ -17,6 +16,8 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from copy import deepcopy
+from .tasks import allAdmActions
+
 def validate_username(request):
     username = request.GET.get('username', None)
     data = {
@@ -122,6 +123,7 @@ def startCalcLogic(request):
     areaCalcParam = AreaCalcParametersForm(request.POST)
     areaResParam = AreaResParametersForm(request.POST)
     meteoWindOroNew = CommonWindParametersForm(request.POST)
+    print("A")
     if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
         post = form.save(commit=False)
         post.areaResParam = areaResParam.save()
@@ -131,12 +133,13 @@ def startCalcLogic(request):
         post.published_date = timezone.now()
         post.calcADMReturn = 0
         post.save()
-
-        allAdmActions(post)
+        print("B")
+        allAdmActions.delay(post.pk)
         post.save()
         m = meteoWindOroNew.save()
         post.windPhaseList.add(m)
         post.save()
+        print("C")
         return redirect('calc_started', pk=post.pk)
 
 def addWindPhaseLogic(request, pk):

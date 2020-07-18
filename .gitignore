@@ -9,3 +9,4 @@ db.sqlite3
 /adm/static/js
 /adm/static/css
 .idea
+celerybeat-schedule

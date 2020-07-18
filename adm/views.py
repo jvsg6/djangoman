@@ -116,14 +116,14 @@ def installRandomParameters():
     return srcParam, areaCalcParam, areaResParam
 
 
-def startCalcLogic(request):
+def startCalcLogic(request, pk):
     print("Start calc button was pressed")
-    form = CalcForm(request.POST)
-    srcParam = SrcParametersForm(request.POST)
-    areaCalcParam = AreaCalcParametersForm(request.POST)
-    areaResParam = AreaResParametersForm(request.POST)
+    post = get_object_or_404(Calc, pk=pk)
+    form = CalcForm(request.POST, instance=post)
+    srcParam = SrcParametersForm(request.POST, instance=post.srcParam)
+    areaCalcParam = AreaCalcParametersForm(request.POST, instance=post.areaCalcParam)
+    areaResParam = AreaResParametersForm(request.POST, instance=post.areaResParam)
     meteoWindOroNew = CommonWindParametersForm(request.POST)
-    print("A")
     if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOroNew.is_valid():
         post = form.save(commit=False)
         post.areaResParam = areaResParam.save()
@@ -132,14 +132,15 @@ def startCalcLogic(request):
         post.author = request.user
         post.published_date = timezone.now()
         post.calcADMReturn = 0
+        print(f"A {post.pk}")
         post.save()
-        print("B")
         allAdmActions.delay(post.pk)
+        print(f"B {post.pk}")
         post.save()
         m = meteoWindOroNew.save()
         post.windPhaseList.add(m)
+        print(f"C {post.pk}")
         post.save()
-        print("C")
         return redirect('calc_started', pk=post.pk)
 
 def addWindPhaseLogic(request, pk):
@@ -191,7 +192,7 @@ def calc_edit(request, pk, page = ""):
             postKeys.sort()
 
             if 'start_calc' in request.POST:
-                return startCalcLogic(request)
+                return startCalcLogic(request, pk)
             elif postKeys == addWindPhaseKeys:
                 return addWindPhaseLogic(request, pk)
             else:

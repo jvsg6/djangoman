@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     "adm",
+    "ManualSource",
+    "WindOro",
+    "MeteoForecast",
     'django.contrib.admin',
 ]
 

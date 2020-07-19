@@ -132,14 +132,11 @@ def startCalcLogic(request, pk):
         post.author = request.user
         post.published_date = timezone.now()
         post.calcADMReturn = 0
-        print(f"A {post.pk}")
         post.save()
         allAdmActions.delay(post.pk)
-        print(f"B {post.pk}")
         post.save()
         m = meteoWindOroNew.save()
         post.windPhaseList.add(m)
-        print(f"C {post.pk}")
         post.save()
         return redirect('calc_started', pk=post.pk)
 

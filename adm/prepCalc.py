@@ -6,7 +6,7 @@ import shutil
 from .myPaths import reqPaths
 from django.template import Context, Template
 import subprocess
-
+import time
 
 def insertSrcInContext(srcParameters, contextParameters):
     contextParameters['srcLat'] = str(srcParameters.lat).replace(",", ".")
@@ -47,14 +47,20 @@ def changeAndCopyInFile(pathToTemplate, pathToCalc, post):
 
 
 def startAdm(pathToCalc):
-    try:
-        process = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        output = process.communicate()[0] 
-        ret = process.wait()
+    if True:
+        try:
+            process = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            output = process.communicate()[0] 
+            ret = process.wait()
+            print("Start ADM")
+            print(" ".join([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc]))
+            return ret
+        except OSError:
+            print ("Error: Write valid path to ADM!")
+            return -1
+        return -1
+    else:
         print("Start ADM")
         print(" ".join([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc]))
-        return ret
-    except OSError:
-        print ("Error: Write valid path to ADM!")
-        return -1
-    return -1
+        time.sleep(15)
+        return 0

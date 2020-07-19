@@ -1,21 +1,30 @@
-from django.shortcuts import render, get_object_or_404
-from .forms import CalcForm, SrcParametersForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm, CommonWindParametersForm, WindOroPametersInAltForm
-from .models import Calc, SrcParameters
+import os
+import random
+from copy import deepcopy
+
+
+from ManualSource.forms import SrcParametersForm
+from WindOro.forms import CommonWindParametersForm, WindOroPametersInAltForm
+from .forms import CalcForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm
+from django.contrib.auth.forms import UserCreationForm
+
+
 from django.utils import timezone
 from django.shortcuts import redirect
-import os
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .downloadCalc import downloadFiles
 from .pagination import pagListPagNextPagPrev
-import random
+
 from django.http import JsonResponse
-from django.forms.models import model_to_dict
-from django.contrib.auth.forms import UserCreationForm
+
+
 from django.views.generic.edit import CreateView
 
+from .models import Calc
 from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
 from django.http import JsonResponse
-from copy import deepcopy
 from .tasks import allAdmActions
 
 def validate_username(request):

@@ -1,8 +1,9 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from .models import Calc, SrcParameters, AreaCalcParameters, AreaResParameters, WindarametersInAlt, CommonWindParameters
+from .models import Calc, AreaCalcParameters, AreaResParameters
 from django.forms import ModelForm, Textarea
-from .choices import *
+
+
 class DownloadForm():
     # filesToDownload = forms.MultipleChoiceField(
     #     label='label',
@@ -15,20 +16,6 @@ class DownloadForm():
     isOutFileReq = forms.BooleanField()
 
 
-
-class SrcParametersForm(forms.ModelForm):
-    class Meta:
-        model = SrcParameters
-        fields = [
-            'lat',
-            'lon',]
-
-        labels = {
-            'lat' : _('Latitude of source'),
-            'lon' : _('Longitude of source'),}
-        # widgets = {
-        #     'lon': Textarea(attrs={'cols': 80, 'rows': 20}),
-        # }
 
 class AreaCalcParametersForm(forms.ModelForm):
     class Meta:
@@ -63,42 +50,6 @@ class AreaResParametersForm(forms.ModelForm):
             'lonMaxRes' : _('Max longitude of result area'),
             'countLatRes' : _('Count cells in latitude'),
             'countLonRes' : _('Count cells in longitude'),}
-
-
-class WindOroPametersInAltForm(forms.ModelForm):
-    class Meta():
-        model = WindarametersInAlt
-        fields = [
-            'height',
-            'direction',
-            'speed',]
-        labels = {
-            'height' : _('Height of the wind'),
-            'direction' : _('Dierction of the wind'),
-            'Speed' : _('Speed of the wind'),
-        }
-
-class CommonWindParametersForm(forms.ModelForm):
-    class Meta():
-        model = CommonWindParameters
-        fields = [
-            'meteoPhaseStart',
-            'windConst',
-            'precipitationsRate',
-            'precipitationType',
-            'stab',
-            'roughness',
-            'windLevels',]
-        labels = {
-            'meteoPhaseStart' : _('Meteo phase start time, s'),
-            'windConst' : _('Is wind constant in all height?'),
-            'precipitationsRate' : _('Rate of precipitation, mm/h'),
-            'precipitationType' : _('Type of precipitation'),
-            'stab' : _('Stability class'),
-            'roughness' : _('Roughness'),
-            'windLevels' : _('Wind on the varoius heights'),
-        }
-        #widgets = {'windLevels': forms.widgets.CheckboxSelectMultiple() }
 
 
 class CalcForm(forms.ModelForm):

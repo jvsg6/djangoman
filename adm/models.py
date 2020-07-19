@@ -3,14 +3,8 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.contrib.auth.models import User
-from .choices import *
-
-class SrcParameters(models.Model):
-    lat = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
-    lon = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
-
-    def getPosition(self):
-        return {"lat":self.lat, "lon":self.lon}
+from ManualSource.models import SrcParameters
+from WindOro.models import CommonWindParameters, WindOroPametersInAlt
 
 class AreaCalcParameters(models.Model):
     latMinCalc = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
@@ -26,20 +20,6 @@ class AreaResParameters(models.Model):
     countLonRes = models.IntegerField(null=True, blank=True)
     countLatRes = models.IntegerField(null=True, blank=True)
 
-class WindarametersInAlt(models.Model):
-    height = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
-    direction = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
-    speed = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
-
-class CommonWindParameters(models.Model):
-    meteoType = models.IntegerField(validators=[MinValueValidator(0)], null=True, blank=True)
-    meteoPhaseStart = models.IntegerField(validators=[MinValueValidator(0)], null=True, blank=True)
-    windConst = models.IntegerField(choices=WIND_CONST_CHOICES, default=0, null=True, blank=True)
-    precipitationsRate = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
-    precipitationType = models.FloatField(choices=PRECIPITATION_TYPE, default=0, null=True, blank=True)
-    stab = models.CharField(max_length=1, choices=STABILITY_CLASS, default="D", null=True, blank=True)
-    roughness = models.FloatField(validators=[MinValueValidator(0.)], null=True, blank=True)
-    windLevels = models.ManyToManyField(WindarametersInAlt, symmetrical=False, blank=True)
 
 class Calc(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)

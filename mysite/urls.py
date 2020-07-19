@@ -7,4 +7,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('', include('adm.urls')),
+    path('', include('WindOro.urls')),
+    path('', include('ManualSource.urls')),
+    path('', include('MeteoForecast.urls')),
 )

@@ -1,5 +1,4 @@
 import os
-import random
 from copy import deepcopy
 
 
@@ -128,6 +127,7 @@ def installRandomParameters():
 def startCalcLogic(request, pk):
     print("Start calc button was pressed")
     post = get_object_or_404(Calc, pk=pk)
+
     form = CalcForm(request.POST, instance=post)
     srcParam = SrcParametersForm(request.POST, instance=post.srcParam)
     areaCalcParam = AreaCalcParametersForm(request.POST, instance=post.areaCalcParam)
@@ -140,7 +140,6 @@ def startCalcLogic(request, pk):
         post.srcParam = srcParam.save()
         post.author = request.user
         post.published_date = timezone.now()
-        post.calcADMReturn = 0
         post.save()
         allAdmActions.delay(post.pk)
         post.save()
@@ -241,32 +240,9 @@ def calc_new(request):
         post.srcParam = srcParam.save()
         post.author = request.user
         post.published_date = timezone.now()
-        post.calcADMReturn = 0
         post.save()
         return redirect(calc_edit, pk = post.pk)
 
-
-def setRandParametersForPost(post, areaResParam):
-    countCalcs = Calc.objects.count()
-    post.name = "Calculation " + str(countCalcs+1)
-    latInit = -88.0 + random.random()*176.0
-    lonInit = -178.0 + random.random()*356.0
-    lonMin = lonInit-0.5
-    lonMax = lonInit+0.5
-    latMin = latInit-0.5
-    latMax = latInit+0.5
-    post.areaResParam.lonMinRes = lonMin
-    post.areaResParam.latMinRes = latMin
-    post.areaResParam.lonMaxRes = lonMax
-    post.areaResParam.latMaxRes = latMax
-    post.areaResParam.countLonRes = 51
-    post.areaResParam.countLatRes = 51
-    post.areaCalcParam.lonMinCalc = lonMin
-    post.areaCalcParam.latMinCalc = latMin
-    post.areaCalcParam.lonMaxCalc = lonMax
-    post.areaCalcParam.latMaxCalc = latMax
-    post.srcParam.lon = lonInit
-    post.srcParam.lat = latInit
 
 
 @login_required(login_url='/accounts/login/')
@@ -287,10 +263,9 @@ def calc_rand(request):
         post.areaResParam = areaResParam.save(commit=False)
         post.areaCalcParam = areaCalcParam.save(commit=False)
         post.srcParam = srcParam.save(commit=False)
-        setRandParametersForPost(post, areaResParam)
+        post.setRandParameters()
         post.author = request.user
         post.published_date = timezone.now()
-        post.calcADMReturn = 0
         post.areaResParam = areaResParam.save()
         post.areaCalcParam = areaCalcParam.save()
         post.srcParam = srcParam.save()

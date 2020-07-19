@@ -1,3 +1,5 @@
+import random
+
 from django.conf import settings
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -37,3 +39,25 @@ class Calc(models.Model):
     
     transportStatus = models.IntegerField(blank=True, null=True, default=0)
     weatherStatus = models.IntegerField(blank=True, null=True, default=0)
+    
+    def setRandParameters(self):
+        countCalcs = Calc.objects.count()
+        self.name = "Calculation " + str(countCalcs+1)
+        latInit = -88.0 + random.random()*176.0
+        lonInit = -178.0 + random.random()*356.0
+        lonMin = lonInit-0.5
+        lonMax = lonInit+0.5
+        latMin = latInit-0.5
+        latMax = latInit+0.5
+        self.areaResParam.lonMinRes = lonMin
+        self.areaResParam.latMinRes = latMin
+        self.areaResParam.lonMaxRes = lonMax
+        self.areaResParam.latMaxRes = latMax
+        self.areaResParam.countLonRes = 51
+        self.areaResParam.countLatRes = 51
+        self.areaCalcParam.lonMinCalc = lonMin
+        self.areaCalcParam.latMinCalc = latMin
+        self.areaCalcParam.lonMaxCalc = lonMax
+        self.areaCalcParam.latMaxCalc = latMax
+        self.srcParam.lon = lonInit
+        self.srcParam.lat = latInit

@@ -37,12 +37,7 @@ function myFunction(pk) {
             {% else %}
               <div class="tab-pane" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}</div>
             {% endif %}
-
           {% endfor %}
-        </div>
-        <div class="tab-content card bg-white pages-shadow-history m-p-for-cards">
-          <h5 class="mb-4">Visual presentation</h5>
-          <img src="{% static 'adm/gis/default.png' %}"  class="" height="900" alt="Gis picture">
         </div>
       </div>
     </div>

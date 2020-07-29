@@ -6,10 +6,10 @@
   </div>
   <div class="row">
     {{ srcParam.lon.label_tag }}
-    {% render_field srcParam.lon class+="form-control" %}
+    {% render_field srcParam.lon class+="form-control" oninput="installSrcPosition()" %}
   </div>
   <div class="row">
       {{ srcParam.lat.label_tag }}
-      {% render_field srcParam.lat class+="form-control" %}
+      {% render_field srcParam.lat class+="form-control" oninput="installSrcPosition()" %}
   </div>
 </div>

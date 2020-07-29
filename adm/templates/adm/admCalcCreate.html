@@ -56,11 +56,6 @@ function addReadonlyToAll() {
     }
 }
 
-function startSrcMap()
-{
-
-}
-
 </script>
 
 
@@ -103,7 +98,10 @@ function startSrcMap()
 
 <script>
 
-  var mymap = L.map('mapid').setView([51.505, -0.09], 3);
+  var lon = document.getElementById('id_lon').value;
+  var lat = document.getElementById('id_lat').value;
+  var srclatlng = L.latLng(lat, lon);
+  var mymap = L.map('mapid').setView(srclatlng, 3);
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: 18,
@@ -114,6 +112,29 @@ function startSrcMap()
     tileSize: 512,
     zoomOffset: -1
   }).addTo(mymap);
+  
+  var srcPos = L.marker(srclatlng, {draggable: true}).addTo(mymap)
+  
+
+  srcPos.on("drag", function(e) {
+      var marker = e.target;
+      var position = marker.getLatLng();
+      console.log(position.lat, position.lng);
+      document.getElementById('id_lon').value = position.lng
+      document.getElementById('id_lat').value = position.lat;
+  });
+
+  function installSrcPosition()
+  {
+    var lon = document.getElementById('id_lon').value;
+    var lat = document.getElementById('id_lat').value;
+    var srclatlng = L.latLng(lat, lon);
+    console.log(lon);
+    console.log(lat);
+    srcPos.setLatLng(srclatlng)
+    mymap.panTo(srclatlng)
+  }
+
 
 </script>
 

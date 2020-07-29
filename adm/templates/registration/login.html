@@ -1,5 +1,7 @@
 {% extends 'adm/admIndex.html' %}
 
+{% load static %}
+
 {% block content %}
 
   {% if form.errors %}
@@ -14,23 +16,37 @@
       <p>Please login to see this page.</p>
     {% endif %}
   {% endif %}
-
-
+<body class="text-center">
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    <div class="form-group">
-      <label for="id_password">Login</label>
-      <input type="text" class="form-control" id="id_password" name="username">
-    </div>
-    <div class="form-group">
-      <label for="id_password">Password</label>
-      <input type="password" class="form-control" id="id_password" name="password">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <img src="{% static 'adm/labels/icon.png' %}" width="72" height="72" class="mb-4">
+    <h1 class="h3 mb-3">Please sign in</h1>
+    <label for="id_password" class="sr-only">Login</label>
+    <input type="text" class="form-control" id="id_password" placeholder="Username" name="username">
+    <label for="id_password" class="sr-only">Password</label>
+    <input type="password" placeholder="Password" class="form-control" id="id_password" name="password">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
-
+</body>
 
   {# Assumes you setup the password_reset view in your URLconf #}
   <!--<p><a href="{% url 'password_reset' %}">Lost password?</a></p>-->
 
 {% endblock %}
+
+
+<!--
+  <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+ 
+  <p class="mt-5 mb-3 text-muted">© 2017-2019</p>
+-->

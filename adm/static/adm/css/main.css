@@ -1,3 +1,5 @@
+{% load static %}
+
 body {
   background: #eff3f6;
   font-family: "Roboto", sans-serif;
@@ -10,6 +12,53 @@ body {
   overflow: hidden;
   width: 100%;
 }
+
+.accountbg {
+  background-color: rgba(0, 0, 0, 0);
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-image: url({% static 'adm/lables/logologin.jpg' %});
+  background-size: auto;
+  background-origin: padding-box;
+  background-clip: border-box;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+.login-dropdown-buttons{
+  padding: .55rem 1.5rem;
+  display: block;
+  clear: both;
+  font-weight: 400;
+  text-align: inherit;
+  color: #212121;
+  white-space: nowrap;
+  border: 0;
+  font-size: 18px;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
 
 .leftbar-menu {
   bottom: 50px;
@@ -43,6 +92,11 @@ body {
   margin-top: 25px;
 }
 
+.m-p-for-cards{
+  padding: 1.25rem;
+  margin-bottom: 30px;
+}
+
 .text-leftbar ul li a{
   font-family: 'Montserrat', sans-seri;
   font-size: 14px;
@@ -51,6 +105,29 @@ body {
   text-transform: uppercase;
   transition: all 500ms ease;
   margin-left: 5px;
+}
+
+.img-fluid {
+    max-width: auto;
+    height: 100%;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
 }
 
 .text-leftbar ul li a{

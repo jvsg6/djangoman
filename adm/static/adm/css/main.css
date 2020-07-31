@@ -293,3 +293,37 @@ body {
     background-color: #69a4a2;
     border-color: #69a4a2;
 }
+
+/*--------- Login page ----------------*/
+
+.bg-pattern{
+  background-position: center;
+  background: linear-gradient(45deg, #4A6C93 , #6F90B4);
+  background-size: cover;
+
+}
+
+.bg-pattern{
+  background: rgba(0,0,0,0.5) 
+  z-index: 1;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  margin-top: 200px;
+  background-color: #f1f0ef;
+  border-radius: 10px;
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.5)
+}
+
+.button-login{
+  background-color: #A1B2C4;
+}
+
+.button-login:hover{
+  background-color: #6F90B4;
+
+}

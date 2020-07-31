@@ -37,8 +37,8 @@
 
       <form class="form-signin" method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        <h1>ADM</h1>
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="mt-4 mb-3 text-login">ADM</h1>
+        <h1 class="h3 mb-3 font-weight-normal text-login">Please sign in</h1>
         <div class="form-group form-group-custom mb-4">
           <input type="text" class="form-control" id="id_password" placeholder="Username" name="username">
         </div>
@@ -47,9 +47,9 @@
           <input type="password" placeholder="Password" class="form-control" id="id_password" name="password">
         </div>
         <div class="mt-4">
-          <button class="btn btn-lg btn-block button-login" type="submit">Sign in</button>
+          <button class="btn btn-lg btn-block button-login text-login" type="submit">Sign in</button>
         </div>
-        <p class="mt-5 mb-3 text-muted">© 2019-2020</p>
+        <p class="mt-4 mb-3 text-muted">© 2019-2020</p>
       </form>
 
       <!-- JAVASCRIPT -->

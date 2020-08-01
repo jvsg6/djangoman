@@ -11,40 +11,8 @@
 
 }
 
-.accountbg {
-  background-color: rgba(0, 0, 0, 0);
-  background-position-x: 0%;
-  background-position-y: 0%;
-  background-repeat: repeat;
-  background-attachment: scroll;
-  background-image: url({% static 'adm/lables/logologin.jpg' %});
-  background-size: auto;
-  background-origin: padding-box;
-  background-clip: border-box;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-}
 
-.login-dropdown-buttons{
-  padding: .55rem 1.5rem;
-  display: block;
-  clear: both;
-  font-weight: 400;
-  text-align: inherit;
-  color: #212121;
-  white-space: nowrap;
-  border: 0;
-  font-size: 18px;
-}
 
-.form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-}
 
 .sr-only {
     position: absolute;
@@ -57,139 +25,28 @@
     border: 0;
 }
 
-
-.leftbar-menu {
-  bottom: 50px;
-  height: 100%;
-  margin-bottom: -70px;
-  margin-top: 0;
-  padding-bottom: 70px;
-  position: fixed;
-  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.05);
-  z-index: 99;
-  top: 0;
-  width: 240px;
-  transition: all 0.4s ease-in-out;
-  background: #ffffff;
-}
-
-.logo {
-  color: #2d3b48 !important;
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: .03em;
-  line-height: 100px;
-  text-transform: uppercase;
-}
-
-.logo:hover{
-  text-decoration: none;
-}
-
-.text-leftbar{
-  margin-top: 25px;
-}
-
-
-.text-leftbar ul li a{
-  font-family: 'Montserrat', sans-seri;
-  font-size: 14px;
-  font-weight: 900;
-  color: #666;
-  text-transform: uppercase;
-  transition: all 500ms ease;
-  margin-left: 5px;
-}
-
-.img-fluid {
-    max-width: auto;
-    height: 100%;
-}
-
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.text-leftbar ul li a{
-  text-decoration: none;
-}
-
-.text_hover:hover{
-  color: #34C924;
-}
-
-.text-leftbar ul li {
-  margin-bottom: 20px;
-}
-
-.text-leftbar ul{
-  margin-left: 15px;
-  margin-right: 15px;
-  padding: 0;
-}
-
-.border_user{
-  border-right-width: 1px;
-  border-right-color: #555;
-  border-right-style: solid;
-  margin-left: 10px;
-  margin-right: 5px;
-}
-
-.lang_dropdown{
-  display: inline-block;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #FFFFFF;
-  text-transform: uppercase;
-  line-height: 0.75;
-}
-
-
-
-
-.btnleftbar{
-  color: #043c53;
-}
-
-.tabup {
-  font-family: 'Montserrat', sans-serif;
-
-}
-
-.texttopadm {
-  font-family: 'Roboto Condensed', sans-serif;
-  font-size: 30px;
+.search-form{
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 
 
 
 
-.fixedleftbar {
-  position: relative;
-  top: 0;
-  padding-top: .5rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
 
 
+
+
+/* LEFT BAR */
+
+
+/* END LEFT BAR */
+
+
+
+
+/* PAGINATION */
 .pagination_arrows {
   color: #2b4a4a
 
@@ -228,17 +85,4 @@
   color: #000;
 }
 
-.dropdown_text {
-    display: inline-block;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: #FFFFFF;
-    text-transform: uppercase;
-    line-height: 0.75;
-    vertical-align: center;
-    margin-right: 15px;
-    transform: translateY(1px);
-    transition: all 200ms ease;
-}
 

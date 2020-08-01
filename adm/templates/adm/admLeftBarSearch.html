@@ -1,38 +1,28 @@
 {% load widget_tweaks %}
 {% load i18n %}
-<div class="container-fluid">
-  <form action="/all/1"  method="get" >
-    <div class="column">
-        <div class="row">
-            <label for="min">
-                <a class="text-leftbar" style="margin-bottom: 10px;">{% trans "Min calc number" %}</a>
-            </label>
-        </div>
-        <div class="row">
-            {% if minNum %}
-                <input type="number" min="1" max="999" name = "min" id="min" class="form-control" value={{minNum}} onchange="this.form.submit()">
-            {% else %}
-                <input type="number" min="1" max="999" name = "min" id="min" class="form-control" onchange="this.form.submit()">
-            {% endif %}
-            
+
+    <form action="/all/1"  method="get" >
+
+        <div class="row search-form" style="padding-left: 25px; padding-right: 25px;">
+            <div style="width: 75px; margin-right: 10px;">
+                {% if minNum %}
+                    <input type="number" min="1" max="999" name = "min" id="min" class="form-control p-1" value={{minNum}} onchange="this.form.submit()">
+                {% else %}
+                    <input type="number" min="1" max="999" name = "min" id="min" class="form-control p-1" onchange="this.form.submit()">
+                {% endif %}
+            </div>
+
+            <hr>
+
+            <div style="width: 75px;">
+                {% if maxNum %}
+                    <input type="number" min="1" max="999" name = "max" id="max" class="form-control p-1" value={{maxNum}} onchange="this.form.submit()">
+                {% else %}
+                    <input type="number" min="1" max="999" name = "max" id="max" class="form-control p-1" onchange="this.form.submit()">
+                {% endif %}
+            </div>
         </div>
 
-        <div class="row">
-            <label for="max">
-                <a class="text-leftbar">{% trans "Max calc number" %}</a>
-            </label>
-        </div>
-        <div class="row">
-            {% if maxNum %}
-                <input type="number" min="1" max="999" name = "max" id="max" class="form-control" value={{maxNum}} onchange="this.form.submit()">
-            {% else %}
-                <input type="number" min="1" max="999" name = "max" id="max" class="form-control" onchange="this.form.submit()">
-            {% endif %}
-        </div>
 
-        <div class="row">
-            <input type="submit" value={% trans "Search" %}>
-        </div>
-    </div>
-  </form>
-</div>
+        <button class="btn btn-lg btn-block mt-2" type="submit">Search</button>
+    </form>

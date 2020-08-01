@@ -1,0 +1,53 @@
+
+.leftbar-menu {
+  bottom: 50px;
+  height: 100%;
+  margin-bottom: -70px;
+  margin-top: 0;
+  padding-bottom: 70px;
+  position: fixed;
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.05);
+  z-index: 99;
+  top: 0;
+  width: 250px;
+  transition: all 0.4s ease-in-out;
+  background: #ffffff;
+}
+
+.metismenu {
+  margin: 0;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.menu-title {
+    padding: 12px 20px !important;
+    letter-spacing: .05em;
+    pointer-events: none;
+    cursor: default;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #2a5885;
+    font-weight: 100;
+}
+
+.text-leftbar{
+    display: block;
+    padding: .7rem 1.5rem;
+    color: #2a5885;
+    position: relative;
+    font-size: 15px;
+    -webkit-transition: all .4s;
+    transition: all .4s;
+    text-decoration: none;
+}
+
+.text-leftbar:hover{
+  color: #2a5885;
+  text-decoration: none;
+}
+
+

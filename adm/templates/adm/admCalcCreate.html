@@ -62,6 +62,7 @@ function addReadonlyToAll() {
 
 <div class="row">
   <div class="col-5">
+    <div class="card bg-white pages-shadow-history m-p-for-cards">
     <form id="WindOroForm" data-url="{% url 'calc_edit' pk=pk %}" method="POST" class="post-form" name="WindOroForm">{% csrf_token %}</form>
     <form id="FullCalcForm" method="POST" class="post-form" name="allCalcName">{% csrf_token %}
     <nav>
@@ -90,9 +91,12 @@ function addReadonlyToAll() {
       <button type="submit" class="btn btn-primary" name="save_calc">{% trans "Save scenario" %}</button>
       <button type="submit" class="btn btn-success" name="start_calc">{% trans "Start calculation" %}</button>
     </form>
+    </div>
   </div>
   <div class="col-7">
+    <div class="card bg-white pages-shadow-history m-p-for-cards">
     <div id="mapid" style="width: 800px; height: 800px;"></div>
+    </div>
   </div>
 </div>
 

@@ -1,0 +1,31 @@
+
+.pages-shadow-history{
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.m-p-for-cards{
+  padding: 1.25rem;
+  margin-bottom: 30px;
+}
+
+.pages-wrapper-history.active {
+    z-index: 3;
+    color: #fff;
+    background-color: #69a4a2;
+    border-color: #69a4a2;
+}
+
+.pages-wrapper-history:hover{
+  text-decoration: none; 
+  color: #333;
+  background-color: #8FB3B8;
+}
+
+.pages-wrapper-history{
+  padding: 5px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #333;
+}

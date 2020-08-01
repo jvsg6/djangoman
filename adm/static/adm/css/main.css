@@ -1,16 +1,14 @@
 {% load static %}
 
-body {
-  background: #eff3f6;
-  font-family: "Roboto", sans-serif;
-  margin: 0;
-  font-size: 15px;
-}
+.colors{
+  color: #edeef0; /* Серый фон вк */
+  color: #4a76a8; /* Навбар вк*/
+  color: #ffffff; /* Фон блока */
+  color: #224b7a; /* Синий с черным */
+  color: #e5ebf1; /* Ковер кнопок */
+  color: #2a5885; /* Текст */
 
-#wrapper {
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
+
 }
 
 .accountbg {
@@ -92,10 +90,6 @@ body {
   margin-top: 25px;
 }
 
-.m-p-for-cards{
-  padding: 1.25rem;
-  margin-bottom: 30px;
-}
 
 .text-leftbar ul li a{
   font-family: 'Montserrat', sans-seri;
@@ -183,29 +177,9 @@ body {
   font-size: 30px;
 }
 
-.footer-content {
-    background-color: #f9f9f9;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    bottom: 0;
-    color: #2d3b48;
-    text-align: center;
-    padding: 20px 30px;
-    position: absolute;
-    right: 0;
-    left: 240px;
-}
 
-.content-page {
-    margin-left: 240px;
-    overflow: hidden;
-    min-height: 500px;
-}
 
-.content-page > .content {
-    margin-bottom: 63px;
-    padding: 20px 25px 0 25px;
-    transition: all 0.4s ease-in-out;
-}
+
 
 .fixedleftbar {
   position: relative;
@@ -268,67 +242,3 @@ body {
     transition: all 200ms ease;
 }
 
-.pages-wrapper-history{
-  padding: 5px;
-  font-weight: 500;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  color: #333;
-}
-
-.pages-wrapper-history:hover{
-  text-decoration: none; 
-  color: #333;
-  background-color: #8FB3B8;
-}
-
-.pages-shadow-history{
-  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.05);
-  border: none;
-}
-
-.pages-wrapper-history.active {
-    z-index: 3;
-    color: #fff;
-    background-color: #69a4a2;
-    border-color: #69a4a2;
-}
-
-/*--------- Login page ----------------*/
-
-.bg-pattern{
-  background-position: center;
-  background: linear-gradient(45deg, #4A6C93 , #6F90B4);
-  background-size: cover;
-
-}
-
-.bg-pattern{
-  background: rgba(0,0,0,0.5) 
-  z-index: 1;
-}
-
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: auto;
-  margin-top: 200px;
-  background-color: #f1f0ef;
-  border-radius: 10px;
-  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.5)
-}
-
-.button-login{
-  background-color: #A1B2C4;
-}
-
-.button-login:hover{
-  background-color: #6F90B4;
-
-}
-
-.text-login{
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-}

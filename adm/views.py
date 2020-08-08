@@ -253,6 +253,23 @@ def calc_delete(request, pk):
     b.delete()
     return redirect('admListPart', pagId = 1)
 
+
+@login_required(login_url='/accounts/login/')
+def calc_duplicate(request, pk):
+    pk = pk-1
+    print ("------------------------------------------------------")
+    print (request)
+    print ("------------------------------------------------------")
+    print(f"duplicate calc {pk}")
+    calc = Calc.objects.all()[pk] # some previous entry
+    windPhaseList = calc.windPhaseList.all()
+    calc.pk = None
+    calc.id = None
+    calc.created_date = timezone.now()
+    calc.save()
+    calc.windPhaseList.set(windPhaseList)
+    return redirect(calc_edit, pk = calc.pk)
+
 @login_required(login_url='/accounts/login/')
 def calc_rand(request):
     print ("------------------------------------------------------")

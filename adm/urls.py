@@ -7,6 +7,7 @@ urlpatterns = [
     path('new', views.calc_new, name='calc_new'),
     path('rand', views.calc_rand, name='calc_rand'),
     path('edit/<int:pk>/', views.calc_edit, name='calc_edit'),
+    path('delete/<int:pk>/', views.calc_delete, name='calc_delete'),
     path('started/<int:pk>/', views.calc_started, name='calc_started'),
     path('full_wind_parameters/add/', views.addFullWindParameters, name='addFullWindParameters'),
     path('details/<int:pk>/', views.calc_details, name='calc_details'),

@@ -243,7 +243,15 @@ def calc_new(request):
         post.save()
         return redirect(calc_edit, pk = post.pk)
 
-
+@login_required(login_url='/accounts/login/')
+def calc_delete(request, pk):
+    print ("------------------------------------------------------")
+    print (request)
+    print ("------------------------------------------------------")
+    print(f"Delete calc {pk}")
+    b = Calc.objects.get(pk=pk)
+    b.delete()
+    return redirect('admListPart', pagId = 1)
 
 @login_required(login_url='/accounts/login/')
 def calc_rand(request):

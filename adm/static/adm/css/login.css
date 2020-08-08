@@ -1,4 +1,4 @@
-
+{% load static %}
 .bg-pattern{
   background-position: center;
   background: linear-gradient(28deg, #4A6C93 , #edeef0);
@@ -20,6 +20,7 @@
   background-color: #4a76a8;
   border-box: 1px;
   border-color: #4a76a8;
+  transition-duration: 0.5s;
 }
 
 .button-login:hover{
@@ -66,4 +67,29 @@
 .form-label-group {
     position: relative;
     margin-bottom: 1rem;
+}
+
+.password-control {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('img/eye-unchecked.png');
+  background-size: 20px;
+
+}
+
+.password-control.view {
+  background-image: url('img/eye-checked.png');
+  background-size: 20px;
+}
+
+.password-control.view:hover{
+  color: #e5ebf1;
+}
+
+.password-control:hover{
+  color: #e5ebf1;
 }

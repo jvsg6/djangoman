@@ -2,6 +2,7 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as allLanguages %}
+{% load static %}
 
 <script>
 function changeLink(currFullPath, currLangCode, reqLangCode) {
@@ -14,7 +15,7 @@ function changeLink(currFullPath, currLangCode, reqLangCode) {
 
 <div class="dropdown">
   <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {% trans "Select Lang" %}
+     <img src="{% static 'adm/labels/flag.png' %}" width="32"> {% trans "Select Lang" %} 
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     {% for language in allLanguages %}

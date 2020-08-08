@@ -1,126 +1,98 @@
 {% load i18n %}
 {% load static %}
- 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>
-            {% trans "Calculation number" %}
-          </th>
-          <th>
-            {% trans "Name" %}
-          </th>
-          <th>
-            {% trans "Author" %}
-          </th>
-          <th>
-            {% trans "Creation date" %}
-          </th>
-          <th>
-            {% trans "Comment" %}
-          </th>
-          <th>
-            {% trans "Link to download" %}
-          </th>
-          <th>
-            {% trans "Weather" %}
-          </th>
-          <th>
-            {% trans "Transport" %}
-          </th>
-        </tr>
-      </thead>
- 
-      <tbody>
-        <tr>
-          <th>
-            {{ post.pk }}
-          </th>
-          <th>
-            {{ post.name }}
-          </th>
-          <th>
-            {{ post.author }}
-          </th>
-          <th>
-            {{ post.created_date }}
-          </th>
-          <th>
-            {{ post.comment }}
-          </th>
-          <th>
-            <a href="{% url 'calc_download' pk=post.pk%}" style="text-decoration: none; display: block; color: #333;">
-              <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
-                <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
-                <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
-              </svg>
-            </a>
-          </th>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>
+                      {% trans "Calculation number" %}
+                    </th>
+                    <th>
+                      {% trans "Name" %}
+                    </th>
+                    <th>
+                      {% trans "Author" %}
+                    </th>
+                    <th>
+                      {% trans "Creation date" %}
+                    </th>
+                    <th>
+                      {% trans "Comment" %}
+                    </th>
+                    <th>
+                      {% trans "Link to download" %}
+                    </th>
+                    <th>
+                      {% trans "Weather" %}
+                    </th>
+                    <th>
+                      {% trans "Transport" %}
+                    </th>
+                  </tr>
+                </thead>
 
-          {% if post.weatherStatus == 0 %}
-          <th>
-            <span class="glyphicon glyphicon-wrench" aria-hidden="true">Prep</span>
-          </th>
-          {% endif %}
-          {% if post.weatherStatus == 1 %}
-          <th>
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </th>
-          {% endif %}
-          {% if post.weatherStatus == 2 %}
-          <th>
-            <span class="glyphicon glyphicon-ok" aria-hidden="true">End</span>
-          </th>
-          {% endif %}
+                <tbody>
+                  <tr>
+                    <th>
+                      {{ post.pk }}
+                    </th>
+                    <th>
+                      {{ post.name }}
+                    </th>
+                    <th>
+                      {{ post.author }}
+                    </th>
+                    <th>
+                      {{ post.created_date }}
+                    </th>
+                    <th>
+                      {{ post.comment }}
+                    </th>
+                    <th>
+                      <a href="{% url 'calc_download' pk=post.pk%}" style="text-decoration: none; display: block; color: #333;">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
+                          <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
+                          <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
+                        </svg>
+                      </a>
+                    </th>
+                    {% if post.weatherStatus == 0 %}
+                    <th>
+                      <span class="glyphicon glyphicon-wrench" aria-hidden="true">Prep</span>
+                    </th>
+                    {% endif %}
 
+                    {% if post.weatherStatus == 1 %}
+                    <th>
+                      <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </th>
+                    {% endif %}
 
-          {% if post.transportStatus == 0 %}
-          <th>
-            <span class="glyphicon glyphicon-wrench" aria-hidden="true">Prep</span>
-          </th>
-          {% endif %}
-          {% if post.transportStatus == 1 %}
-          <th>
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </th>
-          {% endif %}
-          {% if post.transportStatus == 2 %}
-          <th>
-            <span class="glyphicon glyphicon-ok" aria-hidden="true">End</span>
-          </th>
-          {% endif %}
+                    {% if post.weatherStatus == 2 %}
+                    <th>
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true">End</span>
+                    </th>
+                    {% endif %}
 
-
-        </tr>
-      </tbody>
-     </table>
-
-
-    <div id="mapid_{{post.pk}}" style="width: auto; height: 650px;"></div>
-
-
-<script>
-
-  var lon = 0;
-  var lat = 0;
-  var srclatlng = L.latLng(lat, lon);
-  var mymap = L.map('mapid_{{post.pk}}').setView(srclatlng, 3);
-
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1
-  }).addTo(mymap);
-  
-  var srcPos = L.marker(srclatlng, {draggable: true}).addTo(mymap)
-
-</script>
+                    {% if post.transportStatus == 0 %}
+                    <th>
+                      <span class="glyphicon glyphicon-wrench" aria-hidden="true">Prep</span>
+                    </th>
+                    {% endif %}
+                    {% if post.transportStatus == 1 %}
+                    <th>
+                      <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </th>
+                    {% endif %}
+                    {% if post.transportStatus == 2 %}
+                    <th>
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true">End</span>
+                    </th>
+                    {% endif %}
+                  </tr>
+                </tbody>
+               </table>

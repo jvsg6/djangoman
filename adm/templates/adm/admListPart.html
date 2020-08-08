@@ -5,40 +5,95 @@ function myFunction(pk) {
   var pk123 = ppp.replace("123321123321", pk);
   window.open(pk123);
 }
+var marker = new Array();
+
+function markerDelAgain() {
+for(i=0;i<marker.length;i++) {
+    mymap.removeLayer(marker[i]);
+    }  
+}
+
+function loadMap(lon_tmp, lat_tmp) 
+{
+  markerDelAgain();
+  var lon = lon_tmp.replace(",", ".");
+  var lat = lat_tmp.replace(",", ".");
+  console.log(lon_tmp);
+  console.log(lat_tmp);
+  console.log("----------------");
+  var srclatlng = L.latLng(lat, lon);
+  var srcPos = L.marker(srclatlng, {draggable: true}).addTo(mymap)
+  marker.push(srcPos);
+  mymap.flyTo(srclatlng, 3);
+}
+
+function firstLoadMap(lon_tmp, lat_tmp)
+{
+  var lon = lon_tmp.replace(",", ".");
+  var lat = lat_tmp.replace(",", ".");
+  console.log(lon, lat);
+  var srclatlng = L.latLng(lat, lon);
+  mymap = L.map('mapid_main').setView(srclatlng, 3);
+
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', 
+  {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1
+  }).addTo(mymap);
+  var srcPos = L.marker(srclatlng, {draggable: true}).addTo(mymap)
+  marker.push(srcPos);
+  mymap.flyTo(srclatlng, 3);
+}
+
 </script>
 
 
-  <div id="dtBasicExample_wrapper" class="dataTables_wrapper dt-bootstrap4">
-    <div class="row">
-      <div class="col-3">
-  
-        <div class="card bg-white pages-shadow-history m-p-for-cards">
-          <h5 class="mb-4 ">History</h5>
-          <div class="list-group" id="myList" role="tablist">
-            {% for post in posts %}
-            {% if forloop.first %}
-            <a class="pages-wrapper-history pages-active active" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
-            {% else %}
-            <a class="pages-wrapper-history" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
-            {% endif %}
+<div id="dtBasicExample_wrapper" class="dataTables_wrapper dt-bootstrap4">
+  <div class="row">
+    <div class="col-3">
 
-            {% endfor %}
-            {% include 'adm/admPagination.html' with pagList=pagList pagNext=pagNext pagPrev=pagPrev currPagId=currPagId%}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-9">
-        <div class="tab-content card bg-white pages-shadow-history m-p-for-cards">
-          <h5 class="mb-4">Calculation Details</h5>
+      <div class="card bg-white pages-shadow-history m-p-for-cards">
+        <h5 class="mb-4 ">History</h5>
+        <div class="list-group" id="myList" role="tablist">
           {% for post in posts %}
-            {% if forloop.first %}
-              <div class="tab-pane show active" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}</div>
-            {% else %}
-              <div class="tab-pane" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}</div>
-            {% endif %}
+          {% if forloop.first %}
+          <a class="pages-wrapper-history pages-active active" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          {% else %}
+          <a class="pages-wrapper-history" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          {% endif %}
+
           {% endfor %}
+          {% include 'adm/admPagination.html' with pagList=pagList pagNext=pagNext pagPrev=pagPrev currPagId=currPagId%}
         </div>
       </div>
     </div>
+
+    <div class="col-9">
+      <div class="tab-content card bg-white pages-shadow-history m-p-for-cards">
+        <h5 class="mb-4">Calculation Details</h5>
+        {% for post in posts %}
+          {% if forloop.first %}
+            <div class="tab-pane active" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}
+            </div>
+          {% else %}
+            <div class="tab-pane" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}
+            </div>
+          {% endif %}
+        {% endfor %}
+        <div id="mapid_main" style="width: auto; height: 650px;"></div>
+        <script type="text/javascript">
+          {% for post in posts %}
+            {% if forloop.first %}
+             firstLoadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}');
+            {% endif %}
+          {% endfor %}
+        </script>
+      </div>
+    </div>
   </div>
+</div>

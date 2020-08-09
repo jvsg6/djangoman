@@ -18,10 +18,10 @@ class ReqPaths():
         pathToTemplate = '/home/ilichev/Downloads/in_template.xml'
         startADM = True
     elif "grozata" in mypath:
-        pathToADM = '/home/ilichev/Programs/release/nostra_build/nostraconsole'
+        pathToADM = '/home/grozata/Downloads/in_template.xml'
         pathToWorkingFolder = os.path.dirname(__file__)
-        pathToLanduse ='/home/ilichev/Downloads/landuse.asc'
-        pathToTemplate = '/home/ilichev/Downloads/in_template.xml'
+        pathToLanduse ='/home/grozata/Downloads/landuse.asc'
+        pathToTemplate = '/home/grozata/Downloads/in_template.xml'
         startADM = False
 
 reqPaths = ReqPaths()

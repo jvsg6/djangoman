@@ -50,6 +50,20 @@ function firstLoadMap(lon_tmp, lat_tmp)
   mymap.flyTo(srclatlng, 3);
 }
 
+function returnActiveTaskPk(idTemplate)
+{
+  {% for post in posts %}
+    var elementId = idTemplate+{{post.pk}};
+    var listElement = document.getElementById(elementId);
+    var elementActive = listElement.classList.contains("active");
+    if(elementActive)
+    {
+      console.log(elementId, elementActive);
+      return {{post.pk}};
+    }
+  {% endfor %}
+}
+
 </script>
 
 
@@ -62,9 +76,9 @@ function firstLoadMap(lon_tmp, lat_tmp)
         <div class="list-group" id="myList" role="tablist">
           {% for post in posts %}
           {% if forloop.first %}
-          <a class="pages-wrapper-history pages-active active" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          <a class="pages-wrapper-history pages-active active" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
           {% else %}
-          <a class="pages-wrapper-history" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          <a class="pages-wrapper-history" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
           {% endif %}
 
           {% endfor %}

@@ -263,6 +263,25 @@ def calc_duplicate(request, pk):
     print(f"duplicate calc {pk}")
     calc = Calc.objects.all()[pk] # some previous entry
     windPhaseList = calc.windPhaseList.all()
+
+    srcParamNew = calc.srcParam
+    srcParamNew.pk = None
+    srcParamNew.id = None
+    srcParamNew.save()
+    calc.srcParam = srcParamNew
+
+    areaCalcParamNew = calc.areaCalcParam
+    areaCalcParamNew.pk = None
+    areaCalcParamNew.id = None
+    areaCalcParamNew.save()
+    calc.areaCalcParam = areaCalcParamNew
+
+    areaResParamNew = calc.areaResParam
+    areaResParamNew.pk = None
+    areaResParamNew.id = None
+    areaResParamNew.save()
+    calc.areaResParam = areaResParamNew
+
     calc.pk = None
     calc.id = None
     calc.created_date = timezone.now()

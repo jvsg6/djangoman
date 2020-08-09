@@ -7,7 +7,7 @@ from .myPaths import reqPaths
 from django.template import Context, Template
 import subprocess
 import time
-
+from .myPaths import startADM
 def insertSrcInContext(srcParameters, contextParameters):
     contextParameters['srcLat'] = str(srcParameters.lat).replace(",", ".")
     contextParameters['srcLon'] = str(srcParameters.lon).replace(",", ".")
@@ -47,7 +47,7 @@ def changeAndCopyInFile(pathToTemplate, pathToCalc, post):
 
 
 def startAdm(pathToCalc):
-    if True:
+    if startADM:
         try:
             process = subprocess.Popen([reqPaths.pathToADM,  '--got=netcdf4','--db', pathToCalc], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             output = process.communicate()[0] 

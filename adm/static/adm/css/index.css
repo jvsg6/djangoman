@@ -14,14 +14,16 @@ body {
 }
 
 .content-page {
-    margin-left: 240px;
+    margin-left: 250px;
     overflow: hidden;
     min-height: 500px;
 }
 
 .content-page > .content {
     margin-bottom: 63px;
-    padding: 20px 25px 0 25px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 24px;
     transition: all 0.4s ease-in-out;
 }
 

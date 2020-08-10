@@ -51,16 +51,12 @@
                     </th>
                     <th class="text-center">
                       <a href="{% url 'calc_download' pk=post.pk%}" style="text-decoration: none; display: block; color: #333;">
-                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
-                          <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
-                          <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
-                        </svg>
+<img src="{% static 'adm/labels/download.png' %}" width="36" alt="Download">
                       </a>
                     </th>
                     {% if post.weatherStatus == 0 %}
                     <th class="text-center">
-                        <img class="" src="{% static 'adm/labels/wrench.png' %}" alt="" width="36">
+                        <img class="" src="{% static 'adm/labels/wrench.png' %}" alt="Preparation" width="36">
                     </th>
                     {% endif %}
 
@@ -74,13 +70,13 @@
 
                     {% if post.weatherStatus == 2 %}
                     <th class="text-center">
-                      <img src="{% static 'adm/labels/complete.png' %}" alt="" width="36">
+                      <img src="{% static 'adm/labels/check.png' %}" alt="Complete" width="36">
                     </th>
                     {% endif %}
 
                     {% if post.transportStatus == 0 %}
                     <th class="text-center">
-                      <img src="{% static 'adm/labels/wrench.png' %}" alt="" width="36">
+                      <img src="{% static 'adm/labels/wrench.png' %}" alt="Preparation" width="36">
                     </th>
                     {% endif %}
                     {% if post.transportStatus == 1 %}
@@ -92,7 +88,7 @@
                     {% endif %}
                     {% if post.transportStatus == 2 %}
                     <th class="text-center">
-                      <img src="{% static 'adm/labels/check.png' %}" alt="" width="36">
+                      <img src="{% static 'adm/labels/check.png' %}" alt="Complete" width="36">
                     </th>
                     {% endif %}
                   </tr>

@@ -98,9 +98,20 @@ def admCalc_start(request):
 @login_required(login_url='/accounts/login/')
 def calc_download(request, pk):
     calc = get_object_or_404(Calc, pk=pk)
-    if request.method == "POST":
-        print ( request.POST.getlist('download'))
-        return downloadFiles(request.POST.getlist('download'), calc)
+    print(request.GET)
+    if request.GET != {}:
+        print ( request.GET.getlist('download'))
+        return downloadFiles(request.GET.getlist('download')[0], calc)
+    else:
+        return render(request, 'adm/admDownload.html', {'post': calc})
+
+@login_required(login_url='/accounts/login/')
+def calc_download_file(request, pk, fileType):
+    calc = get_object_or_404(Calc, pk=pk)
+    print(request.GET)
+    if request.GET != {}:
+        print ( request.GET.getlist('download'))
+        return downloadFiles(request.GET.getlist('download'), calc)
     else:
         return render(request, 'adm/admDownload.html', {'post': calc})
 

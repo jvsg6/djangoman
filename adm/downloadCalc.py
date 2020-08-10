@@ -7,17 +7,17 @@ def download(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type='application/force-download')
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            print(response)
             return response
     raise Http404
 
-def downloadFiles(listOfFilesToDownload, calc):
-    for reqFileType in listOfFilesToDownload:
-        if reqFileType == "LanduseFile":
-            print("LanduseFile", calc.pk)
-            return download(calc.pathToLanduse)
-        if reqFileType == "InputFile":
-            print('InputFile', calc.pk)
-            return download(calc.pathToInput)
-        if reqFileType == "OutputFile":
-            print('OutputFile', calc.pk)
+def downloadFiles(fileType, calc):
+    if fileType == "LanduseFile":
+        print("LanduseFile", calc.pk, calc.pathToLanduse)
+        return download(calc.pathToLanduse)
+    if fileType == "InputFile":
+        print('InputFile', calc.pk, calc.pathToInput)
+        return download(calc.pathToInput)
+    if fileType == "OutputFile":
+        print('OutputFile', calc.pk)
     return

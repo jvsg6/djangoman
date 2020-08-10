@@ -1,15 +1,26 @@
 {% extends 'adm/admIndex.html' %}
-
+{% load i18n %}
+{% load static %}
 {% block content %}
-        <h2>Download:</h2>
-        <form method="post">
-          {% csrf_token %}
-          <input type="checkbox" id="InputFile" name="download" value="InputFile">
-          <label for="InputFile"> Input file</label><br>
-          <input type="checkbox" id="LanduseFile" name="download" value="LanduseFile">
-          <label for="LanduseFile"> Landuse file</label><br>
-          <input type="checkbox" id="OutputFile" name="download" value="OutputFile">
-          <label for="OutputFile"> Output file</label><br><br>
-          <input type="submit" value="Submit">
-        </form>
+        <div class="row">
+          <h2>Download:</h2>
+        </div>
+        <div class="row">
+          <a href="{% url 'calc_download' pk=post.pk%}?download=InputFile" style="text-decoration: none; display: block; color: #333;">
+            <h3>InputFile</h3>
+            <img src="{% static 'adm/labels/download.png' %}" width="36" alt="Download" style="position: relative;">
+          </a>
+        </div>
+        <div class="row">
+          <a href="{% url 'calc_download' pk=post.pk%}?download=LanduseFile" style="text-decoration: none; display: block; color: #333;">
+            <h3>LanduseFile</h3>
+            <img src="{% static 'adm/labels/download.png' %}" width="36" alt="Download" style="position: relative;">
+          </a>
+        </div>
+        <div class="row">
+          <a href="{% url 'calc_download' pk=post.pk%}?download=OutputFile" style="text-decoration: none; display: block; color: #333;">
+            <h3>OutputFile</h3>
+            <img src="{% static 'adm/labels/download.png' %}" width="36" alt="Download" style="position: relative;">
+          </a>
+        </div>
 {% endblock %}

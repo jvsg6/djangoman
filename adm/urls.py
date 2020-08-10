@@ -13,6 +13,7 @@ urlpatterns = [
     path('full_wind_parameters/add/', views.addFullWindParameters, name='addFullWindParameters'),
     path('details/<int:pk>/', views.calc_details, name='calc_details'),
     path('download/<int:pk>/', views.calc_download, name='calc_download'),
+    path('download/<int:pk>/<str:fileType>/', views.calc_download_file, name='calc_download_file'),
     path('accounts/', include('django.contrib.auth.urls'), name='logInOut'),
     path('', views.admListPart, name='admListPart'),
     path('all/', views.admListPart, name='admListPart'),

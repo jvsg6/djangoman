@@ -1,7 +1,7 @@
 {% load static %}
 <script>
 function myFunction(pk) {
-  var ppp = "{% url 'calc_details' pk=123321123321%}";
+  var ppp = "{% url 'calc_edit' pk=123321123321%}";
   var pk123 = ppp.replace("123321123321", pk);
   window.open(pk123);
 }

@@ -40,7 +40,6 @@ function show_hide_password(target){
 
 let timer; // пока пустая переменная
 let x =10; // стартовое значение обратного отсчета
-countdown(); // вызов функции
 function countdown(){  // функция обратного отсчета
     document.getElementById('rocket').innerHTML = x;
     x--; // уменьшаем число на единицу

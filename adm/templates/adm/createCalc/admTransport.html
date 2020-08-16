@@ -7,6 +7,9 @@
   <li class="nav-item">
     <a class="nav-link" id="pills-area-tab" data-toggle="pill" href="#pills-area" role="tab" aria-controls="pills-area" aria-selected="false">{% trans "Area" %}</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-transRes-tab" data-toggle="pill" href="#pills-transRes" role="tab" aria-controls="pills-transRes" aria-selected="false">{% trans "Results" %}</a>
+  </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade show active" id="pills-src" role="tabpanel" aria-labelledby="pills-src-tab">
@@ -14,5 +17,8 @@
   </div>
   <div class="tab-pane fade" id="pills-area" role="tabpanel" aria-labelledby="pills-area-tab">
     {% include 'calcArea.html' %}
+  </div>
+  <div class="tab-pane fade" id="pills-transRes" role="tabpanel" aria-labelledby="pills-transRes-tab">
+    {% include 'TransportResults.html' %}
   </div>
 </div>

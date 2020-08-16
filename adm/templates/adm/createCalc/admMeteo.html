@@ -2,17 +2,23 @@
 {% load i18n %}
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{% trans "Prognoz" %}</a>
+    <a class="nav-link active" id="pills-prognoz-tab" data-toggle="pill" href="#pills-prognoz" role="tab" aria-controls="pills-prognoz" aria-selected="true">{% trans "Prognoz" %}</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans "WingOrography" %}</a>
+    <a class="nav-link" id="pills-windOroGeneral-tab" data-toggle="pill" href="#pills-windOroGeneral" role="tab" aria-controls="pills-windOroGeneral" aria-selected="false">{% trans "WingOrography" %}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-resultsWindOro-tab" data-toggle="pill" href="#pills-resultsWindOro" role="tab" aria-controls="pills-resultsWindOro" aria-selected="false">{% trans "Results" %}</a>
   </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+  <div class="tab-pane fade show active" id="pills-prognoz" role="tabpanel" aria-labelledby="pills-prognoz-tab">
     {% include 'ForecastGeneral.html'%}
   </div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+  <div class="tab-pane fade" id="pills-windOroGeneral" role="tabpanel" aria-labelledby="pills-windOroGeneral-tab">
     {% include 'WindOroGeneral.html'  with meteoWindOroOldList=meteoWindOroOldList meteoWindOroNew=meteoWindOroNew%}
+  </div>
+  <div class="tab-pane fade" id="pills-resultsWindOro" role="tabpanel" aria-labelledby="pills-resultsWindOro-tab">
+    {% include 'WindOroResults.html' %}
   </div>
 </div>

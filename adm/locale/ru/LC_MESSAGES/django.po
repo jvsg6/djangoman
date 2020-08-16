@@ -122,7 +122,7 @@ msgstr "Входные метео фазы"
 
 #: templates/adm/admCalcCreate.html:67
 msgid "Common"
-msgstr "Общие параметры"
+msgstr "Общее"
 
 #: templates/adm/admCalcCreate.html:68
 msgid "Meteo"

@@ -25,7 +25,7 @@ SECRET_KEY = '32r_c4ag-pjmxus8nlu@(-$9g7)=0w2rv@3ab)a4jt!nb92gp3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
-    "adm",
     "ManualSource",
     "WindOro",
     "MeteoForecast",
+    "adm",
     'django.contrib.admin',
 ]
 

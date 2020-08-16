@@ -97,8 +97,7 @@ function addWindPhase(pk)
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{% trans "Common" %}</a>
         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">{% trans "Meteo" %}</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">{% trans "Source" %}</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact2" aria-selected="false">{% trans "Area" %}</a>
+        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">{% trans "Transport" %}</a>
         <a class="nav-item nav-link"  aria-selected="false">{% trans "Edit mode:" %}<input type="checkbox" data-size="sm" id="editModeCheckBox" onclick="addReadonlyToAll()"></a>
       </div>
     </nav>
@@ -110,10 +109,7 @@ function addWindPhase(pk)
             {% include 'adm/createCalc/admMeteo.html' with meteoWindOroOldList=meteoWindOroOldList meteoWindOroNew=meteoWindOroNew%}
       </div>
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            {% include 'adm/createCalc/admSource.html'%}
-      </div>
-      <div class="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact2-tab">
-            {% include 'adm/createCalc/admArea.html'%}
+            {% include 'adm/createCalc/admTransport.html'%}
       </div>
     </div>
       <button type="submit" class="btn btn-primary" name="save_calc">{% trans "Save scenario" %}</button>

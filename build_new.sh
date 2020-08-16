@@ -27,6 +27,8 @@ sudo -u postgres psql
 ALTER USER postgres PASSWORD '123'; #set password 123 for user postgres
 #login as postgres
 psql -U postgres -h localhost
+
+sudo -u postgres psql
 CREATE USER myuser with PASSWORD '1234';
 ALTER ROLE myuser SUPERUSER;
 CREATE DATABASE mydb;

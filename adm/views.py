@@ -195,8 +195,9 @@ def saveCalcLogic(request, pk):
 @login_required(login_url='/accounts/login/')
 def calc_edit(request, pk, page = ""):
         print ("------------------------------------------------------")
-        print (request)
+        print (request, request.method)
         print ("------------------------------------------------------")
+
         if request.method == "POST":
             print("request")
             print (request)
@@ -214,6 +215,8 @@ def calc_edit(request, pk, page = ""):
             else:
                 return saveCalcLogic(request, pk)
         else:
+            print(f"I got pk={pk}")
+            print (request.GET)
             post = get_object_or_404(Calc, pk=pk)
             form = CalcForm(instance=post)
             print(type(post), type(form))

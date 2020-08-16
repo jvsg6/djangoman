@@ -44,7 +44,7 @@ function myFunction(form, meteoWindOro) {
         <td>{% render_field meteoWindOroNew.stab  class+="form-control"  form+="WindOroForm"%}</td>
         <td>{% render_field meteoWindOroNew.roughness  class+="form-control"  form+="WindOroForm"%}</td>
         <td>
-          <button type="button" id="WindOroFormBtn" class="btn btn-primary" form="WindOroForm" name="addWindOroPhaseBtn"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+          <button type="button" id="WindOroFormBtn" class="btn btn-primary" form="WindOroForm" name="addWindOroPhaseBtn" onclick="addWindPhase({{pk}})"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
         </td>
     </tr>
     </tbody>

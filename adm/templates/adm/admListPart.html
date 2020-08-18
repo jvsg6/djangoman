@@ -22,18 +22,21 @@ function loadMap(lon_tmp, lat_tmp)
   console.log(lat_tmp);
   console.log("----------------");
   var srclatlng = L.latLng(lat, lon);
-  var srcPos = L.marker(srclatlng, {draggable: true}).addTo(mymap)
+  var srcPos = L.marker(srclatlng, {draggable: false}).addTo(mymap)
   marker.push(srcPos);
-  mymap.flyTo(srclatlng, 3);
+  mymap.flyTo(srclatlng, 8);
 }
 
-function firstLoadMap(lon_tmp, lat_tmp)
+function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
 {
-  var lon = lon_tmp.replace(",", ".");
-  var lat = lat_tmp.replace(",", ".");
-  console.log(lon, lat);
+  var lon = parseFloat(lon_tmp.replace(",", "."));
+  var lat = parseFloat(lat_tmp.replace(",", "."));
+  lat1 = parseFloat(lat1.replace(",", "."));
+  lat2 = parseFloat(lat2.replace(",", "."));
+  lon1 = parseFloat(lon1.replace(",", "."));
+  lon2 = parseFloat(lon2.replace(",", "."));
   var srclatlng = L.latLng(lat, lon);
-  mymap = L.map('mapid_main').setView(srclatlng, 3);
+  mymap = L.map('mapid_main').setView(srclatlng, 8);
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', 
   {
@@ -45,9 +48,9 @@ function firstLoadMap(lon_tmp, lat_tmp)
     tileSize: 512,
     zoomOffset: -1
   }).addTo(mymap);
-  var srcPos = L.marker(srclatlng, {draggable: true}).addTo(mymap)
+  var srcPos = L.marker(srclatlng, {draggable: false}).addTo(mymap)
   marker.push(srcPos);
-  mymap.flyTo(srclatlng, 3);
+  mymap.flyTo(srclatlng, 8);
 
 
 
@@ -57,37 +60,23 @@ var states = [{
     "geometry": {
         "type": "Polygon",
         "coordinates": [[
-            [-104.05, 48.99],
-            [-97.22,  48.98],
-            [-96.58,  45.94],
-            [-104.03, 45.94],
-            [-104.05, 48.99]
-        ]]
-    }
-}, {
-    "type": "Feature",
-    "properties": {"party": "Democrat"},
-    "geometry": {
-        "type": "Polygon",
-        "coordinates": [[
-            [-109.05, 41.00],
-            [-102.06, 40.99],
-            [-102.03, 36.99],
-            [-109.04, 36.99],
-            [-109.05, 41.00]
+            [lon1, lat1],
+            [lon1, lat2],
+            [lon2, lat2],
+            [lon2, lat1],
+            [lon1, lat1]
         ]]
     }
 }];
 
-L.geoJSON(states, {
+var polygons = L.geoJSON(states, {
     style: function(feature) {
         switch (feature.properties.party) {
             case 'Republican': return {color: "#ff0000"};
-            case 'Democrat':   return {color: "#0000ff"};
         }
     }
 }).addTo(mymap);
-
+marker.push(polygons);
   
 }
 
@@ -144,7 +133,7 @@ function returnActiveTaskPk(idTemplate)
         <script type="text/javascript">
           {% for post in posts %}
             {% if forloop.first %}
-             firstLoadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}');
+             firstLoadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}');
             {% endif %}
           {% endfor %}
         </script>

@@ -141,7 +141,7 @@ function addWindPhase(pk)
     zoomOffset: -1
   }).addTo(mymap);
   
-  var srcPos = L.marker(srclatlng, {draggable: true}).addTo(mymap)
+  var srcPos = L.marker(srclatlng, {draggable: true, autoPan: true}).addTo(mymap)
   
 
   srcPos.on("drag", function(e) {

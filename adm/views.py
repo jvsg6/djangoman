@@ -6,7 +6,8 @@ from ManualSource.forms import SrcParametersForm
 from WindOro.forms import CommonWindParametersForm, WindOroPametersInAltForm
 from .forms import CalcForm, AreaCalcParametersForm, AreaResParametersForm, DownloadForm
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.geos import Polygon
 
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -241,11 +242,15 @@ def calc_new(request):
     print ("request.path", request.path)
 
     form = CalcForm(request.GET)
-    srcParam = SrcParametersForm(request.GET)
+    #geom=GEOSGeometry('POINT(0.0 0.0)')
+    poly = Polygon( ((0.0, 0.0), (0.0, 50.0), (50.0, 50.0), (50.0, 0.0), (0.0, 0.0)) )
+    srcParam = SrcParametersForm(request.GET, initial={'poly', geom})
+    
     areaCalcParam = AreaCalcParametersForm(request.GET)
     areaResParam = AreaResParametersForm(request.GET)
     meteoWindOro = CommonWindParametersForm(request.GET)
     windOroInAlt = WindOroPametersInAltForm(request.GET)
+
     print(form.is_valid(),  srcParam.is_valid(), areaCalcParam.is_valid(), areaResParam.is_valid())
     if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOro.is_valid():
         post = form.save(commit=False)
@@ -256,6 +261,13 @@ def calc_new(request):
         post.published_date = timezone.now()
         post.save()
         return redirect(calc_edit, pk = post.pk)
+    else:
+        print("AAAAAAAAAAAa")
+        print(form.errors)
+        print(srcParam.errors)
+        print(areaCalcParam.errors)
+        print(areaResParam.errors)
+        print(meteoWindOro.errors)
 
 @login_required(login_url='/accounts/login/')
 def calc_delete(request, pk):
@@ -315,7 +327,8 @@ def calc_rand(request):
     srcParam = SrcParametersForm(request.GET)
     areaCalcParam = AreaCalcParametersForm(request.GET)
     areaResParam = AreaResParametersForm(request.GET)
-    meteoWindOro = CommonWindParametersForm(request.GET)    
+    meteoWindOro = CommonWindParametersForm(request.GET)
+    print(form.is_valid(), srcParam.is_valid(), areaCalcParam.is_valid(), areaResParam.is_valid(), meteoWindOro.is_valid())
     if form.is_valid() and srcParam.is_valid() and areaCalcParam.is_valid() and areaResParam.is_valid() and meteoWindOro.is_valid():
         post = form.save(commit=False)
         post.areaResParam = areaResParam.save(commit=False)
@@ -326,9 +339,17 @@ def calc_rand(request):
         post.published_date = timezone.now()
         post.areaResParam = areaResParam.save()
         post.areaCalcParam = areaCalcParam.save()
+        srcParam.poly = Polygon( ((0.0, 0.0), (0.0, 50.0), (50.0, 50.0), (50.0, 0.0), (0.0, 0.0)) )
         post.srcParam = srcParam.save()
         post.save()
         return redirect(calc_edit, pk = post.pk)
+    else:
+        print("AAAAAAAAAAAa")
+        print(form.errors.as_data())
+        print(srcParam.errors.as_data())
+        print(areaCalcParam.errors.as_data())
+        print(areaResParam.errors.as_data())
+        print(meteoWindOro.errors.as_data())
 
 @login_required(login_url='/accounts/login/')
 def addFullWindParameters(request, form):

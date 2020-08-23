@@ -124,7 +124,7 @@
 
 
 .waves-effect.waves-teal .waves-ripple {
-  background-color: rgba(0, 150, 136, 0.7);
+  background-color: rgba(51,153,153,0.2);
 }
 
 /* Firefox Bug: link not triggered */

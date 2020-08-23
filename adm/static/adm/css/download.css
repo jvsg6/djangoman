@@ -1,0 +1,60 @@
+
+
+.download .card {
+  border: none;
+  border-radius: 1rem;
+  transition: all 0.2s;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.download hr {
+  margin: 1.5rem 0;
+}
+
+.download .card-title {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+}
+
+.download .card-price {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.more_info:hover{
+  text-decoration: none;  
+}
+
+
+.download ul li {
+  margin-bottom: 1rem;
+}
+
+.download .text-muted {
+  opacity: 0.7;
+}
+
+.download .btn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+
+/* Hover Effects on Card */
+
+@media (min-width: 992px) {
+  .download .card:hover {
+    margin-top: -.25rem;
+    margin-bottom: .25rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+  }
+  .download .card:hover .btn {
+    opacity: 1;
+  }
+}

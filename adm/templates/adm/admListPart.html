@@ -1,4 +1,14 @@
 {% load static %}
+
+{% load tag %}
+
+<div id="id_div">
+    {% hello_world '5' '0' as salute_text %}
+    <strong> {{ salute_text }} </strong>
+</div>
+
+
+
 <script>
 function myFunction(pk) {
   var ppp = "{% url 'calc_edit' pk=123321123321%}";
@@ -23,7 +33,7 @@ function loadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
   lat2 = parseFloat(lat2.replace(",", "."));
   lon1 = parseFloat(lon1.replace(",", "."));
   lon2 = parseFloat(lon2.replace(",", "."));
-  
+
   console.log(lon_tmp);
   console.log(lat_tmp);
   console.log("----------------");
@@ -88,29 +98,36 @@ function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
 
 
 
-var states = [{
-    "type": "Feature",
-    "properties": {"party": "Republican"},
-    "geometry": {
-        "type": "Polygon",
-        "coordinates": [[
-            [lon1, lat1],
-            [lon1, lat2],
-            [lon2, lat2],
-            [lon2, lat1],
-            [lon1, lat1]
-        ]]
-    }
-}];
+  var states = [{
+      "type": "Feature",
+      "properties": {"party": "Republican"},
+      "geometry": {
+          "type": "Polygon",
+          "coordinates": [[
+              [lon1, lat1],
+              [lon1, lat2],
+              [lon2, lat2],
+              [lon2, lat1],
+              [lon1, lat1]
+          ]]
+      }
+  }];
 
-var polygons = L.geoJSON(states, {
-    style: function(feature) {
-        switch (feature.properties.party) {
-            case 'Republican': return {color: "#ff0000"};
-        }
-    }
-}).addTo(mymap);
-marker.push(polygons);
+  var polygons = L.geoJSON(states, {
+      style: function(feature) {
+          switch (feature.properties.party) {
+              case 'Republican': return {color: "#ff0000"};
+          }
+      }
+  }).addTo(mymap);
+  marker.push(polygons);
+
+
+  const execSync = require('child_process').execSync;
+  // import { execSync } from 'child_process';  // replace ^ if using ES modules
+  const output = execSync('ls', { encoding: 'utf-8' });  // the default is 'buffer'
+  console.log('Output was:\n', output);
+
   mymap.flyTo(srclatlng, 8);
 }
 

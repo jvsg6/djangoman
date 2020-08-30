@@ -2,12 +2,9 @@
 
 {% load tag %}
 
-<div id="id_div">
-    {% hello_world '5' '0' as salute_text %}
-    <strong> {{ salute_text }} </strong>
-</div>
 
-
+<script src="/static/adm/js/geotiff.min.js"></script>
+<script src="/static/adm/js/raster-marching-squares.min.js"></script>
 
 <script>
 function myFunction(pk) {
@@ -23,8 +20,37 @@ for(i=0;i<marker.length;i++) {
     }  
 }
 
-function loadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2) 
+
+  function getColor(d) {
+  return d > 10   ? '#643c32' :
+         d > 1   ? '#a50000' :
+         d > 0.1   ? '#ff3200' :
+         d > 0.01   ? '#ffe978' :
+         d > 0.001   ? '#c9ffbf' :
+         d > 0.0001   ? '#78f572' :
+         d > 0.00001   ? '#50ef50' :
+         d > 0.000001   ? '#e1ffff' :
+         d > 0.0000001    ? '#e5e5e6' :
+         d > 0.00000001   ? '#ffffff' :
+                  '#ffffff';
+          }
+
+
+  function style(feature) {
+  return {
+      fillColor: getColor(feature.properties[0].lowerValue),
+      weight: 2,
+      opacity: 1,
+      color: getColor(feature.properties[0].lowerValue),
+      dashArray: '3',
+      fillOpacity: 0.5
+    };
+  }
+
+
+function loadMap(pk, lon_tmp, lat_tmp, lon1, lat1, lon2, lat2) 
 {
+  console.log(pk);
   markerDelAgain();
   var lon = lon_tmp.replace(",", ".");
   var lat = lat_tmp.replace(",", ".");
@@ -71,8 +97,10 @@ mymap.flyTo(srclatlng, 8);
 
 }
 
-function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
+function firstLoadMap(pk, lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
 {
+  console.log(pk);
+
   var lon = parseFloat(lon_tmp.replace(",", "."));
   var lat = parseFloat(lat_tmp.replace(",", "."));
   lat1 = parseFloat(lat1.replace(",", "."));
@@ -80,9 +108,10 @@ function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
   lon1 = parseFloat(lon1.replace(",", "."));
   lon2 = parseFloat(lon2.replace(",", "."));
   var srclatlng = L.latLng(lat, lon);
-  mymap = L.map('mapid_main').setView(srclatlng, 8);
 
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', 
+
+
+  var baseLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', 
   {
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -91,10 +120,82 @@ function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
     id: 'mapbox/streets-v11',
     tileSize: 512,
     zoomOffset: -1
-  }).addTo(mymap);
+  });
+
+var bandsWindLayer = 0;
+  console.log("1");
+  var xhr = new XMLHttpRequest();
+  console.log(xhr);
+  console.log("2");
+  
+  xhr.open('GET', "{% static '/20/out_gridFunction_0.geotiff' %}", true);
+  console.log(xhr);
+  console.log("3");
+  xhr.responseType = 'arraybuffer';
+
+xhr.onload = function(e) {
+    console.log("++__++__++__++__");
+    var tiff = GeoTIFF.parse(this.response);
+    var image = tiff.getImage();
+    var tiffWidth = image.getWidth();
+    var tiffHeight = image.getHeight();
+    var rasters = image.readRasters();
+    var tiepoint = image.getTiePoints()[0];
+    var pixelScale = image.getFileDirectory().ModelPixelScale;
+    var geoTransform = [tiepoint.x, pixelScale[0], 0, tiepoint.y, 0, -1*pixelScale[1]];
+
+
+    var spdData = new Array(tiffHeight);
+    for (var j = 0; j<tiffHeight; j++){
+        spdData[j] = new Array(tiffWidth);
+        for (var i = 0; i<tiffWidth; i++){
+            spdData[j][i] = rasters[0][i + j*tiffWidth];
+
+        }
+    }
+
+    var intervalsSpd = [0.0000000001, 0.000000001, 0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0];
+    var bandsWind = rastertools.isobands(spdData, geoTransform, intervalsSpd);
+
+
+    bandsWindLayer = L.geoJson(bandsWind, {
+      style: style
+    });
+
+       L.control.layers(null, {
+    "Wind speed": bandsWindLayer,
+    }).addTo(mymap);
+
+  };
+  xhr.send();
+
+
+
+
+
+
+
+   console.log("After");
+   console.log(baseLayer);
+   mymap = L.map('mapid_main', {
+     layers: [baseLayer,]
+   }).setView(srclatlng, 12);
+
+
+
+
   var srcPos = L.marker(srclatlng, {draggable: false}).addTo(mymap)
   marker.push(srcPos);
   
+
+
+
+
+
+
+
+
+
 
 
 
@@ -123,10 +224,14 @@ function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
   marker.push(polygons);
 
 
-  const execSync = require('child_process').execSync;
-  // import { execSync } from 'child_process';  // replace ^ if using ES modules
-  const output = execSync('ls', { encoding: 'utf-8' });  // the default is 'buffer'
-  console.log('Output was:\n', output);
+
+
+
+
+
+
+
+
 
   mymap.flyTo(srclatlng, 8);
 }
@@ -157,9 +262,9 @@ function returnActiveTaskPk(idTemplate)
         <div class="list-group" id="myList" role="tablist">
           {% for post in posts %}
           {% if forloop.first %}
-          <a class="pages-wrapper-history pages-active active" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          <a class="pages-wrapper-history pages-active active" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.pk}}', '{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
           {% else %}
-          <a class="pages-wrapper-history" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          <a class="pages-wrapper-history" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.pk}}', '{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
           {% endif %}
 
           {% endfor %}
@@ -184,7 +289,7 @@ function returnActiveTaskPk(idTemplate)
         <script type="text/javascript">
           {% for post in posts %}
             {% if forloop.first %}
-             firstLoadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}');
+             firstLoadMap('{{post.pk}}', '{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}');
             {% endif %}
           {% endfor %}
         </script>

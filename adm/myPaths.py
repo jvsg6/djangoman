@@ -11,6 +11,7 @@ except NameError:
 startADM = None
 
 class ReqPaths():
+    global startADM
     if "ilichev" in mypath:
         pathToADM = '/home/ilichev/Programs/release/nostra_build/nostraconsole'
         pathToWorkingFolder = os.path.dirname(__file__)
@@ -25,3 +26,4 @@ class ReqPaths():
         startADM = False
 
 reqPaths = ReqPaths()
+print("startADM", startADM)

@@ -8,6 +8,7 @@ from django.template import Context, Template
 import subprocess
 import time
 from .myPaths import startADM
+
 def insertSrcInContext(srcParameters, contextParameters):
     contextParameters['srcLat'] = str(srcParameters.lat).replace(",", ".")
     contextParameters['srcLon'] = str(srcParameters.lon).replace(",", ".")

@@ -13,18 +13,52 @@ for(i=0;i<marker.length;i++) {
     }  
 }
 
-function loadMap(lon_tmp, lat_tmp) 
+function loadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2) 
 {
   markerDelAgain();
   var lon = lon_tmp.replace(",", ".");
   var lat = lat_tmp.replace(",", ".");
+
+  lat1 = parseFloat(lat1.replace(",", "."));
+  lat2 = parseFloat(lat2.replace(",", "."));
+  lon1 = parseFloat(lon1.replace(",", "."));
+  lon2 = parseFloat(lon2.replace(",", "."));
+  
   console.log(lon_tmp);
   console.log(lat_tmp);
   console.log("----------------");
   var srclatlng = L.latLng(lat, lon);
   var srcPos = L.marker(srclatlng, {draggable: false}).addTo(mymap)
   marker.push(srcPos);
-  mymap.flyTo(srclatlng, 8);
+  
+
+var states = [{
+    "type": "Feature",
+    "properties": {"party": "Republican"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [lon1, lat1],
+            [lon1, lat2],
+            [lon2, lat2],
+            [lon2, lat1],
+            [lon1, lat1]
+        ]]
+    }
+}];
+
+var polygons = L.geoJSON(states, {
+    style: function(feature) {
+        switch (feature.properties.party) {
+            case 'Republican': return {color: "#ff0000"};
+        }
+    }
+}).addTo(mymap);
+marker.push(polygons);
+
+
+mymap.flyTo(srclatlng, 8);
+
 }
 
 function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
@@ -50,7 +84,7 @@ function firstLoadMap(lon_tmp, lat_tmp, lon1, lat1, lon2, lat2)
   }).addTo(mymap);
   var srcPos = L.marker(srclatlng, {draggable: false}).addTo(mymap)
   marker.push(srcPos);
-  mymap.flyTo(srclatlng, 8);
+  
 
 
 
@@ -77,7 +111,7 @@ var polygons = L.geoJSON(states, {
     }
 }).addTo(mymap);
 marker.push(polygons);
-  
+  mymap.flyTo(srclatlng, 8);
 }
 
 function returnActiveTaskPk(idTemplate)
@@ -106,9 +140,9 @@ function returnActiveTaskPk(idTemplate)
         <div class="list-group" id="myList" role="tablist">
           {% for post in posts %}
           {% if forloop.first %}
-          <a class="pages-wrapper-history pages-active active" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          <a class="pages-wrapper-history pages-active active" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
           {% else %}
-          <a class="pages-wrapper-history" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
+          <a class="pages-wrapper-history" id="idListPos_{{ post.pk }}" ondblclick="myFunction({{post.pk}})" data-toggle="list" href="#home_{{ post.pk }}" role="tab" onclick="loadMap('{{post.srcParam.lon}}', '{{post.srcParam.lat}}', '{{post.areaCalcParam.lonMinCalc}}', '{{post.areaCalcParam.latMinCalc}}', '{{post.areaCalcParam.lonMaxCalc}}', '{{post.areaCalcParam.latMaxCalc}}')">№{{ post.pk }} {{ post.author }} {{ post.name }}</a>
           {% endif %}
 
           {% endfor %}

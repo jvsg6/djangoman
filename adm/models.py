@@ -7,18 +7,23 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from ManualSource.models import SrcParameters
 from WindOro.models import CommonWindParameters, WindOroPametersInAlt
+from django.contrib.gis.db import models
 
 class AreaCalcParameters(models.Model):
     latMinCalc = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
     lonMinCalc = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
     latMaxCalc = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
     lonMaxCalc = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    areaCalc = models.PolygonField(default='POLYGON((0.0 0.0, 0.0 50.0, 50.0 50.0, 50.0 0.0, 0.0 0.0))')
+
 
 class AreaResParameters(models.Model):
     latMinRes = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
     lonMinRes = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
     latMaxRes = models.FloatField(validators=[MinValueValidator(-90.), MaxValueValidator(90.)], null=True, blank=True)
     lonMaxRes = models.FloatField(validators=[MinValueValidator(-180.), MaxValueValidator(180.)], null=True, blank=True)
+    areaRes = models.PolygonField(default='POLYGON((0.0 0.0, 0.0 50.0, 50.0 50.0, 50.0 0.0, 0.0 0.0))')
+
     countLonRes = models.IntegerField(null=True, blank=True)
     countLatRes = models.IntegerField(null=True, blank=True)
 

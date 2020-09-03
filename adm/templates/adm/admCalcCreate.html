@@ -4,6 +4,8 @@
 {% block content %}
 {% load i18n %}
 <script>
+
+// Выделить в отдельную функцию 
 function addReadonlyToAll() {
     var checkBox = document.getElementById("editModeCheckBox");
     if (checkBox.checked == true)
@@ -55,7 +57,7 @@ function addReadonlyToAll() {
       document.getElementById('id_countLatRes').removeAttribute("readonly");
     }
 }
-
+//Функция добавления фазы в метеорологию. перенести в метеорологию
 function addWindPhase(pk)
 {
    var serializedData = $("#WindOroForm").serialize();
@@ -140,10 +142,71 @@ function addWindPhase(pk)
     tileSize: 512,
     zoomOffset: -1
   }).addTo(mymap);
-  
-  var srcPos = L.marker(srclatlng, {draggable: true, autoPan: true}).addTo(mymap)
-  
 
+function getPolyParamDependsOnType(polyType)
+{
+    polyParam = {};
+    if (polyType == 1)
+    {
+      polyParam.lonMin = document.getElementById('{{ areaCalcParam.lonMinCalc.auto_id }}').value;
+      polyParam.latMin = document.getElementById('{{ areaCalcParam.latMinCalc.auto_id }}').value;
+      polyParam.lonMax = document.getElementById('{{ areaCalcParam.lonMaxCalc.auto_id }}').value;
+      polyParam.latMax = document.getElementById('{{ areaCalcParam.latMaxCalc.auto_id }}').value;
+      polyParam.color = "#008000";
+    }
+    else if(polyType == 2)
+    {
+      polyParam.lonMin = document.getElementById('{{ areaResParam.lonMinRes.auto_id }}').value;
+      polyParam.latMin = document.getElementById('{{ areaResParam.latMinRes.auto_id }}').value;
+      polyParam.lonMax = document.getElementById('{{ areaResParam.lonMaxRes.auto_id }}').value;
+      polyParam.latMax = document.getElementById('{{ areaResParam.latMaxRes.auto_id }}').value;
+      polyParam.color = "#0000FF";
+    }
+    return polyParam;
+}
+
+  function installCalcArea(polyType)
+  {
+    var polyParam = getPolyParamDependsOnType(polyType);
+    var lonMin = polyParam['lonMin'];
+    var latMin = polyParam['latMin'];
+    var lonMax = polyParam['lonMax'];
+    var latMax = polyParam['latMax'];
+    console.log(lonMin, lonMin, lonMax, latMax);
+
+    var calcAreaPol = [{
+        "type": "Feature",
+        "properties": {"party": "Republican"},
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [lonMin, latMin],
+                [lonMin, latMax],
+                [lonMax, latMax],
+                [lonMax, latMin],
+                [lonMin, latMin]
+            ]]
+        }
+    }];
+
+    var polygons = L.geoJSON(calcAreaPol, {
+        style: function(feature) {
+            switch (feature.properties.party) {
+                case 'Republican': return {color: polyParam.color};
+            }
+        }
+    }).addTo(mymap);
+  }
+
+
+
+
+
+
+//Взаимодействие с положением источника. Меняет положение при изменении поля или точки на карте. Перенести к источнику
+  var srcPos = L.marker(srclatlng, {draggable: true, autoPan: true}).addTo(mymap)
+
+//Меняет координаты источника внутри полей, если источник перетаскивают
   srcPos.on("drag", function(e) {
       var marker = e.target;
       var position = marker.getLatLng();
@@ -152,6 +215,7 @@ function addWindPhase(pk)
       document.getElementById('id_lat').value = position.lat;
   });
 
+//Относится к источнику. Меняет положение при изменении поля. Перенести
   function installSrcPosition()
   {
     var lon = document.getElementById('id_lon').value;

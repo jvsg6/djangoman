@@ -131,7 +131,7 @@ def installRandomParameters():
     latInit = -88.0 + random.random()*176.0
     lonInit = -178.0 + random.random()*356.0
     srcParam = SrcParametersForm(initial={'lon': lonInit, 'lat': latInit})
-    areaCalcParam = AreaCalcParametersForm(initial={'lonMinCalc': lonInit-0.5, 'lonMaxCalc': lonInit+0.5, 'latMinCalc': latInit-0.5, 'latMaxCalc': latInit+0.5})
+    areaCalcParam = AreaCalcParametersForm(initial={'lonMinCalc': lonInit-1., 'lonMaxCalc': lonInit+1., 'latMinCalc': latInit-1., 'latMaxCalc': latInit+1.})
     areaResParam = AreaResParametersForm(initial={'lonMinRes': lonInit-0.5, 'lonMaxRes': lonInit+0.5, 'latMinRes': latInit-0.5, 'latMaxRes': latInit+0.5, 'countLonRes': 50, 'countLatRes': 50})
     return srcParam, areaCalcParam, areaResParam
 

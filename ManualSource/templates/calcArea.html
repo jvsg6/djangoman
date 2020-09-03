@@ -7,22 +7,22 @@
   <div class="row">
       {{ areaCalcParam.lonMinCalc.label_tag }}
       {{ areaCalcParam.lonMinCalc.errors }}
-      {% render_field areaCalcParam.lonMinCalc class+="form-control" %}
+      {% render_field areaCalcParam.lonMinCalc class+="form-control" oninput="installCalcArea(1)" %}
   </div>
   <div class="row">
     {{ areaCalcParam.lonMaxCalc.label_tag }}
     {{ areaCalcParam.lonMaxCalc.errors }}
-    {% render_field areaCalcParam.lonMaxCalc class+="form-control" %}
+    {% render_field areaCalcParam.lonMaxCalc class+="form-control" oninput="installCalcArea(1)" %}
   </div>
   <div class="row">
     {{ areaCalcParam.latMinCalc.label_tag }}
     {{ areaCalcParam.latMinCalc.errors }}
-    {% render_field areaCalcParam.latMinCalc class+="form-control" %}
+    {% render_field areaCalcParam.latMinCalc class+="form-control" oninput="installCalcArea(1)" %}
   </div>
   <div class="row">
     {{ areaCalcParam.latMaxCalc.label_tag }}
     {{ areaCalcParam.latMaxCalc.errors }}
-    {% render_field areaCalcParam.latMaxCalc class+="form-control" %}
+    {% render_field areaCalcParam.latMaxCalc class+="form-control" oninput="installCalcArea(1)" %}
   </div>
 </div>
 
@@ -35,22 +35,22 @@
   <div class="row">
     {{ areaResParam.lonMinRes.label_tag }}
     {{ areaResParam.lonMinRes.errors }}
-    {% render_field areaResParam.lonMinRes class+="form-control" %}
+    {% render_field areaResParam.lonMinRes class+="form-control" oninput="installCalcArea(2)" %}
   </div>
   <div class="row">
     {{ areaResParam.lonMaxRes.label_tag }}
     {{ areaResParam.lonMaxRes.errors }}
-    {% render_field areaResParam.lonMaxRes class+="form-control" %}
+    {% render_field areaResParam.lonMaxRes class+="form-control" oninput="installCalcArea(2)" %}
   </div>
   <div class="row">
     {{ areaResParam.latMinRes.label_tag }}
     {{ areaResParam.latMinRes.errors }}
-    {% render_field areaResParam.latMinRes class+="form-control" %}
+    {% render_field areaResParam.latMinRes class+="form-control" oninput="installCalcArea(2)" %}
   </div>
   <div class="row">
     {{ areaResParam.latMaxRes.label_tag }}
     {{ areaResParam.latMaxRes.errors }}
-    {% render_field areaResParam.latMaxRes class+="form-control" %}
+    {% render_field areaResParam.latMaxRes class+="form-control" oninput="installCalcArea(2)" %}
   </div>
 </div>
 

@@ -3,6 +3,10 @@
 {% load static %}
 {% block content %}
 {% load i18n %}
+
+
+<script src="/static/adm/js/Leaflet.Editable.js"></script>
+
 <script>
 
 // Выделить в отдельную функцию 
@@ -131,7 +135,7 @@ function addWindPhase(pk)
   var lon = document.getElementById('id_lon').value;
   var lat = document.getElementById('id_lat').value;
   var srclatlng = L.latLng(lat, lon);
-  var mymap = L.map('mapid').setView(srclatlng, 3);
+  var mymap = L.map('mapid', {editable: true,}).setView(srclatlng, 3);
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: 18,
@@ -140,7 +144,7 @@ function addWindPhase(pk)
       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox/streets-v11',
     tileSize: 512,
-    zoomOffset: -1
+    zoomOffset: -1,
   }).addTo(mymap);
 
 function getPolyParamDependsOnType(polyType)
@@ -166,10 +170,7 @@ function getPolyParamDependsOnType(polyType)
     }
     polyParam.latlngs = [[
                 [polyParam.latMin, polyParam.lonMin],
-                [polyParam.latMin, polyParam.lonMax],
                 [polyParam.latMax, polyParam.lonMax],
-                [polyParam.latMax, polyParam.lonMin],
-                [polyParam.latMin, polyParam.lonMin]
             ]];
     return polyParam;
 }
@@ -184,8 +185,8 @@ function getPolyParamDependsOnType(polyType)
     console.log(lonMin, lonMin, lonMax, latMax);
 
     var latlngs = polyParam.latlngs;
-    var polygon = L.polygon(latlngs, {color: polyParam.color, interactive: true}).addTo(mymap);
-
+    var polygon = L.rectangle(latlngs, {color: polyParam.color}).addTo(mymap);
+    polygon.enableEdit();
     mymap.fitBounds(polygon.getBounds());
     var a = polygon.getLatLngs();
     return polygon;
@@ -195,6 +196,23 @@ function getPolyParamDependsOnType(polyType)
 
   var resPoly = installPolyOnMapDepOnType(2);
   var calcPoly = installPolyOnMapDepOnType(1);
+
+
+  calcPoly.on('editable:editing', function (e) {
+      var latlngs = calcPoly.getLatLngs();
+      document.getElementById('id_lonMinCalc').value = latlngs[0][2].lng;
+      document.getElementById('id_latMinCalc').value = latlngs[0][2].lat;
+      document.getElementById('id_lonMaxCalc').value = latlngs[0][0].lng;
+      document.getElementById('id_latMaxCalc').value = latlngs[0][0].lat;
+  });
+
+  resPoly.on('editable:editing', function (e) {
+      var latlngs = resPoly.getLatLngs();
+      document.getElementById('id_lonMinRes').value = latlngs[0][2].lng;
+      document.getElementById('id_latMinRes').value = latlngs[0][2].lat;
+      document.getElementById('id_lonMaxRes').value = latlngs[0][0].lng;
+      document.getElementById('id_latMaxRes').value = latlngs[0][0].lat;
+  });
 
   function redrawPoly(poly, polyType)
   {

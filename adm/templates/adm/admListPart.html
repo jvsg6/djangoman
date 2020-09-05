@@ -92,8 +92,7 @@ var polygons = L.geoJSON(states, {
 }).addTo(mymap);
 marker.push(polygons);
 
-
-mymap.flyTo(srclatlng, 8);
+mymap.fitBounds(polygons.getBounds());
 
 }
 
@@ -233,7 +232,7 @@ xhr.onload = function(e) {
 
 
 
-  mymap.flyTo(srclatlng, 8);
+  mymap.fitBounds(polygons.getBounds());
 }
 
 function returnActiveTaskPk(idTemplate)

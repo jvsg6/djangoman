@@ -60,9 +60,9 @@ class Calc(models.Model):
         self.areaResParam.latMaxRes = latMax
         self.areaResParam.countLonRes = 62
         self.areaResParam.countLatRes = 51
-        self.areaCalcParam.lonMinCalc = lonMin - 0.5
-        self.areaCalcParam.latMinCalc = latMin - 0.5
-        self.areaCalcParam.lonMaxCalc = lonMax + 0.5
-        self.areaCalcParam.latMaxCalc = latMax + 0.5
+        self.areaCalcParam.lonMinCalc = lonMin - 0.05
+        self.areaCalcParam.latMinCalc = latMin - 0.05
+        self.areaCalcParam.lonMaxCalc = lonMax + 0.05
+        self.areaCalcParam.latMaxCalc = latMax + 0.05
         self.srcParam.lon = lonInit
         self.srcParam.lat = latInit

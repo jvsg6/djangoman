@@ -165,40 +165,46 @@ function getPolyParamDependsOnType(polyType)
     return polyParam;
 }
 
-  function installCalcArea(polyType)
+  function installPolyOnMapDepOnType(polyType)
   {
     var polyParam = getPolyParamDependsOnType(polyType);
-    var lonMin = polyParam['lonMin'];
-    var latMin = polyParam['latMin'];
-    var lonMax = polyParam['lonMax'];
-    var latMax = polyParam['latMax'];
+    var lonMin = polyParam.lonMin;
+    var latMin = polyParam.latMin;
+    var lonMax = polyParam.lonMax;
+    var latMax = polyParam.latMax;
     console.log(lonMin, lonMin, lonMax, latMax);
+
+    var latlngs = [[
+                [lonMin, latMin],
+                [lonMin, latMax],
+                [lonMax, latMax],
+                [lonMax, latMin],
+                [lonMin, latMin]
+            ]];
 
     var calcAreaPol = [{
         "type": "Feature",
         "properties": {"party": "Republican"},
         "geometry": {
             "type": "Polygon",
-            "coordinates": [[
-                [lonMin, latMin],
-                [lonMin, latMax],
-                [lonMax, latMax],
-                [lonMax, latMin],
-                [lonMin, latMin]
-            ]]
+            "coordinates": latlngs,
         }
     }];
 
-    var polygons = L.geoJSON(calcAreaPol, {
+    var polygon = L.geoJSON(calcAreaPol, {
         style: function(feature) {
             switch (feature.properties.party) {
                 case 'Republican': return {color: polyParam.color};
             }
         }
     }).addTo(mymap);
+    mymap.fitBounds(polygon.getBounds());
+    return polygon;
   }
 
 
+  var resPoly = installPolyOnMapDepOnType(2);
+  var calcPoly = installPolyOnMapDepOnType(1);
 
 
 

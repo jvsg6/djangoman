@@ -127,14 +127,6 @@ def calc_started(request, pk):
     post = get_object_or_404(Calc, pk=pk)
     return render(request, 'adm/admCalcStarted.html', {'post': post})
 
-def installRandomParameters():
-    latInit = -88.0 + random.random()*176.0
-    lonInit = -178.0 + random.random()*356.0
-    srcParam = SrcParametersForm(initial={'lon': lonInit, 'lat': latInit})
-    areaCalcParam = AreaCalcParametersForm(initial={'lonMinCalc': lonInit-1., 'lonMaxCalc': lonInit+1., 'latMinCalc': latInit-1., 'latMaxCalc': latInit+1.})
-    areaResParam = AreaResParametersForm(initial={'lonMinRes': lonInit-0.5, 'lonMaxRes': lonInit+0.5, 'latMinRes': latInit-0.5, 'latMaxRes': latInit+0.5, 'countLonRes': 50, 'countLatRes': 50})
-    return srcParam, areaCalcParam, areaResParam
-
 
 def startCalcLogic(request, pk):
     print("Start calc button was pressed")

@@ -153,6 +153,7 @@ function getPolyParamDependsOnType(polyType)
       polyParam.lonMax = document.getElementById('{{ areaCalcParam.lonMaxCalc.auto_id }}').value;
       polyParam.latMax = document.getElementById('{{ areaCalcParam.latMaxCalc.auto_id }}').value;
       polyParam.color = "#008000";
+      polyParam.type = 1;
     }
     else if(polyType == 2)
     {
@@ -161,7 +162,15 @@ function getPolyParamDependsOnType(polyType)
       polyParam.lonMax = document.getElementById('{{ areaResParam.lonMaxRes.auto_id }}').value;
       polyParam.latMax = document.getElementById('{{ areaResParam.latMaxRes.auto_id }}').value;
       polyParam.color = "#0000FF";
+      polyParam.type = 2;
     }
+    polyParam.latlngs = [[
+                [polyParam.latMin, polyParam.lonMin],
+                [polyParam.latMin, polyParam.lonMax],
+                [polyParam.latMax, polyParam.lonMax],
+                [polyParam.latMax, polyParam.lonMin],
+                [polyParam.latMin, polyParam.lonMin]
+            ]];
     return polyParam;
 }
 
@@ -174,40 +183,37 @@ function getPolyParamDependsOnType(polyType)
     var latMax = polyParam.latMax;
     console.log(lonMin, lonMin, lonMax, latMax);
 
-    var latlngs = [[
-                [lonMin, latMin],
-                [lonMin, latMax],
-                [lonMax, latMax],
-                [lonMax, latMin],
-                [lonMin, latMin]
-            ]];
+    var latlngs = polyParam.latlngs;
+    var polygon = L.polygon(latlngs, {color: polyParam.color, interactive: true}).addTo(mymap);
 
-    var calcAreaPol = [{
-        "type": "Feature",
-        "properties": {"party": "Republican"},
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": latlngs,
-        }
-    }];
-
-    var polygon = L.geoJSON(calcAreaPol, {
-        style: function(feature) {
-            switch (feature.properties.party) {
-                case 'Republican': return {color: polyParam.color};
-            }
-        }
-    }).addTo(mymap);
     mymap.fitBounds(polygon.getBounds());
+    var a = polygon.getLatLngs();
     return polygon;
   }
+
 
 
   var resPoly = installPolyOnMapDepOnType(2);
   var calcPoly = installPolyOnMapDepOnType(1);
 
+  function redrawPoly(poly, polyType)
+  {
+    var polyParam = getPolyParamDependsOnType(polyType);
+    console.log(polyParam);
+    console.log(poly);
+    poly.setLatLngs(polyParam.latlngs);
+    poly = poly.redraw();
+  }
 
+  function redrawCalcPoly()
+  {
+    redrawPoly(calcPoly, 1);
+  }
 
+  function redrawResPoly()
+  {
+    redrawPoly(resPoly, 2);
+  }
 
 //Взаимодействие с положением источника. Меняет положение при изменении поля или точки на карте. Перенести к источнику
   var srcPos = L.marker(srclatlng, {draggable: true, autoPan: true}).addTo(mymap)

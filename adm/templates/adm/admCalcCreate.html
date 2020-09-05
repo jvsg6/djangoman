@@ -216,11 +216,29 @@ function getPolyParamDependsOnType(polyType)
 
   function redrawPoly(poly, polyType)
   {
-    var polyParam = getPolyParamDependsOnType(polyType);
-    console.log(polyParam);
-    console.log(poly);
-    poly.setLatLngs(polyParam.latlngs);
-    poly = poly.redraw();
+    poly.remove();
+    if (polyType == 1)
+    {
+      calcPoly = installPolyOnMapDepOnType(1);
+      calcPoly.on('editable:editing', function (e) {
+      var latlngs = calcPoly.getLatLngs();
+      document.getElementById('id_lonMinCalc').value = latlngs[0][2].lng;
+      document.getElementById('id_latMinCalc').value = latlngs[0][2].lat;
+      document.getElementById('id_lonMaxCalc').value = latlngs[0][0].lng;
+      document.getElementById('id_latMaxCalc').value = latlngs[0][0].lat;
+      });
+    }
+    else if (polyType == 2)
+    {
+      resPoly = installPolyOnMapDepOnType(2);
+      resPoly.on('editable:editing', function (e) {
+      var latlngs = resPoly.getLatLngs();
+      document.getElementById('id_lonMinRes').value = latlngs[0][2].lng;
+      document.getElementById('id_latMinRes').value = latlngs[0][2].lat;
+      document.getElementById('id_lonMaxRes').value = latlngs[0][0].lng;
+      document.getElementById('id_latMaxRes').value = latlngs[0][0].lat;
+      });
+    }
   }
 
   function redrawCalcPoly()

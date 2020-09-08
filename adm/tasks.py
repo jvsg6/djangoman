@@ -12,16 +12,23 @@ app = Celery('tasks', broker='redis://localhost:6379/')
 @app.task
 def allAdmActions(pk):
     post = get_object_or_404(Calc, pk=pk)
+
+
     pathToCalc = os.path.dirname(__file__) + "/calculations/" + str(post.pk)
-    print (pathToCalc)
+    pathToGeotiff = os.path.dirname(__file__) + "/static/geotiff/" + str(post.pk)
+    print ("pathToCalc", pathToCalc)
+    print("pathToGeotiff", pathToGeotiff)
     os.makedirs(pathToCalc)
+    os.makedirs(pathToGeotiff)
+
+
     shutil.copyfile(reqPaths.pathToLanduse, pathToCalc + "/landuse.asc")
     changeAndCopyInFile(reqPaths.pathToTemplate, pathToCalc, post)
     post.transportStatus = 1
     post.save()
     startAdm(pathToCalc)
     funcNum = 0
-    os.system(f'gdal_translate -a_srs EPSG:4326 NETCDF:{pathToCalc}/out.nc:gridFunction_{funcNum}  -of Gtiff {pathToCalc}/out_gridFunction_{funcNum}.geotiff')
+    os.system(f'gdal_translate -a_srs EPSG:4326 NETCDF:{pathToCalc}/out.nc:gridFunction_{funcNum}  -of Gtiff {pathToGeotiff}/out_gridFunction_{funcNum}.geotiff')
     post.pathToInput = pathToCalc + "/in.xml"
     post.pathToLanduse = pathToCalc + "/landuse.asc"
     post.transportStatus = 2

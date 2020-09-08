@@ -6,7 +6,9 @@
 
 
 <script src="/static/adm/js/Leaflet.Editable.js"></script>
+<script src="/static/adm/js/geotiff.min.js"></script>
 
+<script src="/static/adm/js/raster-marching-squares.min.js"></script>
 <script>
 
 // Выделить в отдельную функцию 
@@ -33,7 +35,7 @@ function addReadonlyToAll() {
       document.getElementById('id_lonMaxRes').setAttribute('readonly', true);
       document.getElementById('id_latMinRes').setAttribute('readonly', true);
       document.getElementById('id_latMaxRes').setAttribute('readonly', true);
-      document.getElementById('id_countLonRes{% load i18n %}').setAttribute('readonly', true);
+      document.getElementById('id_countLonRes').setAttribute('readonly', true);
       document.getElementById('id_countLatRes').setAttribute('readonly', true);
     } 
     else 
@@ -90,6 +92,80 @@ function addWindPhase(pk)
 }
 
 
+//Раскраска карты
+  function getColor(d) {
+  return d > 10   ? '#643c32' :
+         d > 1   ? '#a50000' :
+         d > 0.1   ? '#ff3200' :
+         d > 0.01   ? '#ffe978' :
+         d > 0.001   ? '#c9ffbf' :
+         d > 0.0001   ? '#78f572' :
+         d > 0.00001   ? '#50ef50' :
+         d > 0.000001   ? '#e1ffff' :
+         d > 0.0000001    ? '#e5e5e6' :
+         d > 0.00000001   ? '#ffffff' :
+                  '#ffffff';
+          }
+
+function style(feature) {
+  return {
+      fillColor: getColor(feature.properties[0].lowerValue),
+      weight: 2,
+      opacity: 1,
+      color: getColor(feature.properties[0].lowerValue),
+      dashArray: '3',
+      fillOpacity: 0.5
+    };
+  }
+
+function loadResults()
+{
+
+
+    var bandsWindLayer;
+    var xhr = new XMLHttpRequest();
+    var pkk = "{{pk}}";
+    var pathToGeoTiffFile = "{% static pkk %}" + "/geotiff/{{pk}}" + "/out_gridFunction_0.geotiff";
+    console.log(pathToGeoTiffFile);
+    xhr.open('GET', pathToGeoTiffFile , true);
+    xhr.responseType = 'arraybuffer';
+
+    xhr.onload = function(e) {
+    console.log("++__++__++__++__");
+    var tiff = GeoTIFF.parse(this.response);
+    var image = tiff.getImage();
+    var tiffWidth = image.getWidth();
+    var tiffHeight = image.getHeight();
+    var rasters = image.readRasters();
+    var tiepoint = image.getTiePoints()[0];
+    var pixelScale = image.getFileDirectory().ModelPixelScale;
+    var geoTransform = [tiepoint.x, pixelScale[0], 0, tiepoint.y, 0, -1*pixelScale[1]];
+
+
+    var spdData = new Array(tiffHeight);
+    for (var j = 0; j<tiffHeight; j++){
+        spdData[j] = new Array(tiffWidth);
+        for (var i = 0; i<tiffWidth; i++){
+            spdData[j][i] = rasters[0][i + j*tiffWidth];
+
+        }
+    }
+
+    var intervalsSpd = [0.0000000001, 0.000000001, 0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0];
+    var bandsWind = rastertools.isobands(spdData, geoTransform, intervalsSpd);
+
+
+    bandsWindLayer = L.geoJson(bandsWind, {
+      style: style
+    });
+
+       L.control.layers(null, {
+    "Wind speed": bandsWindLayer,
+    }).addTo(mymap);
+
+  };
+  xhr.send();
+}
 </script>
 
 

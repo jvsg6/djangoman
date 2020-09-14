@@ -159,10 +159,7 @@ function loadResults()
       style: style
     });
 
-       L.control.layers(null, {
-    "Wind speed": bandsWindLayer,
-    }).addTo(mymap);
-
+    mymap.addLayer(bandsWindLayer);
   };
   xhr.send();
 }

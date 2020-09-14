@@ -27,8 +27,8 @@ def allAdmActions(pk):
     post.transportStatus = 1
     post.save()
     startAdm(pathToCalc)
-    funcNum = 0
-    os.system(f'gdal_translate -a_srs EPSG:4326 NETCDF:{pathToCalc}/out.nc:gridFunction_{funcNum}  -of Gtiff {pathToGeotiff}/out_gridFunction_{funcNum}.geotiff')
+    for funcNum in [0, 1, 2]:
+        os.system(f'gdal_translate -a_srs EPSG:4326 NETCDF:{pathToCalc}/out.nc:gridFunction_{funcNum}  -of Gtiff {pathToGeotiff}/out_gridFunction_{funcNum}.geotiff')
     post.pathToInput = pathToCalc + "/in.xml"
     post.pathToLanduse = pathToCalc + "/landuse.asc"
     post.transportStatus = 2

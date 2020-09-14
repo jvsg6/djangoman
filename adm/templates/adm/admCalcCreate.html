@@ -117,20 +117,23 @@ function style(feature) {
       fillOpacity: 0.5
     };
   }
-
-function loadResults()
+var bandsWindLayer;
+function loadResults(gridFunctionId)
 {
+  if(bandsWindLayer != undefined)
+  {
+    mymap.removeLayer(bandsWindLayer);
+  }
+  gridFunctionId = gridFunctionId.toString();
+  var xhr = new XMLHttpRequest();
+  var pkk = "{{pk}}";
+  var pathToGeoTiffFile = "{% static pkk %}" + "calculations/{{pk}}/geotiff/out_gridFunction_"+gridFunctionId+".geotiff";
+  console.log(pathToGeoTiffFile);
+  xhr.open('GET', pathToGeoTiffFile , true);
+  xhr.responseType = 'arraybuffer';
 
-
-    var bandsWindLayer;
-    var xhr = new XMLHttpRequest();
-    var pkk = "{{pk}}";
-    var pathToGeoTiffFile = "{% static pkk %}" + "calculations/{{pk}}/geotiff/out_gridFunction_0.geotiff";
-    console.log(pathToGeoTiffFile);
-    xhr.open('GET', pathToGeoTiffFile , true);
-    xhr.responseType = 'arraybuffer';
-
-    xhr.onload = function(e) {
+  xhr.onload = function(e) 
+  {
     console.log("++__++__++__++__");
     var tiff = GeoTIFF.parse(this.response);
     var image = tiff.getImage();
@@ -161,6 +164,7 @@ function loadResults()
 
     mymap.addLayer(bandsWindLayer);
   };
+
   xhr.send();
 }
 </script>

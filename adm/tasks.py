@@ -14,8 +14,8 @@ def allAdmActions(pk):
     post = get_object_or_404(Calc, pk=pk)
 
 
-    pathToCalc = os.path.dirname(__file__) + "/calculations/" + str(post.pk)
-    pathToGeotiff = os.path.dirname(__file__) + "/static/geotiff/" + str(post.pk)
+    pathToCalc = os.path.dirname(__file__) + "/static/calculations/" + str(post.pk)
+    pathToGeotiff = os.path.dirname(__file__) + "/static/calculations/" + str(post.pk) + "/geotiff/"
     print ("pathToCalc", pathToCalc)
     print("pathToGeotiff", pathToGeotiff)
     os.makedirs(pathToCalc)

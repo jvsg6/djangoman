@@ -125,7 +125,7 @@ function loadResults()
     var bandsWindLayer;
     var xhr = new XMLHttpRequest();
     var pkk = "{{pk}}";
-    var pathToGeoTiffFile = "{% static pkk %}" + "/geotiff/{{pk}}" + "/out_gridFunction_0.geotiff";
+    var pathToGeoTiffFile = "{% static pkk %}" + "calculations/{{pk}}/geotiff/out_gridFunction_0.geotiff";
     console.log(pathToGeoTiffFile);
     xhr.open('GET', pathToGeoTiffFile , true);
     xhr.responseType = 'arraybuffer';

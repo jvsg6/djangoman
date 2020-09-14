@@ -132,9 +132,10 @@ function loadResults(gridFunctionId)
   xhr.open('GET', pathToGeoTiffFile , true);
   xhr.responseType = 'arraybuffer';
 
-  xhr.onload = function(e) 
+  xhr.onreadystatechange = function(e) 
   {
     console.log("++__++__++__++__");
+    
     var tiff = GeoTIFF.parse(this.response);
     var image = tiff.getImage();
     var tiffWidth = image.getWidth();
@@ -163,6 +164,7 @@ function loadResults(gridFunctionId)
     });
 
     mymap.addLayer(bandsWindLayer);
+    
   };
 
   xhr.send();

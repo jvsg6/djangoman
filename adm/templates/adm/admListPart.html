@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load i18n %}
 {% load tag %}
 
 
@@ -258,7 +258,7 @@ function returnActiveTaskPk(idTemplate)
     <div class="col-3">
 
       <div class="card bg-white pages-shadow-history m-p-for-cards">
-        <h5 class="mb-4 ">History</h5>
+        <h5 class="mb-4 ">{% trans "History" %}</h5>
         <div class="list-group" id="myList" role="tablist">
           {% for post in posts %}
           {% if forloop.first %}
@@ -275,7 +275,7 @@ function returnActiveTaskPk(idTemplate)
 
     <div class="col-9">
       <div class="tab-content card bg-white pages-shadow-history m-p-for-cards">
-        <h5 class="mb-4">Calculation Details</h5>
+        <h5 class="mb-4">{% trans "Calculation Details" %}</h5>
         {% for post in posts %}
           {% if forloop.first %}
             <div class="tab-pane active" id="home_{{ post.pk }}" role="tabpanel">{% include 'adm/admCalcDetails.html' with post=post %}

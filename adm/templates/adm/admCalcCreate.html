@@ -94,16 +94,16 @@ function addWindPhase(pk)
 
 //Раскраска карты
   function getColor(d) {
-  return d > 10   ? '#643c32' :
-         d > 1   ? '#a50000' :
-         d > 0.1   ? '#ff3200' :
-         d > 0.01   ? '#ffe978' :
-         d > 0.001   ? '#c9ffbf' :
-         d > 0.0001   ? '#78f572' :
-         d > 0.00001   ? '#50ef50' :
-         d > 0.000001   ? '#e1ffff' :
-         d > 0.0000001    ? '#e5e5e6' :
-         d > 0.00000001   ? '#ffffff' :
+  return d > 100000   ? '#643c32' :
+         d > 10000   ? '#a50000' :
+         d > 1000   ? '#ff3200' :
+         d > 100   ? '#ffe978' :
+         d > 10   ? '#c9ffbf' :
+         d > 1   ? '#78f572' :
+         d > 0.1   ? '#50ef50' :
+         d > 0.01   ? '#e1ffff' :
+         d > 0.001    ? '#e5e5e6' :
+         d > 0.0001   ? '#ffffff' :
                   '#ffffff';
           }
 
@@ -155,7 +155,7 @@ function loadResults(gridFunctionId)
         }
     }
 
-    var intervalsSpd = [0.0000000001, 0.000000001, 0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0];
+    var intervalsSpd = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000.0, 100000.0];
     var bandsWind = rastertools.isobands(spdData, geoTransform, intervalsSpd);
 
 

@@ -74,6 +74,7 @@ def getMaxNum(request, minId, postsCount):
         maxNum = postsCount
         return maxNum, False
 
+
 @login_required(login_url='/accounts/login/')
 def admListPart(request, pagId = 1):
     posts = Calc.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
@@ -86,6 +87,7 @@ def admListPart(request, pagId = 1):
         posts, pagList, pagNext, pagPrev = pagListPagNextPagPrev(posts, pagId)
         return render(request, 'adm/admList.html', {'posts': posts, 'currPagId': pagId, 'pagList': pagList, 
                                                     'pagNext': pagNext, 'pagPrev': pagPrev, 'minNum':minNum, 'maxNum':maxNum, 'minNumFlag': minNumFlag, 'maxNumFlag':maxNumFlag})
+
 
 @login_required(login_url='/accounts/login/')
 def admCalc_start(request):
@@ -235,8 +237,8 @@ def calc_new(request):
 
     form = CalcForm(request.GET)
     #geom=GEOSGeometry('POINT(0.0 0.0)')
-    poly = Polygon( ((0.0, 0.0), (0.0, 50.0), (50.0, 50.0), (50.0, 0.0), (0.0, 0.0)) )
-    srcParam = SrcParametersForm(request.GET, initial={'poly', geom})
+    #geom = Polygon( ((0.0, 0.0), (0.0, 50.0), (50.0, 50.0), (50.0, 0.0), (0.0, 0.0)) )
+    srcParam = SrcParametersForm(request.GET)#, initial={'poly': geom})
     
     areaCalcParam = AreaCalcParametersForm(request.GET)
     areaResParam = AreaResParametersForm(request.GET)

@@ -27,6 +27,25 @@ from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from .tasks import allAdmActions
 
+
+from django.shortcuts import render
+import matplotlib.pyplot as plt
+import urllib
+import io
+import base64
+
+
+def createMatplotlibGraph():
+    plt.plot(range(10))
+    fig = plt.gcf()
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png")
+    buf.seek(0)
+    string = base64.b64encode(buf.read())
+    uri = urllib.parse.quote(string)
+    return uri
+
+
 def validate_username(request):
     username = request.GET.get('username', None)
     data = {
@@ -187,6 +206,7 @@ def saveCalcLogic(request, pk):
         post.save()
         return redirect('calc_edit', pk=post.pk)
 
+
 @login_required(login_url='/accounts/login/')
 def calc_edit(request, pk, page = ""):
         print ("------------------------------------------------------")
@@ -220,7 +240,8 @@ def calc_edit(request, pk, page = ""):
             areaResParam = AreaResParametersForm(instance=post.areaResParam)
             meteoWindOroOldList = post.windPhaseList.all()
             meteoWindOroNew = CommonWindParametersForm()
-            dictToRender = {'form': form, 'srcParam': srcParam, 
+            graph = createMatplotlibGraph()
+            dictToRender = {'form': form, 'srcParam': srcParam, "graph" : graph,
                                                           'areaCalcParam': areaCalcParam, 
                                                           'areaResParam': areaResParam, "meteoWindOroOldList": meteoWindOroOldList, "meteoWindOroNew": meteoWindOroNew, "pk": pk}
             return render(request, 'adm/admCalcCreate.html', dictToRender)
@@ -262,6 +283,7 @@ def calc_new(request):
         print(areaCalcParam.errors)
         print(areaResParam.errors)
         print(meteoWindOro.errors)
+
 
 @login_required(login_url='/accounts/login/')
 def calc_delete(request, pk):
